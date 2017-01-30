@@ -8,9 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 
 @SpringBootApplication
-public class WeatherPi {
-
+public class WeatherPiApplication {
     public static void main(String[] args) {
-        SpringApplication.run(WeatherPi.class, args);
+        SpringApplication.run(WeatherPiApplication.class, args);
     }
 }
