@@ -7,3 +7,13 @@ td, th {
     padding: 0.5rem;
     text-align: left;
 }
+
+#test {
+    color: brown;
+    font-family: "Adobe Fan Heiti Std", sans-serif;
+}
+
+#test2 {
+    color: darkblue;
+    text-decoration: line-through;
+}

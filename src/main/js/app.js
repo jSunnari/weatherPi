@@ -9,7 +9,8 @@ class App extends Component {
             <div className="App">
 
                 <div className="App-header">
-                    <h2>Does this work??</h2>
+                    <h2>Yepp, it works!!</h2>
+                    <p id="test">even the css works,</p> <p id="test2">cool!!</p>
                 </div>
 
             </div>
