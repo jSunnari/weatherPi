@@ -78,26 +78,22 @@
                 </configuration>
                 <executions>
 
+
+
                     <execution>
-                        <id>install node and npm</id>
+                        <id>run-npm-install</id>
+                        <phase>compile</phase>
                         <goals>
-                            <goal>install-node-and-npm</goal>
+                            <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <nodeVersion>v6.9.5</nodeVersion>
-                            <npmVersion>4.1.2</npmVersion>
+                            <executable>npm</executable>
+                            <arguments>
+                                <argument>install</argument>
+                            </arguments>
                         </configuration>
                     </execution>
 
-                    <execution>
-                        <id>npm install</id>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>install</arguments>
-                        </configuration>
-                    </execution>
 
                     <execution>
                         <id>webpack build</id>
