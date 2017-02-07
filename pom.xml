@@ -136,21 +136,6 @@
 
 
                   <execution>
-                      <id>run-grunt</id>
-                      <phase>compile</phase>
-                      <goals>
-                          <goal>exec</goal>
-                      </goals>
-                      <configuration>
-                          <executable>grunt</executable>
-                          <arguments>
-                              <argument>--no-color</argument>
-                          </arguments>
-                      </configuration>
-                  </execution>
-
-
-                  <execution>
                       <id>webpack build</id>
                       <goals>
                           <goal>exec</goal>
