@@ -47,6 +47,7 @@ public class LcdDisplay {
         lcd.write("2\u00b0C");
         lcd.setCursorPosition(2, 11);
         lcd.write("70%");
+        lcd.write("\u2103");
 
         lcd.setCursorPosition(3);
         lcd.write("IP: 10.0.1.10");
