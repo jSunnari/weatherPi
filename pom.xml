@@ -136,7 +136,7 @@
 
 
                   <execution>
-                      <id>webpack-watch</id>
+                      <id>webpack</id>
                       <phase>compile</phase>
 
                       <goals>
@@ -144,12 +144,8 @@
                       </goals>
 
                       <configuration>
-                          <executable>npm</executable>
-                          <arguments>
-                              <argument>run</argument>
-                              <argument>watch</argument>
+                          <executable>webpack</executable>
 
-                          </arguments>
                       </configuration>
                   </execution>
 
