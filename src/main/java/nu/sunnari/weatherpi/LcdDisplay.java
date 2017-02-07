@@ -29,9 +29,19 @@ public class LcdDisplay {
 
         lcd.clear();
         lcd.setCursorHome();
-        lcd.write("Hello world");
+
+        lcd.write("TUE 7 FEB");
+        lcd.setCursorPosition(0, 15);
+        lcd.write("16:00");
+
+        lcd.setCursorPosition(1);
+        lcd.write("IN:");
+
         lcd.setCursorPosition(2);
-        lcd.write("en annan rad, cool");
+        lcd.write("OUT:");
+
+        lcd.setCursorPosition(3);
+        lcd.write("IP: 10.0.1.10");
     }
 
 
