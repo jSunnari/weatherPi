@@ -36,9 +36,17 @@ public class LcdDisplay {
 
         lcd.setCursorPosition(1);
         lcd.write("IN:");
+        lcd.setCursorPosition(1, 5);
+        lcd.write("21°C");
+        lcd.setCursorPosition(1, 11);
+        lcd.write("40%");
 
         lcd.setCursorPosition(2);
         lcd.write("OUT:");
+        lcd.setCursorPosition(2, 5);
+        lcd.write("2°C");
+        lcd.setCursorPosition(2, 11);
+        lcd.write("70%");
 
         lcd.setCursorPosition(3);
         lcd.write("IP: 10.0.1.10");
