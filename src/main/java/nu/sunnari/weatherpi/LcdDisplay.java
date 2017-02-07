@@ -27,8 +27,11 @@ public class LcdDisplay {
                 4);
 
 
+        lcd.clear();
         lcd.setCursorHome();
         lcd.write("Hello world");
+        lcd.setCursorPosition(2);
+        lcd.write("en annan rad, cool");
     }
 
 
