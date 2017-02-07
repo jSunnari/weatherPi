@@ -77,6 +77,7 @@
                 </configuration>
                 <executions>
 
+                    <!--
                     <execution>
                         <id>install node and npm</id>
                         <goals>
@@ -87,6 +88,7 @@
                             <npmVersion>3.9.2</npmVersion>
                         </configuration>
                     </execution>
+                    -->
 
                     <execution>
                         <id>npm install</id>
