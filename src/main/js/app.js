@@ -10,7 +10,7 @@ class App extends Component {
 
                 <div className="App-header">
                     <h2>Yepp, it works!!</h2>
-                    <p id="test">even the css works,</p> <p id="test2">cool!!</p>
+                    <p id="test">even the css works,</p> <p id="test2">cool!! RPI</p>
                 </div>
 
             </div>

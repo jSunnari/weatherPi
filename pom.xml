@@ -71,8 +71,8 @@
 
 
             <!-- https://github.com/eirslett/frontend-maven-plugin -->
-            <!--
 
+<!--
           <plugin>
               <groupId>com.github.eirslett</groupId>
               <artifactId>frontend-maven-plugin</artifactId>
@@ -112,8 +112,8 @@
 
               </executions>
           </plugin>
+-->
 
-            -->
 
           <plugin>
               <groupId>org.codehaus.mojo</groupId>
@@ -136,13 +136,20 @@
 
 
                   <execution>
-                      <id>webpack build</id>
+                      <id>webpack-watch</id>
+                      <phase>compile</phase>
+
                       <goals>
                           <goal>exec</goal>
                       </goals>
 
                       <configuration>
-                          <executable>webpack</executable>
+                          <executable>npm</executable>
+                          <arguments>
+                              <argument>run</argument>
+                              <argument>watch</argument>
+
+                          </arguments>
                       </configuration>
                   </execution>
 
