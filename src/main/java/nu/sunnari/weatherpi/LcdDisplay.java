@@ -39,18 +39,18 @@ public class LcdDisplay {
 
         lcd.setCursorPosition(1);
         lcd.write("OUT:");
-        lcd.setCursorPosition(1, 5);
-        lcd.write("-14.2" + (char)223 + "C");
-        lcd.setCursorPosition(1, 13);
+        lcd.setCursorPosition(1, 7);
+        lcd.write("-4.2" + (char)223 + "C");
+        lcd.setCursorPosition(1, 14);
         lcd.write("30%");
-        lcd.setCursorPosition(1, 17);
+        lcd.setCursorPosition(1, 19);
         lcd.write("H");
 
         lcd.setCursorPosition(2);
         lcd.write("IN:");
         lcd.setCursorPosition(2, 5);
         lcd.write("21.5" + (char)223 + "C");
-        lcd.setCursorPosition(2, 13);
+        lcd.setCursorPosition(2, 14);
         lcd.write("50%");
 
         lcd.setCursorPosition(3);
