@@ -14,7 +14,7 @@ public class DataCollector {
         DateFormat dateFormat = new SimpleDateFormat("EEE dd MMM ");
         Date date = new Date();
 
-        return(dateFormat.format(date));
+        return(dateFormat.format(date).toUpperCase());
     }
 
     public String getCurrentTime(){
