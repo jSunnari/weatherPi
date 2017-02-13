@@ -35,24 +35,22 @@ public class LcdDisplay {
 
 
 
-        lcd.setCursorPosition(1);
+        lcd.setCursorPosition(2);
         lcd.write("OUT:");
-        lcd.setCursorPosition(1, 6);
+        lcd.setCursorPosition(2, 6);
         lcd.write("-4.2" + (char)223 + "C");
-        lcd.setCursorPosition(1, 14);
+        lcd.setCursorPosition(2, 14);
         lcd.write("30%");
-        lcd.setCursorPosition(1, 19);
+        lcd.setCursorPosition(2, 19);
         lcd.write("H");
 
-        lcd.setCursorPosition(2);
+        lcd.setCursorPosition(3);
         lcd.write("IN:");
-        lcd.setCursorPosition(2, 6);
+        lcd.setCursorPosition(3, 6);
         lcd.write("21.5" + (char)223 + "C");
-        lcd.setCursorPosition(2, 14);
+        lcd.setCursorPosition(3, 14);
         lcd.write("50%");
 
-        lcd.setCursorPosition(3);
-        lcd.write("IP:");
 
     }
 
@@ -87,7 +85,7 @@ public class LcdDisplay {
     }
 
     public void writeIp(String ip){
-        lcd.setCursorPosition(3,5);
+        lcd.setCursorPosition(3,4);
         lcd.write(ip);
     }
 
