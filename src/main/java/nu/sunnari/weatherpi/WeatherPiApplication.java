@@ -16,7 +16,7 @@ public class WeatherPiApplication {
 
 
 
-        DataCollector dataCollector = new DataCollector();
+        WeatherController weatherController = new WeatherController();
         SpringApplication.run(WeatherPiApplication.class, args);
     }
 }
