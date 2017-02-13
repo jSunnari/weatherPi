@@ -8,11 +8,11 @@ import com.pi4j.io.i2c.I2CBus;
  */
 
 public class LcdDisplay {
+    private I2CLcdDisplay lcd;
 
+    LcdDisplay() throws Exception {
 
-    public LcdDisplay() throws Exception {
-
-        I2CLcdDisplay lcd = new I2CLcdDisplay(
+        lcd = new I2CLcdDisplay(
                 4,
                 20,
                 I2CBus.BUS_1,
@@ -25,7 +25,6 @@ public class LcdDisplay {
                 6,
                 5,
                 4);
-
 
         lcd.clear();
         lcd.setCursorHome();
@@ -44,14 +43,47 @@ public class LcdDisplay {
         lcd.setCursorPosition(2);
         lcd.write("OUT:");
         lcd.setCursorPosition(2, 5);
-        lcd.write("2\u00b0C");
+        lcd.write((char)223);
         lcd.setCursorPosition(2, 11);
         lcd.write("70%");
-        lcd.write("\u2103");
 
         lcd.setCursorPosition(3);
         lcd.write("IP: 10.0.1.10");
     }
 
+    public void writeDate(String date){
+        lcd.setCursorPosition(0);
+        lcd.write(date);
+    }
+
+    public void writeTime(String time){
+        lcd.setCursorPosition(0, 15);
+        lcd.write(time);
+    }
+
+    public void writeInTemp(String temp){
+        lcd.setCursorPosition(1,5);
+        lcd.write(temp);
+    }
+
+    public void writeInHum(String hum){
+        lcd.setCursorPosition(1,11);
+        lcd.write(hum);
+    }
+
+    public void writeOutTemp(String temp){
+        lcd.setCursorPosition(2,5);
+        lcd.write(temp);
+    }
+
+    public void writeOutHum(String hum){
+        lcd.setCursorPosition(2,11);
+        lcd.write(hum);
+    }
+
+    public void writeIp(String ip){
+        lcd.setCursorPosition(3);
+        lcd.write(ip);
+    }
 
 }
