@@ -17,7 +17,7 @@ public class LcdDisplay {
                     20,
                     I2CBus.BUS_1,
                     0x27,
-                    1,
+                    3,
                     0,
                     1,
                     2,
