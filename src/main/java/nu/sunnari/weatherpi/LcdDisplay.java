@@ -36,6 +36,25 @@ public class LcdDisplay {
         lcd.setCursorPosition(0, 15);
         lcd.write("16:00");
 
+        lcd.setCursorPosition(1, 7);
+        lcd.write("OUT:");
+        lcd.setCursorPosition(1, 14);
+        lcd.write("IN");
+
+        lcd.setCursorPosition(2);
+        lcd.write("TEMP:");
+        lcd.setCursorPosition(2, 7);
+        lcd.write("-17" + (char)223 + "C");
+        lcd.setCursorPosition(2, 14);
+        lcd.write("21" + (char)223 + "C");
+
+        lcd.setCursorPosition(3);
+        lcd.write("HUM:");
+        lcd.setCursorPosition(3, 7);
+        lcd.write("30%");
+        lcd.setCursorPosition(3, 14);
+        lcd.write("50%");
+/*
         lcd.setCursorPosition(1);
         lcd.write("IN:");
         lcd.setCursorPosition(1, 5);
@@ -52,6 +71,7 @@ public class LcdDisplay {
 
         lcd.setCursorPosition(3);
         lcd.write("IP: 10.0.1.10");
+        */
     }
 
     public void writeDate(String date){
