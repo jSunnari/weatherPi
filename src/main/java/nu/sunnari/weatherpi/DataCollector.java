@@ -1,5 +1,7 @@
 package nu.sunnari.weatherpi;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,5 +22,15 @@ public class DataCollector {
         DateFormat dateFormat = new SimpleDateFormat("HH:mm");
         Date date = new Date();
         return(dateFormat.format(date));
+    }
+
+    public String getLocalIpAdress(){
+        String ip = "No connection";
+        try {
+            ip = InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        return ip;
     }
 }

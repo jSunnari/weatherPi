@@ -30,4 +30,8 @@ public class WeatherController {
         lcdDisplay.writeTime(dataCollector.getCurrentTime());
     }
 
+    public void setLocalIpAdress(){
+        lcdDisplay.writeIp(dataCollector.getLocalIpAdress());
+    }
+
 }
