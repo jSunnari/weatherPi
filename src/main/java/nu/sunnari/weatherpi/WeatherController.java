@@ -13,13 +13,19 @@ public class WeatherController {
     public WeatherController() {
         dataCollector = new DataCollector();
         lcdDisplay = new LcdDisplay();
+
+        setDate();
+        setTime();
     }
 
     @Scheduled(cron = "0 0 0 * * *")
     public void setDate(){
-
-
+        lcdDisplay.writeDate(dataCollector.getCurrentDate());
     }
 
+    @Scheduled(cron = "0 * * * * *")
+    public void setTime(){
+        lcdDisplay.writeDate(dataCollector.getCurrentTime());
+    }
 
 }

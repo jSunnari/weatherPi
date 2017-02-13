@@ -13,7 +13,6 @@ public class DataCollector {
     public String getCurrentDate(){
         DateFormat dateFormat = new SimpleDateFormat("EEE dd MMM ");
         Date date = new Date();
-
         return(dateFormat.format(date).toUpperCase());
     }
 
