@@ -18,6 +18,7 @@ public class WeatherController {
 
         setDate();
         setTime();
+        setLocalIpAdress();
     }
 
     @Scheduled(cron = "0 0 0 * * *")
