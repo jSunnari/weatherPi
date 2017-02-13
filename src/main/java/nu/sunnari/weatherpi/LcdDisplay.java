@@ -32,6 +32,9 @@ public class LcdDisplay {
         lcd.clear();
         lcd.setCursorHome();
 
+
+
+
         lcd.setCursorPosition(1);
         lcd.write("OUT:");
         lcd.setCursorPosition(1, 6);
@@ -47,6 +50,9 @@ public class LcdDisplay {
         lcd.write("21.5" + (char)223 + "C");
         lcd.setCursorPosition(2, 14);
         lcd.write("50%");
+
+        lcd.setCursorPosition(3);
+        lcd.write("IP:");
 
     }
 
@@ -81,7 +87,7 @@ public class LcdDisplay {
     }
 
     public void writeIp(String ip){
-        lcd.setCursorPosition(3);
+        lcd.setCursorPosition(3,5);
         lcd.write(ip);
     }
 
