@@ -1,11 +1,13 @@
 package nu.sunnari.weatherpi;
 
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by Jonas on 2017-01-30.
  */
 
+@Component
 public class WeatherController {
     private DataCollector dataCollector;
     private LcdDisplay lcdDisplay;
