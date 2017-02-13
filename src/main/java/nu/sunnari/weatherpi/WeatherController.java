@@ -25,7 +25,7 @@ public class WeatherController {
 
     @Scheduled(cron = "0 * * * * *")
     public void setTime(){
-        lcdDisplay.writeDate(dataCollector.getCurrentTime());
+        lcdDisplay.writeTime(dataCollector.getCurrentTime());
     }
 
 }
