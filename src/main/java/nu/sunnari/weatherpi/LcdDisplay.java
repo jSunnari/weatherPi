@@ -32,13 +32,10 @@ public class LcdDisplay {
         lcd.clear();
         lcd.setCursorHome();
 
-
-
-
         lcd.setCursorPosition(2);
         lcd.write("OUT:");
-        lcd.setCursorPosition(2, 6);
-        lcd.write("-4.2" + (char)223 + "C");
+        lcd.setCursorPosition(2, 7);
+        lcd.write("4.2" + (char)223 + "C");
         lcd.setCursorPosition(2, 14);
         lcd.write("30%");
         lcd.setCursorPosition(2, 19);
@@ -65,28 +62,61 @@ public class LcdDisplay {
     }
 
     public void writeInTemp(String temp){
-        lcd.setCursorPosition(1,5);
-        lcd.write(temp);
+        switch (temp.length()){
+            case 7:
+                lcd.setCursorPosition(1,5);
+                break;
+            case 6:
+                lcd.setCursorPosition(1,6);
+                break;
+            case 5:
+                lcd.setCursorPosition(1,7);
+                break;
+        }
+        lcd.write(temp + (char)223 + "C");
     }
 
     public void writeInHum(String hum){
         lcd.setCursorPosition(1,11);
-        lcd.write(hum);
+        lcd.write(hum + "%");
     }
 
     public void writeOutTemp(String temp){
-        lcd.setCursorPosition(2,5);
-        lcd.write(temp);
+        switch (temp.length()){
+            case 7:
+                lcd.setCursorPosition(2,5);
+                break;
+            case 6:
+                lcd.setCursorPosition(2,6);
+                break;
+            case 5:
+                lcd.setCursorPosition(2,7);
+                break;
+        }
+        lcd.write(temp + (char)223 + "C");
     }
 
     public void writeOutHum(String hum){
         lcd.setCursorPosition(2,11);
-        lcd.write(hum);
+        lcd.write(hum + "%");
     }
 
     public void writeIp(String ip){
         lcd.setCursorPosition(3,4);
         lcd.write(ip);
+    }
+
+    public void writePressure(double pressure){
+        String pressureSymbol;
+
+        if (pressure > 1013.25){
+            pressureSymbol = "H";
+        } else {
+          pressureSymbol = "L";
+        }
+
+        lcd.setCursorPosition(2, 19);
+        lcd.write(pressureSymbol);
     }
 
 }

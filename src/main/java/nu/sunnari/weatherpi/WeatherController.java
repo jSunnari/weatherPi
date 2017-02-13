@@ -30,8 +30,29 @@ public class WeatherController {
         lcdDisplay.writeTime(dataCollector.getCurrentTime());
     }
 
+    public void setOutTemp(){
+
+    }
+
+    public void setInTemp(){
+
+    }
+
+    public void setOutHum(){
+
+    }
+
+    public void setInHum(){
+
+    }
+
     public void setLocalIpAdress(){
         lcdDisplay.writeIp(dataCollector.getLocalIpAdress());
     }
+
+    public void setPressure(){
+
+    }
+
 
 }
