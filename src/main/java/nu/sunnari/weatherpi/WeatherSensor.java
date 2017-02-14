@@ -4,6 +4,7 @@ import com.pi4j.io.i2c.I2CBus;
 import com.pi4j.io.i2c.I2CDevice;
 import com.pi4j.io.i2c.I2CFactory;
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 /**
  * Created by Jonas on 2017-01-30.
@@ -14,8 +15,8 @@ public class WeatherSensor {
     private I2CDevice device;
     private byte[] b1 = new byte[24];
 
-    private String temperature;
-    private String humidity;
+    private double temperature;
+    private double humidity;
     private double pressure;
 
     WeatherSensor(int address) {
@@ -170,18 +171,16 @@ public class WeatherSensor {
         else if (humidity < 0.0) {
             humidity = 0.0;
         }
-
-        this.temperature = String.format("%.1f", cTemp);
+        this.temperature = cTemp;
         this.pressure = pressure;
-        this.humidity = String.format("%.0f", humidity);
-
+        this.humidity = humidity;
     }
 
-    public String getTemperature() {
+    public double getTemperature() {
         return temperature;
     }
 
-    public String getHumidity() {
+    public double getHumidity() {
         return humidity;
     }
 

@@ -15,23 +15,7 @@ import java.io.IOException;
 @SpringBootApplication
 public class WeatherPiApplication {
     public static void main(String[] args) {
-
-        //WeatherController weatherController = new WeatherController();
-
-        WeatherSensor outsideSensor = new WeatherSensor(0x77);
-        WeatherSensor insideSensor = new WeatherSensor(0x76);
-
-        try {
-            outsideSensor.readSensor();
-            System.out.println(outsideSensor.getTemperature());
-            System.out.println(outsideSensor.getHumidity());
-            insideSensor.readSensor();
-            System.out.println(insideSensor.getTemperature());
-            System.out.println(insideSensor.getHumidity());
-        } catch (IOException | I2CFactory.UnsupportedBusNumberException e) {
-            e.printStackTrace();
-        }
-
+        WeatherController weatherController = new WeatherController();
         SpringApplication.run(WeatherPiApplication.class, args);
     }
 }

@@ -35,7 +35,7 @@ public class LcdDisplay {
         lcd.setCursorPosition(2);
         lcd.write("OUT:");
         lcd.setCursorPosition(2, 7);
-        lcd.write("4.2" + (char)223 + "C");
+        lcd.write("-14.2" + (char)223 + "C");
         lcd.setCursorPosition(2, 14);
         lcd.write("30%");
         lcd.setCursorPosition(2, 19);
@@ -44,7 +44,7 @@ public class LcdDisplay {
         lcd.setCursorPosition(3);
         lcd.write("IN:");
         lcd.setCursorPosition(3, 6);
-        lcd.write("21.5" + (char)223 + "C");
+        lcd.write("1.5" + (char)223 + "C");
         lcd.setCursorPosition(3, 14);
         lcd.write("50%");
 
@@ -61,8 +61,10 @@ public class LcdDisplay {
         lcd.write(time);
     }
 
-    public void writeInTemp(String temp){
-        switch (temp.length()){
+    public void writeInTemp(double temp){
+        String temperature = String.format("%.1f" + (char)223 + "C", temp);
+
+        switch (temperature.length()){
             case 7:
                 lcd.setCursorPosition(1,5);
                 break;
@@ -73,16 +75,19 @@ public class LcdDisplay {
                 lcd.setCursorPosition(1,7);
                 break;
         }
-        lcd.write(temp + (char)223 + "C");
+        lcd.write(temperature);
     }
 
-    public void writeInHum(String hum){
+    public void writeInHum(double hum){
+        String humidity = String.format("%.0f%%", hum);
         lcd.setCursorPosition(1,11);
-        lcd.write(hum + "%");
+        lcd.write(humidity);
     }
 
-    public void writeOutTemp(String temp){
-        switch (temp.length()){
+    public void writeOutTemp(double temp){
+        String temperature = String.format("%.1f" + (char)223 + "C", temp);
+
+        switch (temperature.length()){
             case 7:
                 lcd.setCursorPosition(2,5);
                 break;
@@ -93,12 +98,13 @@ public class LcdDisplay {
                 lcd.setCursorPosition(2,7);
                 break;
         }
-        lcd.write(temp + (char)223 + "C");
+        lcd.write(temperature);
     }
 
-    public void writeOutHum(String hum){
+    public void writeOutHum(double hum){
+        String humidity = String.format("%.0f%%", hum);
         lcd.setCursorPosition(2,11);
-        lcd.write(hum + "%");
+        lcd.write(humidity);
     }
 
     public void writeIp(String ip){
