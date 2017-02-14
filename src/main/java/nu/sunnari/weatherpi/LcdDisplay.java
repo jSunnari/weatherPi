@@ -34,7 +34,7 @@ public class LcdDisplay {
 
         lcd.setCursorPosition(2);
         lcd.write("OUT:");
-        lcd.setCursorPosition(2, 7);
+        lcd.setCursorPosition(2, 5);
         lcd.write("-14.2" + (char)223 + "C");
         lcd.setCursorPosition(2, 14);
         lcd.write("30%");
@@ -43,7 +43,7 @@ public class LcdDisplay {
 
         lcd.setCursorPosition(3);
         lcd.write("IN:");
-        lcd.setCursorPosition(3, 6);
+        lcd.setCursorPosition(3, 7);
         lcd.write("1.5" + (char)223 + "C");
         lcd.setCursorPosition(3, 14);
         lcd.write("50%");
