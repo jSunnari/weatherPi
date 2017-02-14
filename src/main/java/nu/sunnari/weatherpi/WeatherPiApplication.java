@@ -16,7 +16,7 @@ import java.io.IOException;
 public class WeatherPiApplication {
     public static void main(String[] args) {
         //WeatherController weatherController = new WeatherController();
-        WeatherSensor weatherSensor = new WeatherSensor(0x76);
+        WeatherSensor weatherSensor = new WeatherSensor(0x77);
         try {
             weatherSensor.readSensor();
             weatherSensor.test();
@@ -27,7 +27,7 @@ public class WeatherPiApplication {
 
         try {
             Thread.sleep(500);
-            BME280 bme280 = new BME280(0x76);
+            BME280 bme280 = new BME280(0x77);
            bme280.test();
         } catch (I2CFactory.UnsupportedBusNumberException e) {
             e.printStackTrace();
