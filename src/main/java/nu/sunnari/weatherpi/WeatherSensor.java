@@ -10,15 +10,33 @@ import com.pi4j.io.i2c.I2CFactory;
 import java.io.IOException;
 
 public class WeatherSensor {
-    public void test() throws IOException, I2CFactory.UnsupportedBusNumberException {
-        // Create I2C bus
-        I2CBus bus = I2CFactory.getInstance(I2CBus.BUS_1);
-        // Get I2C device, BME280 I2C address is 0x76(108)
-        I2CDevice device = bus.getDevice(0x76);
 
+    private I2CDevice device;
+    private byte[] b1 = new byte[24];
+
+    WeatherSensor(int busAddress) {
+        try {
+            //Create bus:
+            I2CBus bus = I2CFactory.getInstance(I2CBus.BUS_1);
+            //Get I2C device, BME280 I2C addresses are 0x76 and 0x77
+            device = bus.getDevice(busAddress);
+
+
+        } catch (I2CFactory.UnsupportedBusNumberException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void readSensor(){
         // Read 24 bytes of data from address 0x88(136)
-        byte[] b1 = new byte[24];
-        device.read(0x88, b1, 0, 24);
+        try {
+            device.read(0x88, b1, 0, 24);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void test() throws IOException, I2CFactory.UnsupportedBusNumberException {
 
         // Convert the data
         // temp coefficients
