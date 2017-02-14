@@ -176,15 +176,15 @@ public class WeatherSensor {
         this.humidity = humidity;
     }
 
-    public double getTemperature() {
+    double getTemperature() {
         return temperature;
     }
 
-    public double getHumidity() {
+    double getHumidity() {
         return humidity;
     }
 
-    public double getPressure() {
+    double getPressure() {
         return pressure;
     }
 }

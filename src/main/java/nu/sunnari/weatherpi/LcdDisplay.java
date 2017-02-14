@@ -7,7 +7,7 @@ import com.pi4j.io.i2c.I2CBus;
  * Created by Jonas on 2017-01-30.
  */
 
-public class LcdDisplay {
+class LcdDisplay {
     private I2CLcdDisplay lcd;
 
     LcdDisplay() {
@@ -51,22 +51,20 @@ public class LcdDisplay {
 
     }
 
-    public void writeDate(String date){
+    void writeDate(String date){
         lcd.setCursorPosition(0);
         lcd.write(date);
     }
 
-    public void writeTime(String time){
+    void writeTime(String time){
         lcd.setCursorPosition(0, 15);
         lcd.write(time);
     }
 
-    public void writeInTemp(double temp){
+    void writeInTemp(double temp){
+        lcd.clear(3,5,7);
+
         String temperature = String.format("%.1f" + (char)223 + "C", temp);
-
-        lcd.setCursorPosition(3,5);
-        lcd.write("       ");
-
         switch (temperature.length()){
             case 7:
                 lcd.setCursorPosition(3,5);
@@ -81,18 +79,15 @@ public class LcdDisplay {
         lcd.write(temperature);
     }
 
-    public void writeInHum(double hum){
+    void writeInHum(double hum){
         String humidity = String.format("%.0f%%", hum);
         lcd.setCursorPosition(3,14);
         lcd.write(humidity);
     }
 
-    public void writeOutTemp(double temp){
+    void writeOutTemp(double temp){
+
         String temperature = String.format("%.1f" + (char)223 + "C", temp);
-
-        lcd.setCursorPosition(3,5);
-        lcd.write("       ");
-
         switch (temperature.length()){
             case 7:
                 lcd.setCursorPosition(2,5);
@@ -104,21 +99,22 @@ public class LcdDisplay {
                 lcd.setCursorPosition(2,7);
                 break;
         }
+        lcd.clear(2,5,7);
         lcd.write(temperature);
     }
 
-    public void writeOutHum(double hum){
+    void writeOutHum(double hum){
         String humidity = String.format("%.0f%%", hum);
         lcd.setCursorPosition(2,14);
         lcd.write(humidity);
     }
 
-    public void writeIp(String ip){
+    void writeIp(String ip){
         lcd.setCursorPosition(3,4);
         lcd.write(ip);
     }
 
-    public void writePressure(double pressure){
+    void writePressure(double pressure){
         String pressureSymbol;
 
         if (pressure > 1013.25){

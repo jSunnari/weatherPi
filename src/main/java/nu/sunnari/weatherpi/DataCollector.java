@@ -10,21 +10,21 @@ import java.util.Date;
  * Created by Jonas on 2017-02-10.
  */
 
-public class DataCollector {
+class DataCollector {
 
-    public String getCurrentDate(){
+    String getCurrentDate(){
         DateFormat dateFormat = new SimpleDateFormat("EEE dd MMM ");
         Date date = new Date();
         return(dateFormat.format(date).toUpperCase());
     }
 
-    public String getCurrentTime(){
+    String getCurrentTime(){
         DateFormat dateFormat = new SimpleDateFormat("HH:mm");
         Date date = new Date();
         return(dateFormat.format(date));
     }
 
-    public String getLocalIpAdress(){
+    String getLocalIpAdress(){
         String ip = "No connection";
         try {
             ip = InetAddress.getLocalHost().getHostAddress();
