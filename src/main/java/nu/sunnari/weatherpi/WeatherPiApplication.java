@@ -16,25 +16,13 @@ import java.io.IOException;
 public class WeatherPiApplication {
     public static void main(String[] args) {
         //WeatherController weatherController = new WeatherController();
-        WeatherSensor weatherSensor = new WeatherSensor();
+        WeatherSensor weatherSensor = new WeatherSensor(0x77);
         try {
             weatherSensor.readSensor();
             weatherSensor.test();
-            System.out.println("---");
         } catch (IOException | I2CFactory.UnsupportedBusNumberException e) {
             e.printStackTrace();
         }
-
-        try {
-            Thread.sleep(500);
-            BME280 bme280 = new BME280(0x77);
-           bme280.test();
-        } catch (I2CFactory.UnsupportedBusNumberException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
 
         SpringApplication.run(WeatherPiApplication.class, args);
     }

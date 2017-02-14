@@ -14,12 +14,12 @@ public class WeatherSensor {
     private I2CDevice device;
     private byte[] b1 = new byte[24];
 
-    WeatherSensor() {
+    WeatherSensor(int address) {
         try {
             //Create bus:
             I2CBus bus = I2CFactory.getInstance(I2CBus.BUS_1);
             //Get I2C device, BME280 I2C addresses are 0x76 and 0x77
-            device = bus.getDevice(0x77);
+            device = bus.getDevice(address);
 
 
         } catch (I2CFactory.UnsupportedBusNumberException | IOException e) {
