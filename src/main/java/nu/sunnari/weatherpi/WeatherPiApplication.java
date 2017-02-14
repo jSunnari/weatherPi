@@ -15,7 +15,9 @@ import java.io.IOException;
 @SpringBootApplication
 public class WeatherPiApplication {
     public static void main(String[] args) {
+
         //WeatherController weatherController = new WeatherController();
+
         WeatherSensor outsideSensor = new WeatherSensor(0x77);
         WeatherSensor insideSensor = new WeatherSensor(0x76);
 
