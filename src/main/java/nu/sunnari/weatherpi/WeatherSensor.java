@@ -14,7 +14,7 @@ public class WeatherSensor {
     private I2CDevice device;
     private byte[] b1 = new byte[24];
 
-    private double temperature;
+    private String temperature;
     private double humidity;
     private double pressure;
 
@@ -171,12 +171,16 @@ public class WeatherSensor {
             humidity = 0.0;
         }
 
-        this.temperature = cTemp;
+        this.temperature = String.format("%.2f", cTemp);
         this.pressure = pressure;
         this.humidity = humidity;
+        System.out.printf("Temperature in Celsius : %.2f C %n", cTemp);
+        System.out.printf("Temperature in Fahrenheit : %.2f F %n", fTemp);
+        System.out.printf("Pressure : %.2f hPa %n", pressure);
+        System.out.printf("Relative Humidity : %.2f %% RH %n", humidity);
     }
 
-    public double getTemperature() {
+    public String getTemperature() {
         return temperature;
     }
 
