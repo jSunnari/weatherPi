@@ -15,7 +15,7 @@ public class WeatherSensor {
     private byte[] b1 = new byte[24];
 
     private String temperature;
-    private double humidity;
+    private String humidity;
     private double pressure;
 
     WeatherSensor(int address) {
@@ -173,18 +173,15 @@ public class WeatherSensor {
 
         this.temperature = String.format("%.1f", cTemp);
         this.pressure = pressure;
-        this.humidity = humidity;
-        System.out.printf("Temperature in Celsius : %.2f C %n", cTemp);
-        System.out.printf("Temperature in Fahrenheit : %.2f F %n", fTemp);
-        System.out.printf("Pressure : %.2f hPa %n", pressure);
-        System.out.printf("Relative Humidity : %.2f %% RH %n", humidity);
+        this.humidity = String.format("%f", humidity);
+
     }
 
     public String getTemperature() {
         return temperature;
     }
 
-    public double getHumidity() {
+    public String getHumidity() {
         return humidity;
     }
 

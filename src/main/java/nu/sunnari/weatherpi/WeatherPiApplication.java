@@ -22,8 +22,10 @@ public class WeatherPiApplication {
         try {
             outsideSensor.readSensor();
             System.out.println(outsideSensor.getTemperature());
+            System.out.println(outsideSensor.getHumidity());
             insideSensor.readSensor();
             System.out.println(insideSensor.getTemperature());
+            System.out.println(insideSensor.getHumidity());
         } catch (IOException | I2CFactory.UnsupportedBusNumberException e) {
             e.printStackTrace();
         }
