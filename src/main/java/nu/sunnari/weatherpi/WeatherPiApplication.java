@@ -18,21 +18,22 @@ public class WeatherPiApplication {
         //WeatherController weatherController = new WeatherController();
         WeatherSensor weatherSensor = new WeatherSensor(0x76);
         try {
+            weatherSensor.readSensor();
             weatherSensor.test();
+            System.out.println("---");
         } catch (IOException | I2CFactory.UnsupportedBusNumberException e) {
             e.printStackTrace();
         }
 
-
         try {
-           BME280 bme280 = new BME280(0x76);
+            Thread.sleep(500);
+            BME280 bme280 = new BME280(0x76);
            bme280.test();
         } catch (I2CFactory.UnsupportedBusNumberException e) {
             e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-
-
-
 
 
         SpringApplication.run(WeatherPiApplication.class, args);
