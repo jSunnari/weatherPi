@@ -16,10 +16,14 @@ import java.io.IOException;
 public class WeatherPiApplication {
     public static void main(String[] args) {
         //WeatherController weatherController = new WeatherController();
-        WeatherSensor weatherSensor = new WeatherSensor(0x77);
+        WeatherSensor outsideSensor = new WeatherSensor(0x77);
+        WeatherSensor insideSensor = new WeatherSensor(0x76);
+
         try {
-            weatherSensor.readSensor();
-            weatherSensor.test();
+            outsideSensor.readSensor();
+            System.out.println(outsideSensor.getTemperature());
+            insideSensor.readSensor();
+            System.out.println(insideSensor.getTemperature());
         } catch (IOException | I2CFactory.UnsupportedBusNumberException e) {
             e.printStackTrace();
         }
