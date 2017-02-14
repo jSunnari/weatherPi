@@ -171,7 +171,7 @@ public class WeatherSensor {
             humidity = 0.0;
         }
 
-        this.temperature = String.format("%.2f", cTemp);
+        this.temperature = String.format("%.1f", cTemp);
         this.pressure = pressure;
         this.humidity = humidity;
         System.out.printf("Temperature in Celsius : %.2f C %n", cTemp);
