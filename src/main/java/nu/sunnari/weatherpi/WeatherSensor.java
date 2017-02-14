@@ -173,7 +173,7 @@ public class WeatherSensor {
 
         this.temperature = String.format("%.1f", cTemp);
         this.pressure = pressure;
-        this.humidity = String.format("%f", humidity);
+        this.humidity = String.format("%f.0", humidity);
 
     }
 
