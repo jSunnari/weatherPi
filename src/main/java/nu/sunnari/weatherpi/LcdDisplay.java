@@ -66,13 +66,13 @@ public class LcdDisplay {
 
         switch (temperature.length()){
             case 7:
-                lcd.setCursorPosition(1,5);
+                lcd.setCursorPosition(3,5);
                 break;
             case 6:
-                lcd.setCursorPosition(1,6);
+                lcd.setCursorPosition(3,6);
                 break;
             case 5:
-                lcd.setCursorPosition(1,7);
+                lcd.setCursorPosition(3,7);
                 break;
         }
         lcd.write(temperature);
@@ -80,7 +80,7 @@ public class LcdDisplay {
 
     public void writeInHum(double hum){
         String humidity = String.format("%.0f%%", hum);
-        lcd.setCursorPosition(1,11);
+        lcd.setCursorPosition(3,14);
         lcd.write(humidity);
     }
 
@@ -103,7 +103,7 @@ public class LcdDisplay {
 
     public void writeOutHum(double hum){
         String humidity = String.format("%.0f%%", hum);
-        lcd.setCursorPosition(2,11);
+        lcd.setCursorPosition(2,14);
         lcd.write(humidity);
     }
 
