@@ -86,6 +86,7 @@ class LcdDisplay {
     }
 
     void writeOutTemp(double temp){
+        lcd.clear(2,5,7);
 
         String temperature = String.format("%.1f" + (char)223 + "C", temp);
         switch (temperature.length()){
@@ -99,7 +100,6 @@ class LcdDisplay {
                 lcd.setCursorPosition(2,7);
                 break;
         }
-        lcd.clear(2,5,7);
         lcd.write(temperature);
     }
 
