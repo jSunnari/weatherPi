@@ -16,7 +16,7 @@ import java.io.IOException;
 public class WeatherPiApplication {
     public static void main(String[] args) {
         //WeatherController weatherController = new WeatherController();
-        WeatherSensor weatherSensor = new WeatherSensor(0x77);
+        WeatherSensor weatherSensor = new WeatherSensor();
         try {
             weatherSensor.readSensor();
             weatherSensor.test();
