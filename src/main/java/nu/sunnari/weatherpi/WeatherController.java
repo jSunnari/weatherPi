@@ -25,6 +25,8 @@ public class WeatherController {
 
         setDate();
         setTime();
+        setOutsideSensorValues();
+        setInsideSensorValues();
     }
 
     @Scheduled(cron = "0 0 0 * * *")
@@ -48,8 +50,9 @@ public class WeatherController {
             e.printStackTrace();
         }
     }
+
     @Scheduled(cron = "0/15 * * * * *")
-    public void setInsideSensor(){
+    public void setInsideSensorValues(){
         try {
             insideSensor.readSensor();
             lcdDisplay.writeInTemp(insideSensor.getTemperature());

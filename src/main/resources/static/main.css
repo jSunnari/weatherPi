@@ -1,19 +1,17 @@
 table {
-    border-collapse: collapse;
-}
+  border-collapse: collapse; }
 
 td, th {
-    border: 1px solid #999;
-    padding: 0.5rem;
-    text-align: left;
-}
+  border: 1px solid #999;
+  padding: 0.5rem;
+  text-align: left; }
 
 #test {
-    color: brown;
-    font-family: "Adobe Fan Heiti Std", sans-serif;
-}
+  color: brown;
+  font-family: "Adobe Fan Heiti Std", sans-serif; }
 
 #test2 {
-    color: darkblue;
-    text-decoration: line-through;
-}
+  color: darkblue;
+  text-decoration: line-through; }
+
+/*# sourceMappingURL=main.css.map */

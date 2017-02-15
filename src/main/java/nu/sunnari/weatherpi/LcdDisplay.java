@@ -17,7 +17,7 @@ class LcdDisplay {
                     20,
                     I2CBus.BUS_1,
                     0x27,
-                    3,
+                    2,
                     0,
                     1,
                     2,
@@ -30,25 +30,12 @@ class LcdDisplay {
         }
 
         lcd.clear();
-        lcd.setCursorHome();
 
         lcd.setCursorPosition(2);
         lcd.write("OUT:");
-        lcd.setCursorPosition(2, 5);
-        lcd.write("-14.2" + (char)223 + "C");
-        lcd.setCursorPosition(2, 14);
-        lcd.write("30%");
-        lcd.setCursorPosition(2, 19);
-        lcd.write("H");
 
         lcd.setCursorPosition(3);
         lcd.write("IN:");
-        lcd.setCursorPosition(3, 7);
-        lcd.write("1.5" + (char)223 + "C");
-        lcd.setCursorPosition(3, 14);
-        lcd.write("50%");
-
-
     }
 
     void writeDate(String date){
