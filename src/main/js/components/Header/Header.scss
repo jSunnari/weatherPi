@@ -1,0 +1,23 @@
+@import "../../variables";
+
+#header-container {
+  background-color: rgba(0,0,0,.2);
+  display: flex;
+
+  #header {
+    flex: 1 1 auto;
+    text-align: center;
+    color: $white;
+    font-family: $font-family-main;
+    font-weight: $font-weight-main;
+    font-size: 3.5em;
+  }
+
+  #graph-icon {
+    position: absolute;
+    width: 4em;
+    height: 4em;
+    right: 2em;
+    top: 2.3em;
+  }
+}
