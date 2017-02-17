@@ -15,7 +15,7 @@ import java.io.IOException;
 @SpringBootApplication
 public class WeatherPiApplication {
     public static void main(String[] args) {
-        WeatherController weatherController = new WeatherController();
+        //WeatherController weatherController = new WeatherController();
         SpringApplication.run(WeatherPiApplication.class, args);
     }
 }

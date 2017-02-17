@@ -67,6 +67,8 @@ class LcdDisplay {
     }
 
     void writeInHum(double hum){
+        lcd.clear(3,14,4);
+
         String humidity = String.format("%.0f%%", hum);
         lcd.setCursorPosition(3,14);
         lcd.write(humidity);
@@ -91,6 +93,8 @@ class LcdDisplay {
     }
 
     void writeOutHum(double hum){
+        lcd.clear(2,14,4);
+
         String humidity = String.format("%.0f%%", hum);
         lcd.setCursorPosition(2,14);
         lcd.write(humidity);
