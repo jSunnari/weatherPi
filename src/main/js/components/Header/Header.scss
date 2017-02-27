@@ -3,21 +3,23 @@
 #header-container {
   background-color: rgba(0,0,0,.2);
   display: flex;
+  min-height: 3em;
 
   #header {
     flex: 1 1 auto;
     text-align: center;
+    margin: .4em;
     color: $white;
     font-family: $font-family-main;
     font-weight: $font-weight-main;
-    font-size: 3.5em;
+    font-size: 1.5em;
   }
 
   #graph-icon {
     position: absolute;
-    width: 4em;
-    height: 4em;
-    right: 2em;
-    top: 2.3em;
+    width: 1.75em;
+    height: 1.5em;
+    right: 1em;
+    top: 0.75em;
   }
 }

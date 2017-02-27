@@ -15,6 +15,9 @@ public class WeatherSensor {
     private I2CDevice device;
     private byte[] b1 = new byte[24];
 
+    private double[] lastTempValues = new double[12];
+    private double[] lastHumValues = new double[12];
+    private double[] lastPressureValues = new double[12];
     private double temperature;
     private double humidity;
     private double pressure;
@@ -187,4 +190,10 @@ public class WeatherSensor {
     double getPressure() {
         return pressure;
     }
+
+    //Push to lastTemp, if size is 11, remove the first value.
+
+    //Get avg temp return double
+
+    //Compare avg temp and return UP, DOWN or RIGHT
 }

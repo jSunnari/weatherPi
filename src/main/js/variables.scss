@@ -3,3 +3,9 @@ $turquoise: #07575b;
 $white: #ffffff;
 $font-family-main: "Helvetica Neue", Helvetica, Arial, sans-serif;
 $font-weight-main: 300;
+
+@media only screen and (orientation: landscape) {
+  #app-root {
+    height: 100%;
+  }
+}

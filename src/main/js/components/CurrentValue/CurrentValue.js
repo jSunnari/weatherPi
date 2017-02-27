@@ -7,7 +7,7 @@ export default class CurrentValue extends Component {
         return (
             <div id="currentvalue-container">
                 <div id="value-icon-container">
-                    <WeatherIcons id="value-icon" name={this.props.iconName} size="4x" />
+                    <WeatherIcons id="value-icon" name={this.props.iconName}  />
                 </div>
 
                 <div id="values">
@@ -15,17 +15,17 @@ export default class CurrentValue extends Component {
 
                     <div id="minmax-container">
 
-                        <WeatherIcons className="minmax-icon" name="direction-down" size="3x" />
+                        <WeatherIcons className="minmax-icon" name="direction-down" size="lg" />
                         <p className="minmax-value">{this.props.minValue}</p>
 
-                        <WeatherIcons id="max-value-icon" className="minmax-icon" name="direction-up" size="3x" />
+                        <WeatherIcons id="max-value-icon" className="minmax-icon" name="direction-up" size="lg"  />
                         <p className="minmax-value">{this.props.maxValue}</p>
 
                     </div>
                 </div>
 
                 <div id="arrow-icon-container">
-                    <WeatherIcons id="arrow-icon" name={this.props.arrow} size="5x" />
+                    <WeatherIcons id="arrow-icon" name={this.props.arrow} size="2x" />
                 </div>
 
             </div>

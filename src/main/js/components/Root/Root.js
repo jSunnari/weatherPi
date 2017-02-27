@@ -14,7 +14,7 @@ export default class Root extends Component {
 
     render() {
         return (
-            <div id="root">
+            <div id="app-root">
                 <Header header={this.state.header} />
 
                 <Values />

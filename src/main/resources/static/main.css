@@ -1,7 +1,10 @@
+@media only screen and (orientation: landscape) {
+  #app-root {
+    height: 100%; } }
 #currentvalue-container {
   display: flex;
   flex: 1 1 auto;
-  padding-bottom: 4em; }
+  padding-bottom: 1.5em; }
   #currentvalue-container #value-icon-container {
     display: flex;
     align-items: center;
@@ -9,7 +12,7 @@
     #currentvalue-container #value-icon-container #value-icon {
       color: white;
       margin: auto;
-      font-size: 4em; }
+      font-size: 1.3em; }
   #currentvalue-container #values {
     margin: auto;
     width: 60%;
@@ -20,10 +23,11 @@
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-weight: 300;
       color: #ffffff;
-      font-size: 6.5em;
+      font-size: 2em;
       margin: 0; }
     #currentvalue-container #values #minmax-container {
-      display: flex; }
+      display: flex;
+      opacity: .8; }
       #currentvalue-container #values #minmax-container .minmax-icon {
         color: white;
         margin-right: .2em; }
@@ -33,7 +37,7 @@
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         font-weight: 300;
         color: #ffffff;
-        font-size: 2.5em;
+        font-size: 1em;
         margin: 0; }
   #currentvalue-container #arrow-icon-container {
     display: flex;
@@ -42,32 +46,62 @@
     #currentvalue-container #arrow-icon-container #arrow-icon {
       color: white;
       margin: auto;
-      font-size: 4em; }
+      font-size: 2em; }
 
+@media only screen and (orientation: landscape) {
+  #app-root {
+    height: 100%; } }
+#value-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%; }
+  #value-container .location-header {
+    font-size: 1em;
+    opacity: .8;
+    margin-top: .4em;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    color: white;
+    text-align: center; }
+  #value-container #indoor-values-container {
+    background-color: #07575b;
+    flex-grow: 1; }
+
+@media only screen and (orientation: landscape) {
+  #app-root {
+    height: 100%; } }
 #header-container {
   background-color: rgba(0, 0, 0, 0.2);
-  display: flex; }
+  display: flex;
+  min-height: 3em; }
   #header-container #header {
     flex: 1 1 auto;
     text-align: center;
+    margin: .4em;
     color: #ffffff;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: 300;
-    font-size: 3.5em; }
+    font-size: 1.5em; }
   #header-container #graph-icon {
     position: absolute;
-    width: 4em;
-    height: 4em;
-    right: 2em;
-    top: 2.3em; }
+    width: 1.75em;
+    height: 1.5em;
+    right: 1em;
+    top: 0.75em; }
 
-#root {
+@media only screen and (orientation: landscape) {
+  #app-root {
+    height: 100%; } }
+#app-root {
   width: 100vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
   background-color: #003b45; }
 
+@media only screen and (orientation: landscape) {
+  #app-root {
+    height: 100%; } }
 html {
   -webkit-font-smoothing: antialiased; }
 

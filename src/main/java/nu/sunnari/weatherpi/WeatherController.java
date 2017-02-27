@@ -39,7 +39,7 @@ public class WeatherController {
         lcdDisplay.writeTime(dataCollector.getCurrentTime());
     }
 
-    @Scheduled(cron = "0/15 * * * * *")
+    @Scheduled(cron = "0/30 * * * * *")
     public void setOutsideSensorValues(){
         try {
             outsideSensor.readSensor();
@@ -51,7 +51,7 @@ public class WeatherController {
         }
     }
 
-    @Scheduled(cron = "0/15 * * * * *")
+    @Scheduled(cron = "0/30 * * * * *")
     public void setInsideSensorValues(){
         try {
             insideSensor.readSensor();
