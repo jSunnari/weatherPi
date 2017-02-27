@@ -10,7 +10,7 @@ import java.io.IOException;
  * Created by Jonas on 2017-01-30.
  */
 
-//@Component
+@Component
 public class WeatherController {
     private DataCollector dataCollector;
     private LcdDisplay lcdDisplay;
