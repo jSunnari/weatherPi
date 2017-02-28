@@ -4,6 +4,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -32,5 +33,16 @@ class DataCollector {
             e.printStackTrace();
         }
         return ip;
+    }
+
+    Date[] getWeekDates(){
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new java.util.Date());
+        cal.set(Calendar.WEEK_OF_YEAR, 9);
+        cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        java.sql.Date startDate = (java.sql.Date) cal.getTime();
+        cal.add(Calendar.DAY_OF_WEEK, 6);
+        java.sql.Date endDate = (java.sql.Date) cal.getTime();
+        return new Date[] {startDate, endDate};
     }
 }

@@ -1,10 +1,19 @@
-package nu.sunnari.weatherpi;
+package nu.sunnari.weatherpi.hardware;
+
+/**
+ * Class for BME280 sensor getting temperature- humidity- and pressure- data.
+ *
+ * Methods for getting the current value of the sensor but also holds an arraylist of the 12 latest readings making it
+ * possible to get the average value of the current hour but also comparing the previous hour with the current hour
+ * to see which way the weather is trending (Rising, steady, falling).
+ */
 
 import com.pi4j.io.i2c.I2CBus;
 import com.pi4j.io.i2c.I2CDevice;
 import com.pi4j.io.i2c.I2CFactory;
 import java.io.IOException;
-import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Jonas on 2017-01-30.
@@ -15,14 +24,14 @@ public class WeatherSensor {
     private I2CDevice device;
     private byte[] b1 = new byte[24];
 
-    private double[] lastTempValues = new double[12];
-    private double[] lastHumValues = new double[12];
-    private double[] lastPressureValues = new double[12];
+    private List<Double> tempValues = new ArrayList<>(12);
+    private List<Double> humidityValues = new ArrayList<>(12);
+    private List<Double> pressureValues = new ArrayList<>(12);
     private double temperature;
     private double humidity;
     private double pressure;
 
-    WeatherSensor(int address) {
+    public WeatherSensor(int address) {
         try {
             //Create bus:
             I2CBus bus = I2CFactory.getInstance(I2CBus.BUS_1);
@@ -33,7 +42,7 @@ public class WeatherSensor {
         }
     }
 
-    void readSensor() throws IOException, I2CFactory.UnsupportedBusNumberException{
+    public void readSensor() throws IOException, I2CFactory.UnsupportedBusNumberException{
         // Read 24 bytes of data from address 0x88(136)
         device.read(0x88, b1, 0, 24);
 
@@ -179,21 +188,97 @@ public class WeatherSensor {
         this.humidity = humidity;
     }
 
-    double getTemperature() {
+    private double calcAverage(List<Double> list){
+        int halfArraylist = list.size()/2;
+        double value = 0;
+
+        for (int i = halfArraylist; i < list.size(); i++) {
+            value += list.get(i);
+        }
+
+        return Math.round(value/halfArraylist * 10.0) / 10.0;
+    }
+
+    private String calcTrend(List<Double> list){
+        String arrow = "RIGHT";
+        int halfArraylist = list.size()/2;
+        double previousValue = 0;
+        double currentValue = 0;
+
+        //Get average for the previous hours weather:
+        for (int i = 0; i < halfArraylist; i++) {
+            previousValue += list.get(i);
+        }
+        //Get average for the current hours weather:
+        for (int i = halfArraylist; i < list.size(); i++) {
+            currentValue += list.get(i);
+        }
+
+        if (currentValue/halfArraylist < previousValue/halfArraylist){
+            arrow = "DOWN";
+        }
+        else if (currentValue/halfArraylist > previousValue/halfArraylist){
+            arrow = "UP";
+        }
+
+        return arrow;
+    }
+
+    public void addTempValue(double lastTempValue){
+        if (tempValues.size() == 12){
+            tempValues.remove(0);
+        }
+        tempValues.add(Math.round(lastTempValue * 10.0) / 10.0);
+    }
+
+    public void addHumValue(double lastHumValue){
+        if (humidityValues.size() == 12){
+            humidityValues.remove(0);
+        }
+        humidityValues.add(Math.round(lastHumValue * 10.0) / 10.0);
+    }
+
+    public void addPressureValue(double lastPressureValue){
+        if (pressureValues.size() == 12){
+            pressureValues.remove(0);
+        }
+        pressureValues.add(Math.round(lastPressureValue * 10.0) / 10.0);
+    }
+
+    public double getCurrentTemperature() {
         return temperature;
     }
 
-    double getHumidity() {
+    public double getCurrentHumidity() {
         return humidity;
     }
 
-    double getPressure() {
+    public double getCurrentPressure() {
         return pressure;
     }
 
-    //Push to lastTemp, if size is 11, remove the first value.
+    public double getAverageTemp() {
+        return calcAverage(tempValues);
+    }
 
-    //Get avg temp return double
+    public double getAverageHumidity() {
+        return calcAverage(humidityValues);
+    }
 
-    //Compare avg temp and return UP, DOWN or RIGHT
+    public double getAveragePressure() {
+        return calcAverage(pressureValues);
+    }
+
+    public String getTempTrend(){
+        return calcTrend(tempValues);
+    }
+
+    public String getHumidityTrend(){
+        return calcTrend(humidityValues);
+    }
+
+    public String getPressureTrend(){
+        return calcTrend(pressureValues);
+    }
+
 }

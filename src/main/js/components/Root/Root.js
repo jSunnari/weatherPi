@@ -11,14 +11,12 @@ export default class Root extends Component {
         });
     }
 
-
     render() {
         return (
             <div id="app-root">
                 <Header header={this.state.header} />
 
                 <Values />
-
 
             </div>
         )

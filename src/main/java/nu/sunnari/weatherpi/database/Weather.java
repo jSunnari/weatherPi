@@ -1,4 +1,4 @@
-package nu.sunnari.weatherpi;
+package nu.sunnari.weatherpi.database;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,19 +21,25 @@ public class Weather {
 
     private double insideTemperature;
     private double insideHumidity;
-    private double insidePressure;
     private double outsideTemperature;
     private double outsideHumidity;
     private double outsidePressure;
 
     private Weather() {}
 
-    public Weather(Date date, Time time, double insideTemperature, double insideHumidity, double insidePressure, double outsideTemperature, double outsideHumidity, double outsidePressure) {
+    public Weather(double insideTemperature, double insideHumidity, double outsideTemperature, double outsideHumidity, double outsidePressure) {
+        this.insideTemperature = insideTemperature;
+        this.insideHumidity = insideHumidity;
+        this.outsideTemperature = outsideTemperature;
+        this.outsideHumidity = outsideHumidity;
+        this.outsidePressure = outsidePressure;
+    }
+
+    public Weather(Date date, Time time, double insideTemperature, double insideHumidity, double outsideTemperature, double outsideHumidity, double outsidePressure) {
         this.date = date;
         this.time = time;
         this.insideTemperature = insideTemperature;
         this.insideHumidity = insideHumidity;
-        this.insidePressure = insidePressure;
         this.outsideTemperature = outsideTemperature;
         this.outsideHumidity = outsideHumidity;
         this.outsidePressure = outsidePressure;
@@ -77,14 +83,6 @@ public class Weather {
 
     public void setInsideHumidity(double insideHumidity) {
         this.insideHumidity = insideHumidity;
-    }
-
-    public double getInsidePressure() {
-        return insidePressure;
-    }
-
-    public void setInsidePressure(double insidePressure) {
-        this.insidePressure = insidePressure;
     }
 
     public double getOutsideTemperature() {

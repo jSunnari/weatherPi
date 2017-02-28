@@ -1,4 +1,8 @@
-package nu.sunnari.weatherpi;
+package nu.sunnari.weatherpi.hardware;
+
+/**
+ * Class for writing to LCD-display.
+ */
 
 import com.pi4j.component.lcd.impl.I2CLcdDisplay;
 import com.pi4j.io.i2c.I2CBus;
@@ -7,10 +11,10 @@ import com.pi4j.io.i2c.I2CBus;
  * Created by Jonas on 2017-01-30.
  */
 
-class LcdDisplay {
+public class LcdDisplay {
     private I2CLcdDisplay lcd;
 
-    LcdDisplay() {
+    public LcdDisplay() {
         try {
             lcd = new I2CLcdDisplay(
                     4,
@@ -38,17 +42,17 @@ class LcdDisplay {
         lcd.write("IN:");
     }
 
-    void writeDate(String date){
+    public void writeDate(String date){
         lcd.setCursorPosition(0);
         lcd.write(date);
     }
 
-    void writeTime(String time){
+    public void writeTime(String time){
         lcd.setCursorPosition(0, 15);
         lcd.write(time);
     }
 
-    void writeInTemp(double temp){
+    public void writeInTemp(double temp){
         lcd.clear(3,5,7);
 
         String temperature = String.format("%.1f" + (char)223 + "C", temp);
@@ -66,7 +70,7 @@ class LcdDisplay {
         lcd.write(temperature);
     }
 
-    void writeInHum(double hum){
+    public void writeInHum(double hum){
         lcd.clear(3,14,4);
 
         String humidity = String.format("%.0f%%", hum);
@@ -74,7 +78,7 @@ class LcdDisplay {
         lcd.write(humidity);
     }
 
-    void writeOutTemp(double temp){
+    public void writeOutTemp(double temp){
         lcd.clear(2,5,7);
 
         String temperature = String.format("%.1f" + (char)223 + "C", temp);
@@ -92,7 +96,7 @@ class LcdDisplay {
         lcd.write(temperature);
     }
 
-    void writeOutHum(double hum){
+    public void writeOutHum(double hum){
         lcd.clear(2,14,4);
 
         String humidity = String.format("%.0f%%", hum);
@@ -100,12 +104,7 @@ class LcdDisplay {
         lcd.write(humidity);
     }
 
-    void writeIp(String ip){
-        lcd.setCursorPosition(3,4);
-        lcd.write(ip);
-    }
-
-    void writePressure(double pressure){
+    public void writePressure(double pressure){
         String pressureSymbol;
 
         if (pressure > 1013.25){
