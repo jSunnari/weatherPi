@@ -246,15 +246,15 @@ public class WeatherSensor {
     }
 
     public double getCurrentTemperature() {
-        return temperature;
+        return Math.round(temperature * 10.0) / 10.0;
     }
 
     public double getCurrentHumidity() {
-        return humidity;
+        return Math.round(humidity * 10.0) / 10.0;
     }
 
     public double getCurrentPressure() {
-        return pressure;
+        return Math.round(pressure * 10.0) / 10.0;
     }
 
     public double getAverageTemp() {

@@ -1,5 +1,6 @@
 package nu.sunnari.weatherpi;
 
+import com.google.gson.JsonObject;
 import com.pi4j.io.i2c.I2CFactory;
 import nu.sunnari.weatherpi.database.Weather;
 import nu.sunnari.weatherpi.database.WeatherRepository;
@@ -29,7 +30,9 @@ import java.util.List;
 @RequestMapping("/api/weather")
 @RestController
 public class WeatherController {
+
     private final Logger log = LoggerFactory.getLogger(this.getClass());
+    private JsonObject weather = new JsonObject();
     private DataCollector dataCollector;
     private LcdDisplay lcdDisplay;
     private WeatherSensor outsideSensor;
@@ -51,11 +54,19 @@ public class WeatherController {
 
     //******************************* ENDPOINTS ******************************* //
     @GetMapping(value="/current")
-    public Weather getCurrentWeather(){
-        return new Weather(insideSensor.getCurrentTemperature(),
-                insideSensor.getCurrentHumidity(), outsideSensor.getCurrentTemperature(),
-                outsideSensor.getCurrentHumidity(), outsideSensor.getCurrentPressure()
-        );
+    public JsonObject getCurrentWeather(){
+        weather.addProperty("outdoorTemp", outsideSensor.getCurrentTemperature());
+        weather.addProperty("outdoorHum", outsideSensor.getCurrentHumidity());
+        weather.addProperty("outdoorPressure", outsideSensor.getCurrentPressure());
+        weather.addProperty("indoorTemp", insideSensor.getCurrentTemperature());
+        weather.addProperty("indoorHum", insideSensor.getCurrentHumidity());
+        weather.addProperty("outdoorTempTrend", outsideSensor.getTempTrend());
+        weather.addProperty("outdoorHumTrend", outsideSensor.getHumidityTrend());
+        weather.addProperty("outdoorPressureTrend", outsideSensor.getPressureTrend());
+        weather.addProperty("indoorTempTrend", insideSensor.getTempTrend());
+        weather.addProperty("indoorHumTrend", insideSensor.getHumidityTrend());
+
+        return weather;
     }
 
     @GetMapping(value="/findByDay/{date}")
@@ -157,7 +168,7 @@ public class WeatherController {
                 ", outside-hum: " + outsideSensor.getAverageHumidity() +
                 ", outside-pressure: " + outsideSensor.getAveragePressure() +
                 ", inside-temp: " + insideSensor.getAverageTemp() +
-                ", inside-hum: " + outsideSensor.getAverageHumidity() + "]");
+                ", inside-hum: " + insideSensor.getAverageHumidity() + "]");
 
         repository.save(new Weather(
                 new Date(Calendar.getInstance().getTime().getTime()),
