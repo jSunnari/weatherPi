@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -131,7 +132,8 @@ public class WeatherController {
     //********************************* SENSOR ********************************* //
     @Scheduled(cron = "0 0/10 * * * *") //Every 10 minutes
     public void saveCurrentWeatherData(){
-        System.out.println(new Date(Calendar.getInstance().getTimeInMillis()).getTime() + "Saving current weather to array."); //LOG
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        System.out.println(sdf.format(new Date(Calendar.getInstance().getTimeInMillis())) + " - Saving current weather to array."); //LOG
 
         outsideSensor.addTempValue(outsideSensor.getCurrentTemperature());
         outsideSensor.addHumValue(outsideSensor.getCurrentHumidity());
