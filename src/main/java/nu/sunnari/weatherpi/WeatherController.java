@@ -36,7 +36,7 @@ public class WeatherController {
 
     public WeatherController() {
         dataCollector = new DataCollector();
-        lcdDisplay = new LcdDisplay();
+        //lcdDisplay = new LcdDisplay();
         outsideSensor = new WeatherSensor(0x77);
         insideSensor = new WeatherSensor(0x76);
 
@@ -102,17 +102,17 @@ public class WeatherController {
     }
 
     //******************************* LCD DISPLAY ******************************* //
-    @Scheduled(cron = "0 0 0 * * *") //Every day
+    //@Scheduled(cron = "0 0 0 * * *") //Every day
     public void setLcdDate(){
         lcdDisplay.writeDate(dataCollector.getCurrentDate());
     }
 
-    @Scheduled(cron = "0 * * * * *") //Every minute
+    //@Scheduled(cron = "0 * * * * *") //Every minute
     public void setLcdTime(){
         lcdDisplay.writeTime(dataCollector.getCurrentTime());
     }
 
-    @Scheduled(cron = "0/15 * * * * *") //Every 15 seconds
+    //@Scheduled(cron = "0/15 * * * * *") //Every 15 seconds
     public void writeWeatherValuesToLcd(){
         try {
             outsideSensor.readSensor();
@@ -131,18 +131,13 @@ public class WeatherController {
     //********************************* SENSOR ********************************* //
     @Scheduled(cron = "0 0/10 * * * *") //Every 10 minutes
     public void saveCurrentWeatherData(){
-        try {
-            outsideSensor.readSensor();
-            insideSensor.readSensor();
+        System.out.println(new Date(Calendar.getInstance().getTimeInMillis()).getTime() + "Saving current weather to array."); //LOG
 
-            outsideSensor.addTempValue(outsideSensor.getCurrentTemperature());
-            outsideSensor.addHumValue(outsideSensor.getCurrentHumidity());
-            outsideSensor.addPressureValue(outsideSensor.getCurrentPressure());
-            insideSensor.addTempValue(insideSensor.getCurrentTemperature());
-            insideSensor.addHumValue(insideSensor.getCurrentHumidity());
-        } catch (IOException | I2CFactory.UnsupportedBusNumberException e) {
-            e.printStackTrace();
-        }
+        outsideSensor.addTempValue(outsideSensor.getCurrentTemperature());
+        outsideSensor.addHumValue(outsideSensor.getCurrentHumidity());
+        outsideSensor.addPressureValue(outsideSensor.getCurrentPressure());
+        insideSensor.addTempValue(insideSensor.getCurrentTemperature());
+        insideSensor.addHumValue(insideSensor.getCurrentHumidity());
     }
 
     @Scheduled(cron = "0 0 * * * *") //Every hour
