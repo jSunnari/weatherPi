@@ -23,9 +23,10 @@ public class DatabaseLoader implements CommandLineRunner {
         this.repository = repository;
     }
 
+
     @Override
     public void run(String... strings) throws Exception {
-
+/*
         for (int i = 1; i < 32; i++) {
             for (int j = 0; j < 24; j++) {
                 Random r = new Random();
@@ -38,12 +39,10 @@ public class DatabaseLoader implements CommandLineRunner {
                         68.4 + (100 - 68.4) * r.nextDouble(),
                         994 + (1312 - 994) * r.nextDouble())
                 );
-
             }
-
-
         }
-
+        */
     }
+
 
 }
