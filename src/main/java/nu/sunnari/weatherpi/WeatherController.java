@@ -40,13 +40,13 @@ public class WeatherController {
 
     public WeatherController() {
         dataCollector = new DataCollector();
-        //lcdDisplay = new LcdDisplay();
+        lcdDisplay = new LcdDisplay();
         outsideSensor = new WeatherSensor(0x77);
         insideSensor = new WeatherSensor(0x76);
 
-        //setLcdDate();
-        //setLcdTime();
-        //writeWeatherValuesToLcd();
+        setLcdDate();
+        setLcdTime();
+        writeWeatherValuesToLcd();
     }
 
     //******************************* ENDPOINTS ******************************* //
@@ -106,12 +106,12 @@ public class WeatherController {
     }
 
     //******************************* LCD DISPLAY ******************************* //
-    //@Scheduled(cron = "0 0 0 * * *") //Every day
+    @Scheduled(cron = "0 0 0 * * *") //Every day
     public void setLcdDate(){
         lcdDisplay.writeDate(dataCollector.getCurrentDate());
     }
 
-    //@Scheduled(cron = "0 * * * * *") //Every minute
+    @Scheduled(cron = "0 * * * * *") //Every minute
     public void setLcdTime(){
         lcdDisplay.writeTime(dataCollector.getCurrentTime());
     }
@@ -121,13 +121,13 @@ public class WeatherController {
         try {
             outsideSensor.readSensor();
             insideSensor.readSensor();
-/*
+
             lcdDisplay.writeOutTemp(outsideSensor.getCurrentTemperature());
             lcdDisplay.writeOutHum(outsideSensor.getCurrentHumidity());
             lcdDisplay.writeInTemp(insideSensor.getCurrentTemperature());
             lcdDisplay.writeInHum(insideSensor.getCurrentHumidity());
             lcdDisplay.writePressure(outsideSensor.getCurrentPressure());
-   */
+
         } catch (IOException | I2CFactory.UnsupportedBusNumberException e) {
             e.printStackTrace();
         }
@@ -141,7 +141,7 @@ public class WeatherController {
                 ", outside-hum: " + outsideSensor.getCurrentHumidity() +
                 ", outside-pressure: " + outsideSensor.getCurrentPressure() +
                 ", inside-temp: " + insideSensor.getCurrentTemperature() +
-                ", inside-hum: " + outsideSensor.getCurrentHumidity() + "]");
+                ", inside-hum: " + insideSensor.getCurrentHumidity() + "]");
 
         outsideSensor.addTempValue(outsideSensor.getCurrentTemperature());
         outsideSensor.addHumValue(outsideSensor.getCurrentHumidity());
