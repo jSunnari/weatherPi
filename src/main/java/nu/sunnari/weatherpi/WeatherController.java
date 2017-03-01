@@ -40,9 +40,9 @@ public class WeatherController {
         outsideSensor = new WeatherSensor(0x77);
         insideSensor = new WeatherSensor(0x76);
 
-        setLcdDate();
-        setLcdTime();
-        writeWeatherValuesToLcd();
+        //setLcdDate();
+        //setLcdTime();
+        //writeWeatherValuesToLcd();
     }
 
     //******************************* ENDPOINTS ******************************* //
