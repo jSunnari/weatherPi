@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.Time;
@@ -27,6 +29,7 @@ import java.util.List;
 @RequestMapping("/api/weather")
 @RestController
 public class WeatherController {
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
     private DataCollector dataCollector;
     private LcdDisplay lcdDisplay;
     private WeatherSensor outsideSensor;
@@ -113,17 +116,18 @@ public class WeatherController {
         lcdDisplay.writeTime(dataCollector.getCurrentTime());
     }
 
-    //@Scheduled(cron = "0/15 * * * * *") //Every 15 seconds
+    @Scheduled(cron = "0/15 * * * * *") //Every 15 seconds
     public void writeWeatherValuesToLcd(){
         try {
             outsideSensor.readSensor();
             insideSensor.readSensor();
-
+/*
             lcdDisplay.writeOutTemp(outsideSensor.getCurrentTemperature());
             lcdDisplay.writeOutHum(outsideSensor.getCurrentHumidity());
             lcdDisplay.writeInTemp(insideSensor.getCurrentTemperature());
             lcdDisplay.writeInHum(insideSensor.getCurrentHumidity());
             lcdDisplay.writePressure(outsideSensor.getCurrentPressure());
+   */
         } catch (IOException | I2CFactory.UnsupportedBusNumberException e) {
             e.printStackTrace();
         }
@@ -132,8 +136,12 @@ public class WeatherController {
     //********************************* SENSOR ********************************* //
     @Scheduled(cron = "0 0/10 * * * *") //Every 10 minutes
     public void saveCurrentWeatherData(){
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        System.out.println(sdf.format(new Date(Calendar.getInstance().getTimeInMillis())) + " - Saving current weather to array."); //LOG
+        log.info("Saving current weather to array. Data: " +
+                "[outside-temp: " + outsideSensor.getCurrentTemperature() +
+                ", outside-hum: " + outsideSensor.getCurrentHumidity() +
+                ", outside-pressure: " + outsideSensor.getCurrentPressure() +
+                ", inside-temp: " + insideSensor.getCurrentTemperature() +
+                ", inside-hum: " + outsideSensor.getCurrentHumidity() + "]");
 
         outsideSensor.addTempValue(outsideSensor.getCurrentTemperature());
         outsideSensor.addHumValue(outsideSensor.getCurrentHumidity());
@@ -144,6 +152,13 @@ public class WeatherController {
 
     @Scheduled(cron = "0 0 * * * *") //Every hour
     public void persistWeatherData() {
+        log.info("Persisting data to database. Data: " +
+                "[outside-temp: " + outsideSensor.getAverageTemp() +
+                ", outside-hum: " + outsideSensor.getAverageHumidity() +
+                ", outside-pressure: " + outsideSensor.getAveragePressure() +
+                ", inside-temp: " + insideSensor.getAverageTemp() +
+                ", inside-hum: " + outsideSensor.getAverageHumidity() + "]");
+
         repository.save(new Weather(
                 new Date(Calendar.getInstance().getTime().getTime()),
                 new Time(Calendar.getInstance().getTime().getTime()),
