@@ -1,16 +1,25 @@
 import React, { Component } from 'react';
 import CurrentValue from '../CurrentValue/CurrentValue';
-import {getCurrentWeather} from '../../actions';
+import { serverRequest } from '../../serverRequest';
 
 export default class Values extends Component {
 
     componentWillMount(){
-        getCurrentWeather().then((response) => {
+
+        serverRequest.getCurrentWeather().then((response) => {
             console.log(response);
         }, (error) => {
             console.error(error);
         });
 
+    }
+
+    test(){
+        serverRequest.getWeatherByWeek(2017, 9).then((response) => {
+            console.log(response);
+        }, (error) => {
+            console.error(error);
+        });
     }
 
     render() {
@@ -29,6 +38,8 @@ export default class Values extends Component {
                     <CurrentValue iconName="thermometer" currentValue="4.8°C" minValue="-1°C" maxValue="4.9°C" arrow="direction-right"/>
                     <CurrentValue iconName="humidity" currentValue="88%" minValue="79%" maxValue="99%" arrow="direction-up-right"/>
                 </div>
+
+                <p onClick={this.test().bind(this)}>click me</p>
 
             </div>
         )
