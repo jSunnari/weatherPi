@@ -1,6 +1,10 @@
 package nu.sunnari.weatherpi;
 
 /**
+ * POJO for storing current weather data and sending it to client trough REST as JSON
+ */
+
+/**
  * Created by Jonas on 2017-03-02.
  */
 

@@ -1,5 +1,7 @@
 package nu.sunnari.weatherpi;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pi4j.io.i2c.I2CFactory;
 import nu.sunnari.weatherpi.database.Weather;
 import nu.sunnari.weatherpi.database.WeatherRepository;
@@ -31,6 +33,7 @@ public class WeatherController {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     private CurrentWeather currentWeather = new CurrentWeather();
+    private ObjectMapper mapper = new ObjectMapper();
     private DataCollector dataCollector;
     private LcdDisplay lcdDisplay;
     private WeatherSensor outsideSensor;
@@ -52,7 +55,8 @@ public class WeatherController {
 
     //******************************* ENDPOINTS ******************************* //
     @GetMapping(value="/current")
-    public CurrentWeather getCurrentWeather(){
+    public String getCurrentWeather(){
+        String currentWeatherJSON = "{}";
         currentWeather.setOutsideTemperature(outsideSensor.getCurrentTemperature());
         currentWeather.setOutsideHumidity(outsideSensor.getCurrentHumidity());
         currentWeather.setOutsidePressure(outsideSensor.getCurrentPressure());
@@ -64,7 +68,13 @@ public class WeatherController {
         currentWeather.setInsideTempTrend(insideSensor.getTempTrend());
         currentWeather.setInsideHumTrend(insideSensor.getHumidityTrend());
 
-        return currentWeather;
+        try {
+            currentWeatherJSON = mapper.writeValueAsString(currentWeather);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return currentWeatherJSON;
     }
 
     @GetMapping(value="/findByDay/{date}")
