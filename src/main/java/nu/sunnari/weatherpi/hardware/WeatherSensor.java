@@ -210,7 +210,7 @@ public class WeatherSensor {
     }
 
     private String calcTrend(List<Double> list){
-        String arrow = "RIGHT";
+        String arrow = "direction-right";
         int halfArraylist = list.size()/2;
         double previousValue = 0;
         double currentValue = 0;
@@ -225,10 +225,10 @@ public class WeatherSensor {
         }
 
         if (currentValue/halfArraylist < previousValue/halfArraylist){
-            arrow = "DOWN";
+            arrow = "direction-down-right";
         }
         else if (currentValue/halfArraylist > previousValue/halfArraylist){
-            arrow = "UP";
+            arrow = "direction-up-right";
         }
 
         return arrow;
@@ -327,26 +327,26 @@ public class WeatherSensor {
     }
 
     public double getMinTemperature() {
-        return minTemperature;
+        return Math.round(minTemperature * 10.0) / 10.0;
     }
 
     public double getMaxTemperature() {
-        return maxTemperature;
+        return Math.round(maxTemperature * 10.0) / 10.0;
     }
 
     public double getMinHumidity() {
-        return minHumidity;
+        return Math.round(minHumidity * 10.0) / 10.0;
     }
 
     public double getMaxHumidity() {
-        return maxHumidity;
+        return Math.round(maxHumidity * 10.0) / 10.0;
     }
 
     public double getMinPressure() {
-        return minPressure;
+        return Math.round(minPressure * 10.0) / 10.0;
     }
 
     public double getMaxPressure() {
-        return maxPressure;
+        return Math.round(maxPressure * 10.0) / 10.0;
     }
 }

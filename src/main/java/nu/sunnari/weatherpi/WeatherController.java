@@ -70,14 +70,14 @@ public class WeatherController {
         currentWeather.put("outdoorMinTemp", outsideSensor.getMinTemperature());
         currentWeather.put("outdoorMaxTemp", outsideSensor.getMaxTemperature());
         currentWeather.put("outdoorMinHum", outsideSensor.getMinHumidity());
-        currentWeather.put("outdoorMaxHum", outsideSensor.getMaxPressure());
+        currentWeather.put("outdoorMaxHum", outsideSensor.getMaxHumidity());
         currentWeather.put("outdoorMinPressure", outsideSensor.getMinPressure());
         currentWeather.put("outdoorMaxPressure", outsideSensor.getMaxPressure());
 
         currentWeather.put("indoorMinTemp", insideSensor.getMinTemperature());
         currentWeather.put("indoorMaxTemp", insideSensor.getMaxTemperature());
         currentWeather.put("indoorMinHum", insideSensor.getMinHumidity());
-        currentWeather.put("indoorMaxHum", insideSensor.getMaxPressure());
+        currentWeather.put("indoorMaxHum", insideSensor.getMaxHumidity());
 
         return currentWeather;
     }
