@@ -52,7 +52,7 @@ function defaultServerRequest(url) {
                 if (err || !res.ok) {
                     reject(err);
                 } else {
-                    resolve(res);
+                    resolve(res.body);
                 }
             });
     });

@@ -4,10 +4,36 @@ import { serverRequest } from '../../serverRequest';
 
 export default class Values extends Component {
 
+    constructor(props){
+        super(props);
+        this.state = {
+            outsideTemp: 0,
+            outsideTempMin: 0,
+            outsideTempMax: 0,
+            outsideHum: 0,
+            outsideHumMin: 0,
+            outsideHumMax: 0,
+            outsidePressure: 0,
+            outsidePressureMin: 0,
+            outsidePressureMax: 0,
+            insideTemp: 0,
+            insideTempMin: 0,
+            insideTempMax: 0,
+            insideHum: 0,
+            insideHumMin: 0,
+            insideHumMax: 0,
+            outsideTempTrend: "direction-right",
+            outsideHumTrend: "direction-right",
+            outsidePressureTrend: "direction-right",
+            insideTempTrend: "direction-right",
+            insideHumTrend: "direction-right"
+        }
+    }
+
     componentWillMount(){
         serverRequest.getCurrentWeather().then((response) => {
-            console.log(response.body);
-            console.log(response.body.indoorTemp);
+            console.log(response);
+            console.log(response.indoorTemp);
         }, (error) => {
             console.error(error);
         });
@@ -15,7 +41,7 @@ export default class Values extends Component {
 
     test(){
         serverRequest.getWeatherByWeek(2017, 9).then((response) => {
-            console.log(response.body);
+            console.log(response);
         }, (error) => {
             console.error(error);
         });

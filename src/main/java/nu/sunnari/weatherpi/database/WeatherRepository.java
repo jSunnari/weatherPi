@@ -18,9 +18,6 @@ import java.util.List;
 @RepositoryRestResource(path="/weather")
 public interface WeatherRepository extends PagingAndSortingRepository<Weather, Long> {
     List<Weather> findByDate(@Param("date") Date date);
-    List<Weather> findByTime(@Param("time") Time time);
-    List<Weather> findByDateContaining(@Param("month") Date date);
-
     List<Weather> findByDateBetween(Date date1, Date date2);
 
 }
