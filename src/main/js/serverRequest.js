@@ -5,40 +5,24 @@ const serverUrl = "http://localhost:8080";
 class ServerRequest {
 
     getCurrentWeather(){
-        return this.serverRequest(serverUrl + "/weather/current");
+        return defaultServerRequest(serverUrl + "/weather/current");
     }
 
     getWeatherByWeek(year, weekNumber){
-        return this.cachedServerRequest(serverUrl + "/weather/findByWeek/" + year + "/" + weekNumber)
+        return cachedServerRequest(serverUrl + "/weather/findByWeek/" + year + "/" + weekNumber)
     }
 
-    private cachedServerRequest(url) {
-        return new Promise((resolve, reject) => {
-            let cachedResponse = cache.get(url);
+}
 
-            console.log(cachedResponse);
+function cachedServerRequest(url) {
+    return new Promise((resolve, reject) => {
+        let cachedResponse = cache.get(url);
 
-            if (cachedResponse) {
-                resolve(cachedResponse);
-            } else {
-                request
-                    .get(url)
-                    .end((err, res) => {
-                        if (err || !res.ok) {
-                            reject(err);
-                        } else {
-                            resolve(res);
-                            cache.put(url, res.body);
-                            resolve(res.body);
-                        }
-                    });
-            }
+        console.log(cachedResponse);
 
-        });
-    }
-
-    private serverRequest(url) {
-        return new Promise((resolve, reject) => {
+        if (cachedResponse) {
+            resolve(cachedResponse);
+        } else {
             request
                 .get(url)
                 .end((err, res) => {
@@ -46,13 +30,30 @@ class ServerRequest {
                         reject(err);
                     } else {
                         resolve(res);
+                        cache.put(url, res.body);
+                        resolve(res.body);
                     }
                 });
-        });
-    }
+        }
+
+    });
 }
 
-export let serverRequest = new ServerRequest;
+function defaultServerRequest(url) {
+    return new Promise((resolve, reject) => {
+        request
+            .get(url)
+            .end((err, res) => {
+                if (err || !res.ok) {
+                    reject(err);
+                } else {
+                    resolve(res);
+                }
+            });
+    });
+}
+
+export let serverRequest = new ServerRequest();
 
 
 
