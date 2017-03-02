@@ -1,6 +1,5 @@
 package nu.sunnari.weatherpi;
 
-import com.google.gson.JsonObject;
 import com.pi4j.io.i2c.I2CFactory;
 import nu.sunnari.weatherpi.database.Weather;
 import nu.sunnari.weatherpi.database.WeatherRepository;
@@ -15,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.json.Json;
+import javax.json.JsonObject;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.Time;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -30,13 +31,11 @@ import java.util.List;
 @RequestMapping("/api/weather")
 @RestController
 public class WeatherController {
-
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
-    private JsonObject weather = new JsonObject();
     private DataCollector dataCollector;
     private LcdDisplay lcdDisplay;
     private WeatherSensor outsideSensor;
     private WeatherSensor insideSensor;
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private WeatherRepository repository;
@@ -55,18 +54,18 @@ public class WeatherController {
     //******************************* ENDPOINTS ******************************* //
     @GetMapping(value="/current")
     public JsonObject getCurrentWeather(){
-        weather.addProperty("outdoorTemp", outsideSensor.getCurrentTemperature());
-        weather.addProperty("outdoorHum", outsideSensor.getCurrentHumidity());
-        weather.addProperty("outdoorPressure", outsideSensor.getCurrentPressure());
-        weather.addProperty("indoorTemp", insideSensor.getCurrentTemperature());
-        weather.addProperty("indoorHum", insideSensor.getCurrentHumidity());
-        weather.addProperty("outdoorTempTrend", outsideSensor.getTempTrend());
-        weather.addProperty("outdoorHumTrend", outsideSensor.getHumidityTrend());
-        weather.addProperty("outdoorPressureTrend", outsideSensor.getPressureTrend());
-        weather.addProperty("indoorTempTrend", insideSensor.getTempTrend());
-        weather.addProperty("indoorHumTrend", insideSensor.getHumidityTrend());
-
-        return weather;
+        return Json.createObjectBuilder()
+                .add("outdoorTemp", outsideSensor.getCurrentTemperature())
+                .add("outdoorHum", outsideSensor.getCurrentHumidity())
+                .add("outdoorPressure", outsideSensor.getCurrentPressure())
+                .add("indoorTemp", insideSensor.getCurrentTemperature())
+                .add("indoorHum", insideSensor.getCurrentHumidity())
+                .add("outdoorTempTrend", outsideSensor.getTempTrend())
+                .add("outdoorHumTrend", outsideSensor.getHumidityTrend())
+                .add("outdoorPressureTrend", outsideSensor.getPressureTrend())
+                .add("indoorTempTrend", insideSensor.getTempTrend())
+                .add("indoorHumTrend", insideSensor.getHumidityTrend())
+                .build();
     }
 
     @GetMapping(value="/findByDay/{date}")
