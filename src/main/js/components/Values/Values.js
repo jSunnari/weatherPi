@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import CurrentValue from '../CurrentValue/CurrentValue';
+import {getCurrentWeather} from '../../actions';
 
 export default class Values extends Component {
 
     componentWillMount(){
+        getCurrentWeather().then((response) => {
+            console.log(response);
+        }, (error) => {
+            console.error(error);
+        });
 
     }
 

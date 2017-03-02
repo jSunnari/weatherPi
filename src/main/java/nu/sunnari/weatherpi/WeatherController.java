@@ -1,6 +1,5 @@
 package nu.sunnari.weatherpi;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.pi4j.io.i2c.I2CFactory;
 import net.minidev.json.JSONObject;
 import nu.sunnari.weatherpi.database.Weather;

@@ -1,15 +1,9 @@
-/**
- * Server communications class
- */
-import Request from "superagent";
-import config from "./config";
+import request from "superagent";
 
-class ServerRequest {
-
-    getCurrentWeather() {
+export default function serverRequest(url) {
         return new Promise((resolve, reject) => {
-            Request
-                .get(config.serverURL + "/weather/current")
+            request
+                .get(url)
                 .end((err, res) => {
                     if (err || !res.ok) {
                         reject(err);
@@ -19,6 +13,5 @@ class ServerRequest {
                 });
         });
     }
-}
 
-export let serverRequest = new ServerRequest();
+
