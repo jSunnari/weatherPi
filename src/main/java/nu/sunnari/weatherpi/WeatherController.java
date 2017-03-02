@@ -56,10 +56,10 @@ public class WeatherController {
     @GetMapping(value="/current")
     public JSONObject getCurrentWeather(){
         currentWeather.put("outdoorTemp", outsideSensor.getCurrentTemperature());
-        currentWeather.put("outdoorHum", outsideSensor.getCurrentHumidity());
-        currentWeather.put("outdoorPressure", outsideSensor.getCurrentPressure());
+        currentWeather.put("outdoorHum", Math.round(outsideSensor.getCurrentHumidity()));
+        currentWeather.put("outdoorPressure", Math.round(outsideSensor.getCurrentPressure()));
         currentWeather.put("indoorTemp", insideSensor.getCurrentTemperature());
-        currentWeather.put("indoorHum", insideSensor.getCurrentHumidity());
+        currentWeather.put("indoorHum", Math.round(insideSensor.getCurrentHumidity()));
 
         currentWeather.put("outdoorTempTrend", outsideSensor.getTempTrend());
         currentWeather.put("outdoorHumTrend", outsideSensor.getHumidityTrend());
@@ -69,15 +69,15 @@ public class WeatherController {
 
         currentWeather.put("outdoorMinTemp", outsideSensor.getMinTemperature());
         currentWeather.put("outdoorMaxTemp", outsideSensor.getMaxTemperature());
-        currentWeather.put("outdoorMinHum", outsideSensor.getMinHumidity());
-        currentWeather.put("outdoorMaxHum", outsideSensor.getMaxHumidity());
-        currentWeather.put("outdoorMinPressure", outsideSensor.getMinPressure());
-        currentWeather.put("outdoorMaxPressure", outsideSensor.getMaxPressure());
+        currentWeather.put("outdoorMinHum", Math.round(outsideSensor.getMinHumidity()));
+        currentWeather.put("outdoorMaxHum", Math.round(outsideSensor.getMaxHumidity()));
+        currentWeather.put("outdoorMinPressure", Math.round(outsideSensor.getMinPressure()));
+        currentWeather.put("outdoorMaxPressure", Math.round(outsideSensor.getMaxPressure()));
 
         currentWeather.put("indoorMinTemp", insideSensor.getMinTemperature());
         currentWeather.put("indoorMaxTemp", insideSensor.getMaxTemperature());
-        currentWeather.put("indoorMinHum", insideSensor.getMinHumidity());
-        currentWeather.put("indoorMaxHum", insideSensor.getMaxHumidity());
+        currentWeather.put("indoorMinHum", Math.round(insideSensor.getMinHumidity()));
+        currentWeather.put("indoorMaxHum", Math.round(insideSensor.getMaxHumidity()));
 
         return currentWeather;
     }
