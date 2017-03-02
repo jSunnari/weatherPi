@@ -48,24 +48,36 @@ public class WeatherController {
         setLcdDate();
         setLcdTime();
         writeWeatherValuesToLcd();
+        insideSensor.clearMinMaxValues();
+        outsideSensor.clearMinMaxValues();
     }
 
     //******************************* ENDPOINTS ******************************* //
     @GetMapping(value="/current")
     public JSONObject getCurrentWeather(){
-        System.out.println(repository.findMinTemp("2017-01-01"));
-        System.out.println(repository.findMinTemp2(new Date(2017-1900,0,1)));
-
         currentWeather.put("outdoorTemp", outsideSensor.getCurrentTemperature());
         currentWeather.put("outdoorHum", outsideSensor.getCurrentHumidity());
         currentWeather.put("outdoorPressure", outsideSensor.getCurrentPressure());
         currentWeather.put("indoorTemp", insideSensor.getCurrentTemperature());
         currentWeather.put("indoorHum", insideSensor.getCurrentHumidity());
+
         currentWeather.put("outdoorTempTrend", outsideSensor.getTempTrend());
         currentWeather.put("outdoorHumTrend", outsideSensor.getHumidityTrend());
         currentWeather.put("outdoorPressureTrend", outsideSensor.getPressureTrend());
         currentWeather.put("indoorTempTrend", insideSensor.getTempTrend());
         currentWeather.put("indoorHumTrend", insideSensor.getHumidityTrend());
+
+        currentWeather.put("outdoorMinTemp", outsideSensor.getMinTemperature());
+        currentWeather.put("outdoorMaxTemp", outsideSensor.getMaxTemperature());
+        currentWeather.put("outdoorMinHum", outsideSensor.getMinHumidity());
+        currentWeather.put("outdoorMaxHum", outsideSensor.getMaxPressure());
+        currentWeather.put("outdoorMinPressure", outsideSensor.getMinPressure());
+        currentWeather.put("outdoorMaxPressure", outsideSensor.getMaxPressure());
+
+        currentWeather.put("indoorMinTemp", insideSensor.getMinTemperature());
+        currentWeather.put("indoorMaxTemp", insideSensor.getMaxTemperature());
+        currentWeather.put("indoorMinHum", insideSensor.getMinHumidity());
+        currentWeather.put("indoorMaxHum", insideSensor.getMaxPressure());
 
         return currentWeather;
     }
@@ -163,7 +175,7 @@ public class WeatherController {
     }
 
     @Scheduled(cron = "0 0 * * * *") //Every hour
-    public void persistWeatherData() {
+    public void persistWeatherData(){
         log.info("Persisting data to database. Data: " +
                 "[outside-temp: " + outsideSensor.getAverageTemp() +
                 ", outside-hum: " + outsideSensor.getAverageHumidity() +
@@ -180,5 +192,17 @@ public class WeatherController {
                 outsideSensor.getAverageHumidity(),
                 outsideSensor.getAveragePressure())
         );
+    }
+
+    @Scheduled(cron = "0/15 * * * * *") //Every 15 seconds
+    public void updateMinMaxValues(){
+        insideSensor.updateMinMaxValues();
+        outsideSensor.updateMinMaxValues();
+    }
+
+    @Scheduled(cron = "0 0 0 * * *") //Every day
+    public void clearMinMaxValues(){
+        insideSensor.clearMinMaxValues();
+        outsideSensor.clearMinMaxValues();
     }
 }

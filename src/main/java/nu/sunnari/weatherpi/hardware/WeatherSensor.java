@@ -11,6 +11,8 @@ package nu.sunnari.weatherpi.hardware;
 import com.pi4j.io.i2c.I2CBus;
 import com.pi4j.io.i2c.I2CDevice;
 import com.pi4j.io.i2c.I2CFactory;
+import nu.sunnari.weatherpi.database.Weather;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +29,14 @@ public class WeatherSensor {
     private List<Double> tempValues = new ArrayList<>(12);
     private List<Double> humidityValues = new ArrayList<>(12);
     private List<Double> pressureValues = new ArrayList<>(12);
+
+    private double minTemperature;
+    private double maxTemperature;
+    private double minHumidity;
+    private double maxHumidity;
+    private double minPressure;
+    private double maxPressure;
+
     private double temperature;
     private double humidity;
     private double pressure;
@@ -245,6 +255,41 @@ public class WeatherSensor {
         pressureValues.add(Math.round(lastPressureValue * 10.0) / 10.0);
     }
 
+    public void updateMinMaxValues(){
+        if (minTemperature > temperature){
+            minTemperature = temperature;
+        }
+
+        if (maxTemperature < temperature){
+            maxTemperature = temperature;
+        }
+
+        if (minHumidity > humidity){
+            minHumidity = humidity;
+        }
+
+        if (maxHumidity < humidity){
+            maxHumidity = humidity;
+        }
+
+        if (minPressure > pressure){
+            minPressure = pressure;
+        }
+
+        if (maxPressure < pressure){
+            maxPressure = pressure;
+        }
+    }
+
+    public void clearMinMaxValues(){
+        minTemperature = temperature;
+        maxTemperature = temperature;
+        minHumidity = humidity;
+        maxHumidity = humidity;
+        minPressure = pressure;
+        maxPressure = pressure;
+    }
+
     public double getCurrentTemperature() {
         return Math.round(temperature * 10.0) / 10.0;
     }
@@ -281,4 +326,27 @@ public class WeatherSensor {
         return calcTrend(pressureValues);
     }
 
+    public double getMinTemperature() {
+        return minTemperature;
+    }
+
+    public double getMaxTemperature() {
+        return maxTemperature;
+    }
+
+    public double getMinHumidity() {
+        return minHumidity;
+    }
+
+    public double getMaxHumidity() {
+        return maxHumidity;
+    }
+
+    public double getMinPressure() {
+        return minPressure;
+    }
+
+    public double getMaxPressure() {
+        return maxPressure;
+    }
 }
