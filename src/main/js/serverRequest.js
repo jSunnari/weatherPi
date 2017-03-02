@@ -1,3 +1,8 @@
+/**
+ * Communicates with the server via REST.
+ * Caches the data (except currentweather) for one hour using: https://github.com/ptarjan/node-cache
+ */
+
 import request from 'superagent';
 import cache from 'memory-cache';
 const apiUrl = "/api/weather";
@@ -30,7 +35,7 @@ function cachedServerRequest(url) {
                         reject(err);
                     } else {
                         resolve(res);
-                        cache.put(url, res.body);
+                        cache.put(url, res.body, 3600000);
                         resolve(res.body);
                     }
                 });
