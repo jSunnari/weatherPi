@@ -1,8 +1,8 @@
 package nu.sunnari.weatherpi;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.pi4j.io.i2c.I2CFactory;
+import net.minidev.json.JSONObject;
 import nu.sunnari.weatherpi.database.Weather;
 import nu.sunnari.weatherpi.database.WeatherRepository;
 import nu.sunnari.weatherpi.hardware.LcdDisplay;
@@ -30,14 +30,12 @@ import java.util.List;
 @RequestMapping("/api/weather")
 @RestController
 public class WeatherController {
-
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
-    private CurrentWeather currentWeather = new CurrentWeather();
-    private ObjectMapper mapper = new ObjectMapper();
+    private JSONObject currentWeather = new JSONObject();
     private DataCollector dataCollector;
     private LcdDisplay lcdDisplay;
     private WeatherSensor outsideSensor;
     private WeatherSensor insideSensor;
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private WeatherRepository repository;
@@ -55,26 +53,19 @@ public class WeatherController {
 
     //******************************* ENDPOINTS ******************************* //
     @GetMapping(value="/current")
-    public String getCurrentWeather(){
-        String currentWeatherJSON = "{}";
-        currentWeather.setOutsideTemperature(outsideSensor.getCurrentTemperature());
-        currentWeather.setOutsideHumidity(outsideSensor.getCurrentHumidity());
-        currentWeather.setOutsidePressure(outsideSensor.getCurrentPressure());
-        currentWeather.setInsideTemperature(insideSensor.getCurrentTemperature());
-        currentWeather.setInsideHumidity(insideSensor.getCurrentHumidity());
-        currentWeather.setOutsideTempTrend(outsideSensor.getTempTrend());
-        currentWeather.setOutsideHumTrend(outsideSensor.getHumidityTrend());
-        currentWeather.setOutsidePressureTrend(outsideSensor.getPressureTrend());
-        currentWeather.setInsideTempTrend(insideSensor.getTempTrend());
-        currentWeather.setInsideHumTrend(insideSensor.getHumidityTrend());
+    public JSONObject getCurrentWeather(){
+        currentWeather.put("outdoorTemp", outsideSensor.getCurrentTemperature());
+        currentWeather.put("outdoorHum", outsideSensor.getCurrentHumidity());
+        currentWeather.put("outdoorPressure", outsideSensor.getCurrentPressure());
+        currentWeather.put("indoorTemp", insideSensor.getCurrentTemperature());
+        currentWeather.put("indoorHum", insideSensor.getCurrentHumidity());
+        currentWeather.put("outdoorTempTrend", outsideSensor.getTempTrend());
+        currentWeather.put("outdoorHumTrend", outsideSensor.getHumidityTrend());
+        currentWeather.put("outdoorPressureTrend", outsideSensor.getPressureTrend());
+        currentWeather.put("indoorTempTrend", insideSensor.getTempTrend());
+        currentWeather.put("indoorHumTrend", insideSensor.getHumidityTrend());
 
-        try {
-            currentWeatherJSON = mapper.writeValueAsString(currentWeather);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-
-        return currentWeatherJSON;
+        return currentWeather;
     }
 
     @GetMapping(value="/findByDay/{date}")
