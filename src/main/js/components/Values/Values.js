@@ -47,8 +47,8 @@ export default class Values extends Component {
 
                 <div id="indoor-values-container">
                     <h1 className="location-header">Indoor</h1>
-                    <CurrentValue iconName="thermometer" currentValue="4.8°C" minValue="-1°C" maxValue="4.9°C" arrow="direction-right"/>
-                    <CurrentValue iconName="humidity" currentValue="88%" minValue="79%" maxValue="99%" arrow="direction-up-right"/>
+                    <CurrentValue iconName="thermometer" currentValue={this.state.currentWeather.indoorTemp + "°C"} minValue={this.state.currentWeather.indoorMinTemp + "°C"} maxValue={this.state.currentWeather.indoorMaxTemp + "°C"} arrow={this.state.currentWeather.indoorTempTrend}/>
+                    <CurrentValue iconName="humidity" currentValue={this.state.currentWeather.indoorHum + "%"} minValue={this.state.currentWeather.indoorMinHum + "%"} maxValue={this.state.currentWeather.indoorMaxHum + "%"} arrow={this.state.currentWeather.indoorHumTrend}/>
                 </div>
 
                 <p onClick={() => this.test()}>Click me</p>
