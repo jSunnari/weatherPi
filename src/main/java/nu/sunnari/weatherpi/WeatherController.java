@@ -25,9 +25,9 @@ import java.util.List;
  * Created by Jonas on 2017-01-30.
  */
 
-//@Component
-//@RequestMapping("/api/weather")
-//@RestController
+@Component
+@RequestMapping("/api/weather")
+@RestController
 public class WeatherController {
     private JSONObject currentWeather = new JSONObject();
     private DataCollector dataCollector;
@@ -53,6 +53,9 @@ public class WeatherController {
     //******************************* ENDPOINTS ******************************* //
     @GetMapping(value="/current")
     public JSONObject getCurrentWeather(){
+        System.out.println(repository.findMinTemp(new Date(2017-1900,0,1)));
+        System.out.println(repository.findMinTemp2(new Date(2017-1900,0,1)));
+
         currentWeather.put("outdoorTemp", outsideSensor.getCurrentTemperature());
         currentWeather.put("outdoorHum", outsideSensor.getCurrentHumidity());
         currentWeather.put("outdoorPressure", outsideSensor.getCurrentPressure());

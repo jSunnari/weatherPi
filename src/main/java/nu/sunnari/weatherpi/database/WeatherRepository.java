@@ -24,8 +24,11 @@ public interface WeatherRepository extends PagingAndSortingRepository<Weather, L
     Weather findFirstByDateOrderByInsideTemperatureAsc(@Param("date") Date date);
     Weather findFirstByDateOrderByInsideTemperatureDesc(@Param("date") Date date);
 
-    @Query(value="select avg(temp)from weather_data", nativeQuery = true)
+    @Query(value="SELECT MAX(INSIDE_HUMIDITY) FROM WEATHER WHERE ?#{[0]}", nativeQuery = true)
     double findMinTemp(Date date);
+
+    @Query(value="select max(e.insideTemperature) from Weather e where e.date = ?#{[0]}", nativeQuery = true)
+    double findMinTemp2(Date date);
 
 
 }
