@@ -1,15 +1,15 @@
 import request from 'superagent';
 import cache from 'memory-cache';
-const serverUrl = "http://localhost:8080";
+const apiUrl = "http://localhost:8080/api/weather";
 
 class ServerRequest {
 
     getCurrentWeather(){
-        return defaultServerRequest(serverUrl + "/weather/current");
+        return defaultServerRequest(apiUrl + "/current");
     }
 
     getWeatherByWeek(year, weekNumber){
-        return cachedServerRequest(serverUrl + "/weather/findByWeek/" + year + "/" + weekNumber)
+        return cachedServerRequest(apiUrl + "/findByWeek/" + year + "/" + weekNumber)
     }
 
 }

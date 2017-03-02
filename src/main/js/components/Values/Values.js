@@ -5,17 +5,14 @@ import { serverRequest } from '../../serverRequest';
 export default class Values extends Component {
 
     componentWillMount(){
-
         serverRequest.getCurrentWeather().then((response) => {
             console.log(response);
         }, (error) => {
             console.error(error);
         });
-
     }
 
     test(){
-
         serverRequest.getWeatherByWeek(2017, 9).then((response) => {
             console.log(response);
         }, (error) => {
