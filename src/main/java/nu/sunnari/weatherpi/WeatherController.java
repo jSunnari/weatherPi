@@ -53,7 +53,7 @@ public class WeatherController {
     //******************************* ENDPOINTS ******************************* //
     @GetMapping(value="/current")
     public JSONObject getCurrentWeather(){
-        System.out.println(repository.findMinTemp(new Date(2017-1900,0,1)));
+        System.out.println(repository.findMinTemp("2017-01-01"));
         System.out.println(repository.findMinTemp2(new Date(2017-1900,0,1)));
 
         currentWeather.put("outdoorTemp", outsideSensor.getCurrentTemperature());
