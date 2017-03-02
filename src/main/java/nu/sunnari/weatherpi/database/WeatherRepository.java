@@ -1,6 +1,7 @@
 package nu.sunnari.weatherpi.database;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
@@ -19,5 +20,12 @@ import java.util.List;
 public interface WeatherRepository extends PagingAndSortingRepository<Weather, Long> {
     List<Weather> findByDate(@Param("date") Date date);
     List<Weather> findByDateBetween(Date date1, Date date2);
+
+    Weather findFirstByDateOrderByInsideTemperatureAsc(@Param("date") Date date);
+    Weather findFirstByDateOrderByInsideTemperatureDesc(@Param("date") Date date);
+
+    @Query(value="select avg(temp)from weather_data", nativeQuery = true)
+    double findMinTemp(Date date);
+
 
 }

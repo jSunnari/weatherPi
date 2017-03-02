@@ -25,9 +25,9 @@ import java.util.List;
  * Created by Jonas on 2017-01-30.
  */
 
-@Component
-@RequestMapping("/api/weather")
-@RestController
+//@Component
+//@RequestMapping("/api/weather")
+//@RestController
 public class WeatherController {
     private JSONObject currentWeather = new JSONObject();
     private DataCollector dataCollector;
