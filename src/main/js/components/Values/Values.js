@@ -14,6 +14,7 @@ export default class Values extends Component {
     componentWillMount(){
         serverRequest.getCurrentWeather().then((response) => {
             this.setState({currentWeather: response});
+            console.log(response);
         }, (error) => {
             console.error(error);
         });

@@ -23,8 +23,6 @@ function cachedServerRequest(url) {
     return new Promise((resolve, reject) => {
         let cachedResponse = cache.get(url);
 
-        console.log(cachedResponse);
-
         if (cachedResponse) {
             resolve(cachedResponse);
         } else {
@@ -34,9 +32,8 @@ function cachedServerRequest(url) {
                     if (err || !res.ok) {
                         reject(err);
                     } else {
-                        resolve(res);
-                        cache.put(url, res.body, 3600000);
                         resolve(res.body);
+                        cache.put(url, res.body, 3600000);
                     }
                 });
         }
