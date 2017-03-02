@@ -7,6 +7,7 @@ export default class Values extends Component {
     componentWillMount(){
         serverRequest.getCurrentWeather().then((response) => {
             console.log(response.text);
+            console.log(response.text.indoorTemp);
         }, (error) => {
             console.error(error);
         });
@@ -37,7 +38,7 @@ export default class Values extends Component {
                     <CurrentValue iconName="humidity" currentValue="88%" minValue="79%" maxValue="99%" arrow="direction-up-right"/>
                 </div>
 
-                <p onClick={() => this.test}>Click me</p>
+                <p onClick={() => this.test()}>Click me</p>
 
             </div>
         )
