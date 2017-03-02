@@ -18,6 +18,18 @@ export default class Values extends Component {
     }
 
     componentWillMount(){
+        this.loadCurrentWeather();
+        this.loadCurrentWeatherInterval = setInterval(() => this.loadCurrentWeather(), 15000);
+    }
+
+    componentWillUnmount(){
+        if (this.loadCurrentWeatherInterval !== undefined){
+            clearInterval(this.loadCurrentWeatherInterval);
+            this.loadCurrentWeatherInterval = undefined;
+        }
+    }
+
+    loadCurrentWeather(){
         serverRequest.getCurrentWeather().then((response) => {
             this.setState({currentWeather: response});
             console.log(response);
