@@ -1,6 +1,6 @@
 import request from 'superagent';
 import cache from 'memory-cache';
-const apiUrl = "http://localhost:8080/api/weather";
+const apiUrl = "/api/weather";
 
 class ServerRequest {
 
