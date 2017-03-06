@@ -20,6 +20,33 @@ export default class Values extends Component {
     componentWillMount(){
         this.loadCurrentWeather();
         this.loadCurrentWeatherInterval = setInterval(() => this.loadCurrentWeather(), 15000);
+
+         /*
+        let currentWeather = {
+            outdoorMaxHum: 100,
+            outdoorPressure: 1000,
+            indoorMinTemp: 24.1,
+            outdoorMinTemp: 3.1,
+            indoorMinHum: 30,
+            outdoorMinHum: 84,
+            outdoorMaxPressure: 1000,
+            outdoorTemp: 7.9,
+            indoorTemp: 25.3,
+            outdoorMaxTemp: 7.9,
+            indoorHum: 31,
+            outdoorTempTrend: "direction-up-right",
+            indoorTempTrend: "direction-up-right",
+            outdoorPressureTrend: "direction-up-right",
+            outdoorHum: 84,
+            indoorMaxHum: 36,
+            indoorHumTrend: "direction-down-right",
+            outdoorHumTrend: "direction-down-right",
+            outdoorMinPressure: 999,
+            indoorMaxTemp: 25.3
+        };
+*/
+
+        this.setState({currentWeather: currentWeather});
     }
 
     componentWillUnmount(){
@@ -62,8 +89,6 @@ export default class Values extends Component {
                     <CurrentValue iconName="thermometer" currentValue={this.state.currentWeather.indoorTemp + "°C"} minValue={this.state.currentWeather.indoorMinTemp + "°C"} maxValue={this.state.currentWeather.indoorMaxTemp + "°C"} arrow={this.state.currentWeather.indoorTempTrend}/>
                     <CurrentValue iconName="humidity" currentValue={this.state.currentWeather.indoorHum + "%"} minValue={this.state.currentWeather.indoorMinHum + "%"} maxValue={this.state.currentWeather.indoorMaxHum + "%"} arrow={this.state.currentWeather.indoorHumTrend}/>
                 </div>
-
-                <p onClick={() => this.test()}>Click me</p>
 
             </div>
         )

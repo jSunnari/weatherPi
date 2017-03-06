@@ -12,6 +12,9 @@ class ServerRequest {
     getCurrentWeather(){
         return defaultServerRequest(apiUrl + "/current");
     }
+    getWeatherByDay(date){
+        return cachedServerRequest(apiUrl + "/findByDay/" + date)
+    }
 
     getWeatherByWeek(year, weekNumber){
         return cachedServerRequest(apiUrl + "/findByWeek/" + year + "/" + weekNumber)
