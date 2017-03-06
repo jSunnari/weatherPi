@@ -44,9 +44,10 @@ export default class Values extends Component {
             outdoorMinPressure: 999,
             indoorMaxTemp: 25.3
         };
-*/
+
 
         this.setState({currentWeather: currentWeather});
+          */
     }
 
     componentWillUnmount(){
@@ -59,7 +60,6 @@ export default class Values extends Component {
     loadCurrentWeather(){
         serverRequest.getCurrentWeather().then((response) => {
             this.setState({currentWeather: response});
-            console.log(response);
         }, (error) => {
             console.error(error);
         });
