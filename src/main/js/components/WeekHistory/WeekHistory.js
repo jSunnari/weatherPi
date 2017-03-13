@@ -4,12 +4,12 @@ import Graph from '../Graph/Graph';
 import { serverRequest } from '../../serverRequest';
 import { lineChartData, lineChartDataSingle } from '../../constants';
 
-export default class DayHistory extends Component {
+export default class WeekHistory extends Component {
 
     constructor(props){
         super(props);
         this.state = {
-            date: new Date(),
+            week: Moment(new Date()).week(),
             temperatureData: lineChartData,
             humidityData: lineChartData,
             pressureData: lineChartDataSingle
@@ -17,15 +17,8 @@ export default class DayHistory extends Component {
     }
 
     componentWillMount(){
-        console.log("const");
-        console.log(lineChartData);
-        console.log(Moment(this.state.date).format("YYYY-MM-DD"));
-        setTimeout(() => this.loadData("2017-01-01"), 2000);
-        //this.loadData("2017-01-01");
-    }
-
-    componentWillUnmount(){
-        console.log("unmount"); //Test
+        //this.loadData(this.state.date);
+        console.log(this.state.week);
     }
 
     loadData(date){
@@ -33,7 +26,7 @@ export default class DayHistory extends Component {
         let tempHumidityData = this.state.humidityData;
         let tempPressureData = this.state.pressureData;
 
-        let dateLabels = this.getLabels();
+        let dateLabels = WeekHistory.getLabels();
         tempTemperatureData.labels = dateLabels;
         tempHumidityData.labels = dateLabels;
         tempPressureData.labels = dateLabels;
@@ -63,22 +56,15 @@ export default class DayHistory extends Component {
     }
 
     getLabels(){
-        let dateLabels = [];
-        let date = new Date();
-        date.setHours(0,0,0,0);
-        for (let i = 0; i < 24; i++){
-            dateLabels.push(Moment(date).format("HH:mm"));
-            date.setHours(date.getHours() + 1);
-        }
-        return dateLabels;
+        return ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
     }
 
-    setPreviousDay(){
+    setPreviousWeek(){
         let previousDate = this.state.date.setDate(this.state.date.getDay() - 1);
         this.setState({date: previousDate})
     }
 
-    setNextDay(){
+    setNextWeek(){
         let previousDate = this.state.date.setDate(this.state.date.getDay() + 1);
         this.setState({date: previousDate})
     }
