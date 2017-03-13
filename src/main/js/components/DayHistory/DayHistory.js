@@ -2,24 +2,24 @@ import React, { Component } from 'react';
 import Moment from 'moment';
 import Graph from '../Graph/Graph';
 import { serverRequest } from '../../serverRequest';
-import { temperatureData, humidityData, lineChartDataSingle } from '../../constants';
+import { lineChartData, lineChartDataSingle } from '../../constants';
 
 export default class DayHistory extends Component {
 
     constructor(props){
         super(props);
         this.state = {
-            temperatureData: temperatureData,
-            humidityData: humidityData,
+            date: Moment(new Date()).format("YYYY-MM-DD"),
+            temperatureData: lineChartdata,
+            humidityData: lineChartData,
             pressureData: lineChartDataSingle
         }
     }
 
     componentWillMount(){
         console.log("const");
-        console.log(temperatureData);
-        let date = Moment(new Date()).format("YYYY-MM-DD");
-        console.log(date);
+        console.log(lineChartData);
+        console.log(this.state.date);
         setTimeout(() => this.loadData("2017-01-01"), 2000);
         //this.loadData("2017-01-01");
     }
@@ -29,37 +29,38 @@ export default class DayHistory extends Component {
     }
 
     loadData(date){
+        let tempTemperatureData = this.state.temperatureData;
+        let tempHumidityData = this.state.humidityData;
+        let tempPressureData = this.state.pressureData;
+
+        let dateLabels = this.getLabels();
+        tempTemperatureData.labels = dateLabels;
+        tempHumidityData.labels = dateLabels;
+        tempPressureData.labels = dateLabels;
+
         serverRequest.getTest(date).then((response) => {
             console.log(response);
-            response = response._embedded.weathers; //DEVMODE
+            response = response._embedded.weathers; //DEVMODE (remove later)
             console.log(response);
-            let tempData = this.state.temperatureData;
-            let humidityData = this.state.humidityData;
-            let pressureData = this.state.pressureData;
-            let dateLabels = this.getLabels();
-            temperatureData.labels = dateLabels;
-            humidityData.labels = dateLabels;
-            pressureData.labels = dateLabels;
 
             response.map((weather) => {
                 let index = weather.time.substring(0,2);
-                tempData.datasets[0].data.splice(index, 0, weather.insideTemperature);
-                temperatureData.datasets[1].data.splice(index, 0, weather.outsideTemperature);
 
-                humidityData.datasets[0].data.splice(index, 0, weather.insideHumidity);
-                humidityData.datasets[1].data.splice(index, 0, weather.outsideHumidity);
+                tempTemperatureData.datasets[0].data.splice(index, 0, weather.insideTemperature);
+                tempTemperatureData.datasets[1].data.splice(index, 0, weather.outsideTemperature);
 
-                pressureData.datasets[0].data.splice(index, 0, weather.outsidePressure);
+                tempHumidityData.datasets[0].data.splice(index, 0, weather.insideHumidity);
+                tempHumidityData.datasets[1].data.splice(index, 0, weather.outsideHumidity);
+
+                tempPressureData.datasets[0].data.splice(index, 0, weather.outsidePressure);
             });
 
-            this.setState({temperatureData: tempData, humidityData: humidityData, pressureData: pressureData});
+            this.setState({temperatureData: tempTemperatureData, humidityData: tempHumidityData, pressureData: tempPressureData});
 
         }, (error) => {
             console.error(error);
         });
-
     }
-
 
     getLabels(){
         let dateLabels = [];
@@ -72,14 +73,18 @@ export default class DayHistory extends Component {
         return dateLabels;
     }
 
-
     render(){
-
 
         return (
             <div id="graph-container">
+                <div>
+                    <p>{this.state.date}</p>
+                </div>
+                <p>Temperature</p>
                 <Graph lineChartData={this.state.temperatureData}/>
+                <p>Humidity</p>
                 <Graph lineChartData={this.state.humidityData}/>
+                <p>Pressure</p>
                 <Graph lineChartData={this.state.pressureData}/>
             </div>
         )
