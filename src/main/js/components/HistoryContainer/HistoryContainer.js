@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Graph from '../Graph/Graph';
+import DayHistory from '../DayHistory/DayHistory';
+import "./HistoryContainer.scss";
 
 let tabList = [
     {id: 0, title: "Day", active: true},
@@ -35,13 +36,17 @@ export default class History extends Component {
     }
 
     render() {
+
+        let activePage = <DayHistory />;
+        //Beroende på vilken page som är aktiv
+
         return (
             <div id="history-container">
                 <div id="history-navbar">
                     {this.renderTabs()}
                 </div>
 
-                <Graph/>
+                {activePage}
 
             </div>
         )

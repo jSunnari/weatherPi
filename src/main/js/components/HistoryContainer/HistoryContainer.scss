@@ -1,5 +1,9 @@
 @import "../../variables";
 
+#app-root {
+  height: 100%
+}
+
 #history-container {
   display: flex;
   flex-direction: column;
@@ -26,6 +30,5 @@
       background-color: rgba(102,164,172, .8);
 
     }
-
   }
 }

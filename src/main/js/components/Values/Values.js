@@ -18,10 +18,12 @@ export default class Values extends Component {
     }
 
     componentWillMount(){
-        this.loadCurrentWeather();
-        this.loadCurrentWeatherInterval = setInterval(() => this.loadCurrentWeather(), 15000);
+        //DEVMODE
 
-         /*
+        //this.loadCurrentWeather();
+        //this.loadCurrentWeatherInterval = setInterval(() => this.loadCurrentWeather(), 15000);
+
+
         let currentWeather = {
             outdoorMaxHum: 100,
             outdoorPressure: 1000,
@@ -44,10 +46,8 @@ export default class Values extends Component {
             outdoorMinPressure: 999,
             indoorMaxTemp: 25.3
         };
-
-
         this.setState({currentWeather: currentWeather});
-          */
+
     }
 
     componentWillUnmount(){

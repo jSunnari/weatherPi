@@ -9,6 +9,10 @@ const apiUrl = "/api/weather";
 
 class ServerRequest {
 
+    getTest(date){
+        return defaultServerRequest("/api/weather/search/findByDate?date=" + date);
+    }
+
     getCurrentWeather(){
         return defaultServerRequest(apiUrl + "/current");
     }
