@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Moment from 'moment';
+import moment from 'moment';
 import Graph from '../Graph/Graph';
 import { serverRequest } from '../../serverRequest';
 import { lineChartData, lineChartDataSingle } from '../../constants';
@@ -9,7 +9,7 @@ export default class DayHistory extends Component {
     constructor(props){
         super(props);
         this.state = {
-            date: new Date(),
+            date: moment().format("YYYY-MM-DD"),
             temperatureData: lineChartData,
             humidityData: lineChartData,
             pressureData: lineChartDataSingle
@@ -19,7 +19,7 @@ export default class DayHistory extends Component {
     componentWillMount(){
         console.log("const");
         console.log(lineChartData);
-        console.log(Moment(this.state.date).format("YYYY-MM-DD"));
+        console.log(this.state.date);
         setTimeout(() => this.loadData("2017-01-01"), 2000);
         //this.loadData("2017-01-01");
     }
@@ -64,10 +64,11 @@ export default class DayHistory extends Component {
 
     getLabels(){
         let dateLabels = [];
-        let date = new Date();
+        let date = moment().format("HH:mm");
         date.setHours(0,0,0,0);
         for (let i = 0; i < 24; i++){
-            dateLabels.push(Moment(date).format("HH:mm"));
+            dateLabels.push(date);
+            moment.add('hours', 1);
             date.setHours(date.getHours() + 1);
         }
         return dateLabels;
