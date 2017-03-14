@@ -31,4 +31,39 @@
 
     }
   }
+
+  .history-header {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 1em;
+
+    span {
+      @extend .history-arrow;
+    }
+
+    .history-arrow {
+      width: 1.3em;
+      height: 1.3em;
+      padding-left: 1em;
+      padding-right: 1em;
+    }
+
+    p {
+      font-family: $font-family-main;
+      font-weight: $font-weight-main;
+      color: $white;
+      margin: 0;
+    }
+  }
+
+  .graph-header {
+    text-align: center;
+    margin-bottom: .3em;
+    font-size: 1.3em;
+    color: $white;
+    font-family: $font-family-main;
+    font-weight: $font-weight-main;
+  }
+
+
 }

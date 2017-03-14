@@ -2,25 +2,23 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import Graph from '../Graph/Graph';
 import { serverRequest } from '../../serverRequest';
-import { lineChartData, lineChartDataSingle } from '../../constants';
+import { temperatureData, humidityData, lineChartDataSingle } from '../../constants';
 
 export default class DayHistory extends Component {
 
     constructor(props){
         super(props);
         this.state = {
-            date: moment().format("YYYY-MM-DD"),
-            temperatureData: lineChartData,
-            humidityData: lineChartData,
-            pressureData: lineChartDataSingle
+            day: moment(),
+
         }
     }
 
     componentWillMount(){
         console.log("const");
-        console.log(lineChartData);
-        console.log(this.state.date);
-        setTimeout(() => this.loadData("2017-01-01"), 2000);
+        console.log(temperatureData);
+        //console.log(this.state.day.format("YYYY-MM-DD"));
+        this.loadData("2017-01-02");
         //this.loadData("2017-01-01");
     }
 
@@ -29,9 +27,9 @@ export default class DayHistory extends Component {
     }
 
     loadData(date){
-        let tempTemperatureData = this.state.temperatureData;
-        let tempHumidityData = this.state.humidityData;
-        let tempPressureData = this.state.pressureData;
+        let tempTemperatureData = temperatureData;
+        let tempHumidityData = humidityData;
+        let tempPressureData = lineChartDataSingle;
 
         let dateLabels = this.getLabels();
         tempTemperatureData.labels = dateLabels;
@@ -39,9 +37,9 @@ export default class DayHistory extends Component {
         tempPressureData.labels = dateLabels;
 
         serverRequest.getTest(date).then((response) => {
-            console.log(response);
+            //console.log(response);
             response = response._embedded.weathers; //DEVMODE (remove later)
-            console.log(response);
+            //console.log(response);
 
             response.map((weather) => {
                 let index = weather.time.substring(0,2);
@@ -64,45 +62,45 @@ export default class DayHistory extends Component {
 
     getLabels(){
         let dateLabels = [];
-        let date = moment().format("HH:mm");
-        date.setHours(0,0,0,0);
+        let date = moment().startOf('day');
         for (let i = 0; i < 24; i++){
-            dateLabels.push(date);
-            moment.add('hours', 1);
-            date.setHours(date.getHours() + 1);
+            dateLabels.push(date.format("HH:mm"));
+            date.add(1, 'hour');
         }
         return dateLabels;
     }
 
     setPreviousDay(){
-        let previousDate = this.state.date.setDate(this.state.date.getDay() - 1);
-        this.setState({date: previousDate})
+        this.setState({day: this.state.day.subtract(1, 'day')});
+        //this.loadData(this.state.day.format("YYYY-MM-DD"));
+        this.loadData("2017-01-01");
     }
 
     setNextDay(){
-        let previousDate = this.state.date.setDate(this.state.date.getDay() + 1);
-        this.setState({date: previousDate})
+        let nextDay = this.state.day.add(1, 'day');
+        this.setState({day: nextDay})
     }
 
-    isCurrentDate(date){
-        let today = new Date();
-        return today.getDay() === date.getDay();
+    isCurrentDate(){
+        let today = moment();
+        return today.format("YYYY-MM-DD") === this.state.day.format("YYYY-MM-DD");
     }
 
     render(){
-
+        console.log("const");
+        console.log(temperatureData);
         return (
             <div id="graph-container">
-                <div>
-                    <img src="" alt="previousDayArrow" onClick={() => this.setPreviousDay()}/>
-                    <p>{Moment(this.state.date).format("YYYY-MM-DD")}</p>
-                    {this.isCurrentDate() ? <img src="" alt="nextDayArrow" onClick={() => this.setNextDay()}/>: null}
+                <div className="history-header">
+                    <img className="history-arrow" src="/img/arrow-left.png" alt="previousDayArrow" onClick={() => this.setPreviousDay()}/>
+                    <p>{this.state.day.format("YYYY-MM-DD")}</p>
+                    {this.isCurrentDate() ? <span /> : <img className="history-arrow" src="/img/arrow-right.png" alt="nextDayArrow" onClick={() => this.setNextDay()}/>}
                 </div>
-                <p>Temperature</p>
+                <p className="graph-header">Temperature</p>
                 <Graph lineChartData={this.state.temperatureData}/>
-                <p>Humidity</p>
+                <p className="graph-header">Humidity</p>
                 <Graph lineChartData={this.state.humidityData}/>
-                <p>Pressure</p>
+                <p className="graph-header">Pressure</p>
                 <Graph lineChartData={this.state.pressureData}/>
             </div>
         )
