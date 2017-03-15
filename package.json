@@ -1,14 +1,14 @@
 {
   "name": "weatherPi",
   "version": "0.1.0",
-  "description": "Demo of ReactJS + Spring Data REST",
+  "description": "Raspberry Pi - Weather Station",
   "repository": {
     "type": "git",
     "url": ""
   },
   "keywords": [
     "rest",
-    "hateoas",
+    "react",
     "spring",
     "data",
     "react"
@@ -23,10 +23,11 @@
     "react-chartjs-2": "^2.0.5",
     "react-dom": "^15.3.2",
     "react-responsive": "^1.2.6",
+    "react-router": "^4.0.0",
     "react-weathericons": "^1.0.3",
     "rest": "^1.3.1",
     "superagent": "^3.5.0",
-    "webpack": "^1.12.2"
+    "webpack": "^2.0.0"
   },
   "scripts": {
     "watch": "webpack --watch -d"
@@ -39,6 +40,9 @@
     "babel-polyfill": "^6.16.0",
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-react": "^6.22.0",
-    "babel-register": "^6.22.0"
+    "babel-register": "^6.22.0",
+    "css-loader": "^0.27.3",
+    "sass-loader": "^6.0.3",
+    "style-loader": "^0.13.2"
   }
 }

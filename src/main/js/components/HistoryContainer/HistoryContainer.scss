@@ -19,51 +19,68 @@
       margin: 0;
       padding-top: .5em;
       padding-bottom: .5em;
-      border-radius: 0 1em 0 0;
       width: 25%;
       font-family: $font-family-main;
       font-weight: $font-weight-main;
       color: $white;
     }
 
+    #day-tab {
+      border-radius: 1.5em 0 0 0;
+    }
+
+    #year-tab {
+      border-radius: 0 1.5em 0 0;
+    }
+
     .active-tab {
       background-color: rgba(102,164,172, .8);
-
     }
   }
 
   .history-header {
     display: flex;
-    justify-content: space-around;
-    margin-top: 1em;
+    justify-content: center;
+    padding-top: .8em;
+    background: linear-gradient(transparent, rgba(0,0,0,.1));
+    border-bottom: 2px solid;
+    border-color: rgba(102, 164, 172, 0.3);
+    border-bottom-right-radius: 2em;
+    border-bottom-left-radius: 2em;
+    padding-bottom: .2em;
 
     span {
       @extend .history-arrow;
     }
 
     .history-arrow {
-      width: 1.3em;
-      height: 1.3em;
-      padding-left: 1em;
-      padding-right: 1em;
+      width: 1em;
+      height: 1em;
+      padding-left: .6em;
+      padding-right: .6em;
+      align-self: center;
     }
 
     p {
       font-family: $font-family-main;
       font-weight: $font-weight-main;
+      font-size: 1.1em;
       color: $white;
       margin: 0;
     }
   }
 
+  .history-graph-container {
+      overflow: scroll;
+  }
+
   .graph-header {
     text-align: center;
-    margin-bottom: .3em;
+    margin-bottom: 0;
     font-size: 1.3em;
     color: $white;
     font-family: $font-family-main;
     font-weight: $font-weight-main;
   }
-
 
 }

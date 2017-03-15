@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Line, defaults } from 'react-chartjs-2'; //https://github.com/gor181/react-chartjs-2
-import { lineChartDataSingle, lineChartOptions } from '../../constants';
+import { lineChartOptions } from '../../constants';
+import './Graph.scss';
 
 export default class Graph extends Component {
 
     constructor(props){
         super(props);
-        defaults.global.defaultFontColor = "rgba(255,255,255,.8)";
+        defaults.global.defaultFontColor = "rgba(255,255,255, 1)";
     }
 
     componentWillMount(){
@@ -15,7 +16,7 @@ export default class Graph extends Component {
 
     render() {
         return (
-            <div id="graph-container">
+            <div className="graph-container">
                 <Line
                     data={this.props.lineChartData}
                     height={250}

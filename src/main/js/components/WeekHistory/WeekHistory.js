@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Moment from 'moment';
+import moment from 'moment';
 import Graph from '../Graph/Graph';
 import { serverRequest } from '../../serverRequest';
 import { lineChartData, lineChartDataSingle } from '../../constants';
@@ -9,35 +9,30 @@ export default class WeekHistory extends Component {
     constructor(props){
         super(props);
         this.state = {
-            week: Moment(new Date()).week(),
-            temperatureData: lineChartData,
-            humidityData: lineChartData,
-            pressureData: lineChartDataSingle
+            date: moment()
         }
     }
 
     componentWillMount(){
-        //this.loadData(this.state.date);
-        console.log(this.state.week);
+        console.log(this.state.date.year(), this.state.date.week());
+        this.loadData(this.state.date.year(), this.state.date.week());
     }
 
-    loadData(date){
-        let tempTemperatureData = this.state.temperatureData;
-        let tempHumidityData = this.state.humidityData;
-        let tempPressureData = this.state.pressureData;
+    loadData(year, week){
+        let tempTemperatureData = JSON.parse(JSON.stringify(lineChartData));
+        let tempHumidityData = JSON.parse(JSON.stringify(lineChartData));
+        let tempPressureData = JSON.parse(JSON.stringify(lineChartDataSingle));
 
-        let dateLabels = WeekHistory.getLabels();
+        let dateLabels = this.getLabels();
         tempTemperatureData.labels = dateLabels;
         tempHumidityData.labels = dateLabels;
         tempPressureData.labels = dateLabels;
 
-        serverRequest.getTest(date).then((response) => {
-            console.log(response);
-            response = response._embedded.weathers; //DEVMODE (remove later)
+        serverRequest.getWeatherByWeek(year, week).then((response) => {
             console.log(response);
 
             response.map((weather) => {
-                let index = weather.time.substring(0,2);
+                let index = weather.time.substring(0,2); // by day instead ---------------------------------------------
 
                 tempTemperatureData.datasets[0].data.splice(index, 0, weather.insideTemperature);
                 tempTemperatureData.datasets[1].data.splice(index, 0, weather.outsideTemperature);
@@ -69,8 +64,8 @@ export default class WeekHistory extends Component {
         this.setState({date: previousDate})
     }
 
-    isCurrentDate(date){
-        let today = new Date();
+    isCurrentWeek(date){
+        let today = moment();
         return today.getDay() === date.getDay();
     }
 
