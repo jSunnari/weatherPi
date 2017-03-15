@@ -3,6 +3,7 @@ import moment from 'moment';
 import Graph from '../Graph/Graph';
 import { serverRequest } from '../../serverRequest';
 import { lineChartData, lineChartDataSingle } from '../../constants';
+import './DayHistory.scss';
 
 export default class DayHistory extends Component {
 
@@ -22,6 +23,12 @@ export default class DayHistory extends Component {
         //console.log(this.state.date.format("YYYY-MM-DD"));
         this.loadData(this.state.date.format("YYYY-MM-DD"));
         //this.loadData("2017-01-01");
+    }
+
+    componentDidMount(){
+        const node = this.temperatureHeader;
+        console.log(this.temperatureHeader);
+        node.scrollIntoView();
     }
 
     componentWillUnmount(){
@@ -98,7 +105,7 @@ export default class DayHistory extends Component {
                     <p>{this.state.date.format("YYYY-MM-DD")}</p>
                     {this.isCurrentDate() ? <span /> : <img className="history-arrow" src="/img/chevron-right-icon.png" alt="nextDayArrow" onClick={() => this.setNextDay()}/>}
                 </div>
-                <p className="graph-header">Temperature</p>
+                <p className="graph-header" ref={(el) => { this.temperatureHeader = el; }}>Temperature</p>
                 <Graph lineChartData={this.state.temperatureData}/>
                 <p className="graph-header">Humidity</p>
                 <Graph lineChartData={this.state.humidityData}/>
