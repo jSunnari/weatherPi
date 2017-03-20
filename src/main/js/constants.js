@@ -24,7 +24,7 @@ export const lineChartData = {
     datasets: [
         {
             label: "Indoor",
-            fill: false,
+            fill: true,
             lineTension: 0.3,
             borderWidth: 2,
             borderColor: "rgba(122, 189, 192, .8)",
@@ -40,11 +40,11 @@ export const lineChartData = {
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
-            data: new Array(24),
+            data: new Array(24)
         },
         {
             label: "Outdoor",
-            fill: false,
+            fill: true,
             lineTension: 0.3,
             borderWidth: 2,
             borderColor: "rgba(96,135,179, .8)",
@@ -60,7 +60,7 @@ export const lineChartData = {
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
-            data: new Array(24),
+            data: new Array(24)
         }
     ]
 };

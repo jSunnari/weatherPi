@@ -3,6 +3,7 @@ import moment from 'moment';
 import Graph from '../Graph/Graph';
 import { serverRequest } from '../../serverRequest';
 import { lineChartData, lineChartDataSingle } from '../../constants';
+
 import './DayHistory.scss';
 
 export default class DayHistory extends Component {
@@ -11,9 +12,9 @@ export default class DayHistory extends Component {
         super(props);
         this.state = {
             date: moment(),
-            //temperatureData: lineChartData,
-            //humidityData: lineChartData,
-            //pressureData: lineChartDataSingle
+            temperatureData: lineChartData,
+            humidityData: lineChartData,
+            pressureData: lineChartDataSingle
         }
     }
 
@@ -35,10 +36,21 @@ export default class DayHistory extends Component {
         console.log("unmount"); //Test
     }
 
+    clearData(){
+        this.state.temperatureData.labels = [];
+        this.state.temperatureData.datasets.data = new Array(24);
+        this.state.humidityData.labels = [];
+        this.state.humidityData.datasets.data = new Array(24);
+        this.state.pressureData.labels = [];
+        this.state.pressureData.datasets.data = new Array(24);
+    }
+
     loadData(day){
-        let tempTemperatureData = JSON.parse(JSON.stringify(lineChartData));
-        let tempHumidityData = JSON.parse(JSON.stringify(lineChartData));
-        let tempPressureData = JSON.parse(JSON.stringify(lineChartDataSingle));
+        //this.clearData();
+
+        let tempTemperatureData = JSON.parse(JSON.stringify(this.state.temperatureData));
+        let tempHumidityData = JSON.parse(JSON.stringify(this.state.humidityData));
+        let tempPressureData = JSON.parse(JSON.stringify(this.state.pressureData));
 
         let dateLabels = this.getLabels();
         tempTemperatureData.labels = dateLabels;
@@ -87,7 +99,6 @@ export default class DayHistory extends Component {
     setNextDay(){
         this.setState({day: this.state.date.add(1, 'day')});
         this.loadData(this.state.date.format("YYYY-MM-DD"));
-
     }
 
     isCurrentDate(){
@@ -96,8 +107,29 @@ export default class DayHistory extends Component {
     }
 
     render(){
-        console.log("const");
-        console.log(this.state.temperatureData);
+        const temperatureData = (canvas) => {
+            console.log(canvas);
+            let indoorGradient = canvas.getContext("2d").createLinearGradient(0, 0, 0, 115);
+            let outdoorGradient = canvas.getContext("2d").createLinearGradient(0, 0, 0, 115);
+            indoorGradient.addColorStop(0, 'rgba(122, 189, 192, 1)');
+            indoorGradient.addColorStop(1, 'rgba(122, 189, 192, 0)');
+            outdoorGradient.addColorStop(0, 'rgba(96, 135, 179, 1)');
+            outdoorGradient.addColorStop(1, 'rgba(96, 135, 179, 0)');
+            this.state.temperatureData.datasets[0].backgroundColor = indoorGradient;
+            this.state.temperatureData.datasets[1].backgroundColor = outdoorGradient;
+          return (this.state.temperatureData)
+        };
+
+        const humidityData = (canvas) => {
+            console.log(canvas);
+            return (this.state.humidityData)
+        };
+
+        const pressureData = (canvas) => {
+            console.log(canvas);
+            return (this.state.pressureData)
+        };
+
         return (
             <div className="history-graph-container">
                 <div className="history-header">
@@ -106,7 +138,7 @@ export default class DayHistory extends Component {
                     {this.isCurrentDate() ? <span /> : <img className="history-arrow" src="/img/chevron-right-icon.png" alt="nextDayArrow" onClick={() => this.setNextDay()}/>}
                 </div>
                 <p className="graph-header" ref={(el) => { this.temperatureHeader = el; }}>Temperature</p>
-                <Graph lineChartData={this.state.temperatureData}/>
+                <Graph lineChartData={temperatureData}/>
                 <p className="graph-header">Humidity</p>
                 <Graph lineChartData={this.state.humidityData}/>
                 <p className="graph-header">Pressure</p>
