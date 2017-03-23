@@ -109,6 +109,11 @@ export default class DayHistory extends Component {
     render(){
         const temperatureData = (canvas) => {
             console.log(canvas);
+            let minIndoorTemperature = Math.min.apply(null, this.state.temperatureData.datasets[0].data);
+            let maxIndoorTemperature = Math.max.apply(null, this.state.temperatureData.datasets[0].data);
+
+            console.log(this.temperatureChart);
+
             let indoorGradient = canvas.getContext("2d").createLinearGradient(0, 0, 0, 120);
             let outdoorGradient = canvas.getContext("2d").createLinearGradient(0, 50, 0, 220);
             indoorGradient.addColorStop(0, 'rgba(122, 189, 192, 1)');
@@ -148,7 +153,7 @@ export default class DayHistory extends Component {
                     {this.isCurrentDate() ? <span /> : <img className="history-arrow" src="/img/chevron-right-icon.png" alt="nextDayArrow" onClick={() => this.setNextDay()}/>}
                 </div>
                 <p className="graph-header" ref={(el) => { this.temperatureHeader = el; }}>Temperature</p>
-                <Graph lineChartData={temperatureData}/>
+                <Graph lineChartData={temperatureData} ref={(el) => { this.temperatureChart = el; }}/>
                 <p className="graph-header">Humidity</p>
                 <Graph lineChartData={humidityData}/>
                 <p className="graph-header">Pressure</p>
