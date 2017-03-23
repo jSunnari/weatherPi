@@ -15,6 +15,11 @@ export const lineChartOptions = {
                     }
                 });
             }
+        }],
+        yAxes: [{
+            ticks: {
+                beginAtZero: false
+            }
         }]
     }
 };
@@ -24,7 +29,7 @@ export const lineChartData = {
     datasets: [
         {
             label: "Indoor",
-            fill: true,
+            fill: "bottom",
             lineTension: 0.3,
             borderWidth: 2,
             borderColor: "rgba(122, 189, 192, .8)",
@@ -44,7 +49,7 @@ export const lineChartData = {
         },
         {
             label: "Outdoor",
-            fill: true,
+            fill: "bottom",
             lineTension: 0.3,
             borderWidth: 2,
             borderColor: "rgba(96,135,179, .8)",
@@ -70,7 +75,7 @@ export const lineChartDataSingle = {
     datasets: [
         {
             label: "Outdoor",
-            fill: false,
+            fill: true,
             lineTension: 0.3,
             borderWidth: 2,
             borderColor: "rgba(96,135,179, .8)",

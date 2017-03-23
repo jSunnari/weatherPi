@@ -8,10 +8,11 @@ export default class Graph extends Component {
     constructor(props){
         super(props);
         defaults.global.defaultFontColor = "rgba(255,255,255, 1)";
+        defaults.global.elements.line.fill = "top";
     }
 
     componentWillMount(){
-
+        console.log(defaults.global);
     }
 
     render() {

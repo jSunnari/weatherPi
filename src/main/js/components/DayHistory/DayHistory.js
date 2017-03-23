@@ -12,8 +12,8 @@ export default class DayHistory extends Component {
         super(props);
         this.state = {
             date: moment(),
-            temperatureData: lineChartData,
-            humidityData: lineChartData,
+            temperatureData: JSON.parse(JSON.stringify(lineChartData)),
+            humidityData: JSON.parse(JSON.stringify(lineChartData)),
             pressureData: lineChartDataSingle
         }
     }
@@ -48,8 +48,8 @@ export default class DayHistory extends Component {
     loadData(day){
         //this.clearData();
 
-        let tempTemperatureData = JSON.parse(JSON.stringify(this.state.temperatureData));
-        let tempHumidityData = JSON.parse(JSON.stringify(this.state.humidityData));
+        let tempTemperatureData = this.state.temperatureData;
+        let tempHumidityData = this.state.humidityData
         let tempPressureData = JSON.parse(JSON.stringify(this.state.pressureData));
 
         let dateLabels = this.getLabels();
@@ -109,12 +109,13 @@ export default class DayHistory extends Component {
     render(){
         const temperatureData = (canvas) => {
             console.log(canvas);
-            let indoorGradient = canvas.getContext("2d").createLinearGradient(0, 0, 0, 115);
-            let outdoorGradient = canvas.getContext("2d").createLinearGradient(0, 0, 0, 115);
+            let indoorGradient = canvas.getContext("2d").createLinearGradient(0, 0, 0, 120);
+            let outdoorGradient = canvas.getContext("2d").createLinearGradient(0, 50, 0, 220);
             indoorGradient.addColorStop(0, 'rgba(122, 189, 192, 1)');
             indoorGradient.addColorStop(1, 'rgba(122, 189, 192, 0)');
             outdoorGradient.addColorStop(0, 'rgba(96, 135, 179, 1)');
             outdoorGradient.addColorStop(1, 'rgba(96, 135, 179, 0)');
+
             this.state.temperatureData.datasets[0].backgroundColor = indoorGradient;
             this.state.temperatureData.datasets[1].backgroundColor = outdoorGradient;
           return (this.state.temperatureData)
@@ -122,6 +123,15 @@ export default class DayHistory extends Component {
 
         const humidityData = (canvas) => {
             console.log(canvas);
+            let indoorGradient = canvas.getContext("2d").createLinearGradient(0, 150, 0, 220);
+            let outdoorGradient = canvas.getContext("2d").createLinearGradient(0, 0, 0, 110);
+            indoorGradient.addColorStop(0, 'rgba(122, 189, 192, 1)');
+            indoorGradient.addColorStop(1, 'rgba(122, 189, 192, 0)');
+            outdoorGradient.addColorStop(0, 'rgba(96, 135, 179, 1)');
+            outdoorGradient.addColorStop(1, 'rgba(96, 135, 179, 0)');
+
+            this.state.humidityData.datasets[0].backgroundColor = indoorGradient;
+            this.state.humidityData.datasets[1].backgroundColor = outdoorGradient;
             return (this.state.humidityData)
         };
 
@@ -140,7 +150,7 @@ export default class DayHistory extends Component {
                 <p className="graph-header" ref={(el) => { this.temperatureHeader = el; }}>Temperature</p>
                 <Graph lineChartData={temperatureData}/>
                 <p className="graph-header">Humidity</p>
-                <Graph lineChartData={this.state.humidityData}/>
+                <Graph lineChartData={humidityData}/>
                 <p className="graph-header">Pressure</p>
                 <Graph lineChartData={this.state.pressureData}/>
             </div>
