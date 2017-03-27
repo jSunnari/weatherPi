@@ -5,4 +5,4 @@ Connected weatherstation built with a Raspberry Pi running Java, saving the weat
 ![structure](https://dl.dropboxusercontent.com/u/6055409/weatherPi_system-architecture.png)
 
 **Testing the hardware:**
-![hardware](https://dl.dropboxusercontent.com/u/6055409/weatherPi-1.jpg)
+![hardware](https://cloud.githubusercontent.com/assets/15261370/24346477/cf2d3c60-12d4-11e7-9671-0a8aaab4f995.jpg)
