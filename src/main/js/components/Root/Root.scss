@@ -2,8 +2,8 @@
 
 #app-root {
   width: 100vw;
-  //height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: $dark-turquoise;
+  background: linear-gradient(to right, rgba(0,59,69,1) 0%,rgba(7,87,91,1) 50%,rgba(0,59,69,1) 100%);
 }

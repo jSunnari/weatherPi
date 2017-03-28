@@ -1,81 +1,12 @@
+/*
 @media only screen and (orientation: landscape) {
   #app-root {
-    height: 100%; } }
-#currentvalue-container {
-  display: flex;
-  flex: 1 1 auto;
-  padding-bottom: 1.5em; }
-  #currentvalue-container #value-icon-container {
-    display: flex;
-    align-items: center;
-    width: 20%; }
-    #currentvalue-container #value-icon-container #value-icon {
-      color: white;
-      margin: auto;
-      font-size: 1.3em; }
-  #currentvalue-container #values {
-    margin: auto;
-    width: 60%;
-    display: flex;
-    flex-direction: column;
-    align-items: center; }
-    #currentvalue-container #values #currentvalue {
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-      font-weight: 300;
-      color: #ffffff;
-      font-size: 2em;
-      margin: 0; }
-    #currentvalue-container #values #minmax-container {
-      display: flex;
-      opacity: .8; }
-      #currentvalue-container #values #minmax-container .minmax-icon {
-        color: white;
-        margin-right: .2em; }
-      #currentvalue-container #values #minmax-container #max-value-icon {
-        margin-left: 1em; }
-      #currentvalue-container #values #minmax-container .minmax-value {
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-        font-weight: 300;
-        color: #ffffff;
-        font-size: 1em;
-        margin: 0; }
-  #currentvalue-container #arrow-icon-container {
-    display: flex;
-    align-items: center;
-    width: 20%; }
-    #currentvalue-container #arrow-icon-container #arrow-icon {
-      color: white;
-      margin: auto;
-      font-size: 2em; }
-
-@media only screen and (orientation: landscape) {
-  #app-root {
-    height: 100%; } }
-#value-container {
-  display: flex;
-  flex-direction: column;
-  height: 100%; }
-  #value-container .location-header {
-    font-size: 1em;
-    opacity: .8;
-    margin-top: .4em;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-weight: 300;
-    color: white;
-    text-align: center; }
-  #value-container #indoor-values-container {
-    background-color: #07575b;
-    flex-grow: 1; }
-
-#graph-container {
-  padding-left: .3em;
-  padding-right: .3em; }
-
-@media only screen and (orientation: landscape) {
-  #app-root {
-    height: 100%; } }
+    height: 100%;
+  }
+}
+*/
 #header-container {
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   min-height: 3em; }
   #header-container #header {
@@ -99,9 +30,13 @@
     left: 0.3em;
     top: 0.9em; }
 
+/*
 @media only screen and (orientation: landscape) {
   #app-root {
-    height: 100%; } }
+    height: 100%;
+  }
+}
+*/
 html {
   -webkit-font-smoothing: antialiased; }
 

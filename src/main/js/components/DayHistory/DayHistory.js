@@ -126,11 +126,11 @@ export default class DayHistory extends Component {
                             {this.isCurrentDate() ? <span /> : <img className="history-arrow" src="/img/chevron-right-icon.png" alt="nextDayArrow" onClick={() => this.setNextDay()}/>}
                         </div>
                     </Sticky>
-                    <p className="graph-header">Temperature</p>
+                    <p className="graph-header">TEMPERATURE</p>
                     <Graph lineChartData={this.state.temperatureData} lineChartOptions={temperatureChartOptions} />
-                    <p className="graph-header">Humidity</p>
+                    <p className="graph-header">HUMIDITY</p>
                     <Graph lineChartData={this.state.humidityData} lineChartOptions={humidityChartOptions}/>
-                    <p className="graph-header">Pressure</p>
+                    <p className="graph-header">PRESSURE</p>
                     <Graph lineChartData={this.state.pressureData} lineChartOptions={pressureChartOptions}/>
                 </div>
             </StickyContainer>
