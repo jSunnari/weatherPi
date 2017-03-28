@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import CurrentValue from '../CurrentValue/CurrentValue';
 import { serverRequest } from '../../serverRequest';
 
+import './Values.scss';
+
 export default class Values extends Component {
 
     constructor(props){

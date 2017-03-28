@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import moment from 'moment';
 import Graph from '../Graph/Graph';
 import { serverRequest } from '../../serverRequest';
-import { lineChartData, lineChartDataSingle } from '../../constants';
+import { temperatureChartData, humidityChartData, pressureChartData, temperatureChartOptions, humidityChartOptions, pressureChartOptions} from '../../constants';
+import { StickyContainer, Sticky } from 'react-sticky';
 
 import './DayHistory.scss';
 
@@ -10,30 +12,31 @@ export default class DayHistory extends Component {
 
     constructor(props){
         super(props);
+
         this.state = {
             date: moment(),
-            temperatureData: JSON.parse(JSON.stringify(lineChartData)),
-            humidityData: JSON.parse(JSON.stringify(lineChartData)),
-            pressureData: lineChartDataSingle
+            temperatureData: JSON.parse(JSON.stringify(temperatureChartData)),
+            humidityData: JSON.parse(JSON.stringify(humidityChartData)),
+            pressureData: JSON.parse(JSON.stringify(pressureChartData))
         }
+
     }
 
     componentWillMount(){
-        console.log("const");
-        console.log(this.state.temperatureData);
         //console.log(this.state.date.format("YYYY-MM-DD"));
-        this.loadData(this.state.date.format("YYYY-MM-DD"));
         //this.loadData("2017-01-01");
+        this.loadData(this.state.date.format("YYYY-MM-DD"));
+
     }
 
     componentDidMount(){
-        const node = this.temperatureHeader;
-        console.log(this.temperatureHeader);
-        node.scrollIntoView();
+
     }
 
     componentWillUnmount(){
         console.log("unmount"); //Test
+        ReactDOM.findDOMNode(this.header).removeEventListener('scroll', this.handleScroll);
+
     }
 
     clearData(){
@@ -48,9 +51,9 @@ export default class DayHistory extends Component {
     loadData(day){
         //this.clearData();
 
-        let tempTemperatureData = this.state.temperatureData;
-        let tempHumidityData = this.state.humidityData
-        let tempPressureData = JSON.parse(JSON.stringify(this.state.pressureData));
+        let tempTemperatureData = JSON.parse(JSON.stringify(temperatureChartData));
+        let tempHumidityData = JSON.parse(JSON.stringify(humidityChartData));
+        let tempPressureData = JSON.parse(JSON.stringify(pressureChartData));
 
         let dateLabels = this.getLabels();
         tempTemperatureData.labels = dateLabels;
@@ -68,13 +71,18 @@ export default class DayHistory extends Component {
                 tempTemperatureData.datasets[0].data.splice(index, 1, weather.insideTemperature);
                 tempTemperatureData.datasets[1].data.splice(index, 1, weather.outsideTemperature);
 
-                tempHumidityData.datasets[0].data.splice(index, 1, weather.insideHumidity);
-                tempHumidityData.datasets[1].data.splice(index, 1, weather.outsideHumidity);
+                tempHumidityData.datasets[0].data.splice(index, 1, weather.outsideHumidity);
+                tempHumidityData.datasets[1].data.splice(index, 1, weather.insideHumidity);
 
                 tempPressureData.datasets[0].data.splice(index, 1, weather.outsidePressure);
             });
 
-            this.setState({temperatureData: tempTemperatureData, humidityData: tempHumidityData, pressureData: tempPressureData});
+
+            this.setState({
+                temperatureData: tempTemperatureData,
+                humidityData: tempHumidityData,
+                pressureData: tempPressureData
+            });
 
         }, (error) => {
             console.error(error);
@@ -107,58 +115,25 @@ export default class DayHistory extends Component {
     }
 
     render(){
-        const temperatureData = (canvas) => {
-            console.log(canvas);
-            let minIndoorTemperature = Math.min.apply(null, this.state.temperatureData.datasets[0].data);
-            let maxIndoorTemperature = Math.max.apply(null, this.state.temperatureData.datasets[0].data);
-
-            console.log(this.temperatureChart);
-
-            let indoorGradient = canvas.getContext("2d").createLinearGradient(0, 0, 0, 120);
-            let outdoorGradient = canvas.getContext("2d").createLinearGradient(0, 50, 0, 220);
-            indoorGradient.addColorStop(0, 'rgba(122, 189, 192, 1)');
-            indoorGradient.addColorStop(1, 'rgba(122, 189, 192, 0)');
-            outdoorGradient.addColorStop(0, 'rgba(96, 135, 179, 1)');
-            outdoorGradient.addColorStop(1, 'rgba(96, 135, 179, 0)');
-
-            this.state.temperatureData.datasets[0].backgroundColor = indoorGradient;
-            this.state.temperatureData.datasets[1].backgroundColor = outdoorGradient;
-          return (this.state.temperatureData)
-        };
-
-        const humidityData = (canvas) => {
-            console.log(canvas);
-            let indoorGradient = canvas.getContext("2d").createLinearGradient(0, 150, 0, 220);
-            let outdoorGradient = canvas.getContext("2d").createLinearGradient(0, 0, 0, 110);
-            indoorGradient.addColorStop(0, 'rgba(122, 189, 192, 1)');
-            indoorGradient.addColorStop(1, 'rgba(122, 189, 192, 0)');
-            outdoorGradient.addColorStop(0, 'rgba(96, 135, 179, 1)');
-            outdoorGradient.addColorStop(1, 'rgba(96, 135, 179, 0)');
-
-            this.state.humidityData.datasets[0].backgroundColor = indoorGradient;
-            this.state.humidityData.datasets[1].backgroundColor = outdoorGradient;
-            return (this.state.humidityData)
-        };
-
-        const pressureData = (canvas) => {
-            console.log(canvas);
-            return (this.state.pressureData)
-        };
 
         return (
-            <div className="history-graph-container">
-                <div className="history-header">
-                    <img className="history-arrow" src="/img/chevron-left-icon.png" alt="previousDayArrow" onClick={() => this.setPreviousDay()}/>
-                    <p>{this.state.date.format("YYYY-MM-DD")}</p>
-                    {this.isCurrentDate() ? <span /> : <img className="history-arrow" src="/img/chevron-right-icon.png" alt="nextDayArrow" onClick={() => this.setNextDay()}/>}
+            <StickyContainer>
+                <div className="history-graph-container">
+                    <Sticky>
+                        <div className="history-header" ref={(el) => { this.header = el; }}>
+                            <img className="history-arrow" src="/img/chevron-left-icon.png" alt="previousDayArrow" onClick={() => this.setPreviousDay()}/>
+                            <p>{this.state.date.format("YYYY-MM-DD")}</p>
+                            {this.isCurrentDate() ? <span /> : <img className="history-arrow" src="/img/chevron-right-icon.png" alt="nextDayArrow" onClick={() => this.setNextDay()}/>}
+                        </div>
+                    </Sticky>
+                    <p className="graph-header">Temperature</p>
+                    <Graph lineChartData={this.state.temperatureData} lineChartOptions={temperatureChartOptions} />
+                    <p className="graph-header">Humidity</p>
+                    <Graph lineChartData={this.state.humidityData} lineChartOptions={humidityChartOptions}/>
+                    <p className="graph-header">Pressure</p>
+                    <Graph lineChartData={this.state.pressureData} lineChartOptions={pressureChartOptions}/>
                 </div>
-                <p className="graph-header" ref={(el) => { this.temperatureHeader = el; }}>Temperature</p>
-                <Graph lineChartData={temperatureData} ref={(el) => { this.temperatureChart = el; }}/>
-                <p className="graph-header">Humidity</p>
-                <Graph lineChartData={humidityData}/>
-                <p className="graph-header">Pressure</p>
-                <Graph lineChartData={this.state.pressureData}/>
-            </div>
+            </StickyContainer>
         )
     }
 }

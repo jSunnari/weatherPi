@@ -42,9 +42,9 @@
     display: flex;
     justify-content: center;
     padding-top: .8em;
-    background: linear-gradient(transparent, rgba(0,0,0,.1));
+    background: linear-gradient($dark-turquoise, rgba(7,87,91,.9));
     border-bottom: 2px solid;
-    border-color: rgba(102, 164, 172, 0.3);
+    border-color: rgba(102, 164, 172, 0.5);
     border-bottom-right-radius: 2em;
     border-bottom-left-radius: 2em;
     padding-bottom: .2em;
@@ -64,14 +64,14 @@
     p {
       font-family: $font-family-main;
       font-weight: $font-weight-main;
-      font-size: 1.1em;
+      font-size: 1.2em;
       color: $white;
       margin: 0;
     }
   }
 
   .history-graph-container {
-      overflow: scroll;
+
   }
 
   .graph-header {
