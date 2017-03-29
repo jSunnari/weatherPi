@@ -19,38 +19,13 @@ export default class DayHistory extends Component {
             humidityData: JSON.parse(JSON.stringify(humidityChartData)),
             pressureData: JSON.parse(JSON.stringify(pressureChartData))
         }
-
     }
 
     componentWillMount(){
-        //console.log(this.state.date.format("YYYY-MM-DD"));
-        //this.loadData("2017-01-01");
         this.loadData(this.state.date.format("YYYY-MM-DD"));
-
-    }
-
-    componentDidMount(){
-
-    }
-
-    componentWillUnmount(){
-        console.log("unmount"); //Test
-        ReactDOM.findDOMNode(this.header).removeEventListener('scroll', this.handleScroll);
-
-    }
-
-    clearData(){
-        this.state.temperatureData.labels = [];
-        this.state.temperatureData.datasets.data = new Array(24);
-        this.state.humidityData.labels = [];
-        this.state.humidityData.datasets.data = new Array(24);
-        this.state.pressureData.labels = [];
-        this.state.pressureData.datasets.data = new Array(24);
     }
 
     loadData(day){
-        //this.clearData();
-
         let tempTemperatureData = JSON.parse(JSON.stringify(temperatureChartData));
         let tempHumidityData = JSON.parse(JSON.stringify(humidityChartData));
         let tempPressureData = JSON.parse(JSON.stringify(pressureChartData));
@@ -60,10 +35,8 @@ export default class DayHistory extends Component {
         tempHumidityData.labels = dateLabels;
         tempPressureData.labels = dateLabels;
 
-        serverRequest.getTest(day).then((response) => {
-            //console.log(response);
-            response = response._embedded.weathers; //DEVMODE (remove later)
-            //console.log(response);
+        serverRequest.getWeatherByDay(day).then((response) => {
+            //response = response._embedded.weathers; //DEVMODE (remove later)
 
             response.map((weather) => {
                 let index = weather.time.substring(0,2);

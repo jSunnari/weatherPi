@@ -26,9 +26,9 @@ import java.util.List;
  */
 
 //DEVMODE
-//@Component
-//@RequestMapping("/api/weather")
-//@RestController
+@Component
+@RequestMapping("/api/weather")
+@RestController
 public class WeatherController {
     private JSONObject currentWeather = new JSONObject();
     private DataCollector dataCollector;
