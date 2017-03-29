@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import WeatherIcons from 'react-weathericons';
+import './CurrentValue.scss';
 
 export default class CurrentValue extends Component {
 

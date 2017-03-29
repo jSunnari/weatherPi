@@ -9,11 +9,15 @@ const apiUrl = "/api/weather";
 
 class ServerRequest {
 
+    getTest(date){
+        return cachedServerRequest("/api/weather/search/findByDate?date=" + date);
+    }
+
     getCurrentWeather(){
         return defaultServerRequest(apiUrl + "/current");
     }
-    getWeatherByDay(date){
-        return cachedServerRequest(apiUrl + "/findByDay/" + date)
+    getWeatherByDay(day){
+        return cachedServerRequest(apiUrl + "/findByDay/" + day)
     }
 
     getWeatherByWeek(year, weekNumber){

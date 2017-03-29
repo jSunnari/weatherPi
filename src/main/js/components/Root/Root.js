@@ -2,14 +2,17 @@ import React, { Component } from 'react';
 import MediaQuery from 'react-responsive'; //https://github.com/contra/react-responsive
 import Header from '../Header/Header';
 import Values from '../Values/Values';
-import History from '../History/History';
+import History from '../HistoryContainer/HistoryContainer';
+import "./Root.scss";
 
 export default class Root extends Component {
 
     constructor(props){
         super(props);
         this.state = ({
-           page: "Current"
+            //DEVMODE
+
+            page: "Current"
         });
     }
 

@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import Graph from '../Graph/Graph';
+import DayHistory from '../DayHistory/DayHistory';
+import WeekHistory from '../WeekHistory/WeekHistory';
+
+import "./HistoryContainer.scss";
 
 let tabList = [
     {id: 0, title: "Day", active: true},
@@ -13,7 +16,8 @@ export default class History extends Component {
     constructor(props){
         super(props);
         this.state = {
-            tabList: tabList
+            tabList: tabList,
+            activePage: 0
         }
     }
 
@@ -22,26 +26,39 @@ export default class History extends Component {
            tempTab.active = tempTab.id === tab.id;
         });
 
-        this.setState({tabList: tabList});
+        this.setState({tabList: tabList, activePage: tab.id});
     }
 
     renderTabs(){
         return this.state.tabList.map((tab) => {
             let className = tab.active ? "active-tab" : null;
             return (
-                <p className={className} key={tab.id} onClick={() => this.changeTab(tab)}>{tab.title}</p>
+                <p className={className} id={tab.title.toLowerCase() + "-tab"} key={tab.id} onClick={() => this.changeTab(tab)}>{tab.title}</p>
             )
         })
     }
 
     render() {
+        let activePage;
+
+        switch (this.state.activePage){
+            case 0:
+                activePage = <DayHistory/>;
+                break;
+            case 1:
+                activePage = <WeekHistory/>;
+                break;
+            default:
+                activePage = <DayHistory/>;
+        }
+
         return (
             <div id="history-container">
                 <div id="history-navbar">
                     {this.renderTabs()}
                 </div>
 
-                <Graph/>
+                {activePage}
 
             </div>
         )
