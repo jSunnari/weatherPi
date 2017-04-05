@@ -14,3 +14,9 @@ Connected weatherstation built with a Raspberry Pi running Java, saving the weat
 ![enclosure2](https://cloud.githubusercontent.com/assets/15261370/24453778/916a47b8-1489-11e7-9a63-d9737ddb180e.JPG)
 ![enclosure3](https://cloud.githubusercontent.com/assets/15261370/24453776/91657f3a-1489-11e7-9871-fb7e7b9a4c9f.JPG)
 ![enclosure4](https://cloud.githubusercontent.com/assets/15261370/24453775/9164c75c-1489-11e7-936c-65681e8bbba9.JPG)
+
+**UI (v1.0)**
+Current weather showing on iPhone:
+![weatherpi_current_v1](https://cloud.githubusercontent.com/assets/15261370/24718518/937e2742-1a36-11e7-940c-b7487c532f35.png)
+History of weatherdata visualized in graphs on iPad:
+![weatherpi_history_v1](https://cloud.githubusercontent.com/assets/15261370/24718503/8bf14824-1a36-11e7-8bc1-7cf73709ee92.png)
