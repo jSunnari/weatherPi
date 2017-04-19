@@ -68,11 +68,11 @@ export default class WeekHistory extends Component {
                         break;
                 }
 
-                tempTemperatureData.datasets[0].data.splice(index, 0, weatherObject.weather.insideTemperature);
-                tempTemperatureData.datasets[1].data.splice(index, 0, weatherObject.weather.outsideTemperature);
-                tempHumidityData.datasets[0].data.splice(index, 0, weatherObject.weather.insideHumidity);
-                tempHumidityData.datasets[1].data.splice(index, 0, weatherObject.weather.outsideHumidity);
-                tempPressureData.datasets[0].data.splice(index, 0, weatherObject.weather.outsidePressure);
+                tempTemperatureData.datasets[0].data.splice(index, 1, weatherObject.weather.insideTemperature);
+                tempTemperatureData.datasets[1].data.splice(index, 1, weatherObject.weather.outsideTemperature);
+                tempHumidityData.datasets[0].data.splice(index, 1, weatherObject.weather.insideHumidity);
+                tempHumidityData.datasets[1].data.splice(index, 1, weatherObject.weather.outsideHumidity);
+                tempPressureData.datasets[0].data.splice(index, 1, weatherObject.weather.outsidePressure);
             });
 
             this.setState({temperatureData: tempTemperatureData, humidityData: tempHumidityData, pressureData: tempPressureData});
