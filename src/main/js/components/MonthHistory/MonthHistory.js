@@ -61,7 +61,7 @@ export default class MonthHistory extends Component {
 
     getLabels(){
         let days = [];
-        for (let i = 1; i <= this.state.date.daysInMonth(); i++) {
+        for (let i = 0; i <= this.state.date.daysInMonth(); i++) {
             days[i-1] = i;
         }
         return days;
