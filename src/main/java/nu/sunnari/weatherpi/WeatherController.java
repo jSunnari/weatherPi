@@ -102,7 +102,6 @@ public class WeatherController {
 
         for (int i = 0; i < 7; i++) {
 
-
             AverageWeather averageWeather = new AverageWeather(new SimpleDateFormat("EEEE", Locale.ENGLISH).format(date.getTime()), getAverageValues(repository.findByDate(date)));
             weatherWeekList.add(averageWeather);
 
@@ -146,10 +145,6 @@ public class WeatherController {
             Date startDate = new Date(cal.getTime().getTime());
             cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
             Date stopDate = new Date(cal.getTime().getTime());
-
-            log.info("i: " + i);
-            log.info("startDate: " + startDate);
-            log.info("stopDate: " + stopDate);
 
             AverageWeather averageWeather = new AverageWeather(new SimpleDateFormat("MMMM", Locale.ENGLISH).format(startDate.getTime()),
                     getAverageValues(repository.findByDateBetween(startDate,stopDate)));

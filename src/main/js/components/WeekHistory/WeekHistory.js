@@ -41,8 +41,6 @@ export default class WeekHistory extends Component {
 
             response.map((weatherObject) => {
 
-                console.log(weatherObject);
-
                 let index = 0;
                 switch (weatherObject.key.toLowerCase()) {
                     case "monday":

@@ -39,7 +39,6 @@ export default class DayHistory extends Component {
         tempPressureData.labels = dateLabels;
 
         serverRequest.getWeatherByDay(day).then((response) => {
-            //response = response._embedded.weathers; //DEVMODE (remove later)
 
             response.map((weather) => {
                 let index = weather.time.substring(0,2);
@@ -52,7 +51,6 @@ export default class DayHistory extends Component {
 
                 tempPressureData.datasets[0].data.splice(index, 1, weather.outsidePressure);
             });
-
 
             this.setState({
                 temperatureData: tempTemperatureData,
