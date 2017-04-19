@@ -132,6 +132,9 @@ public class WeatherController {
                     break;
             }
 
+            log.info("day: " + day);
+            log.info("date: " + date.toString());
+
             AverageWeather averageWeather = new AverageWeather(day, getAverageValues(repository.findByDate(date)));
             weatherWeekList.add(averageWeather);
 
