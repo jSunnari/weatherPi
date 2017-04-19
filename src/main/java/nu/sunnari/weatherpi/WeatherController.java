@@ -118,7 +118,7 @@ public class WeatherController {
         List<AverageWeather> weatherWeekList = new ArrayList<>();
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, year);
-        cal.set(Calendar.MONTH, monthNumber-1);
+        cal.set(Calendar.MONTH, monthNumber);
         cal.set(Calendar.DAY_OF_MONTH, 1);
         Date date = new Date(cal.getTime().getTime());
         int daysInMonth = cal.getActualMaximum(Calendar.DAY_OF_MONTH);

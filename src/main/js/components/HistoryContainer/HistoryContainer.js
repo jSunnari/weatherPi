@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import DayHistory from '../DayHistory/DayHistory';
 import WeekHistory from '../WeekHistory/WeekHistory';
+import MonthHistory from '../MonthHistory/MonthHistory';
+import YearHistory from '../YearHistory/YearHistory';
 
 import "./HistoryContainer.scss";
 
@@ -47,6 +49,12 @@ export default class History extends Component {
                 break;
             case 1:
                 activePage = <WeekHistory/>;
+                break;
+            case 2:
+                activePage = <MonthHistory/>;
+                break;
+            case 3:
+                activePage = <YearHistory/>;
                 break;
             default:
                 activePage = <DayHistory/>;
