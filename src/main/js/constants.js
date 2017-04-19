@@ -14,12 +14,13 @@ export const temperatureChartOptions = {
         xAxes: [{
             afterTickToLabelConversion: function(data){
                 let xLabels = data.ticks;
-                xLabels.forEach(function (labels, i) {
-                    if (i !== 0 && i % 3 !== 0){
-                        xLabels[i] = '';
-                    }
-
-                });
+                if (xLabels.length > 12) {
+                    xLabels.forEach(function (labels, i) {
+                        if (i !== 0 && i % 3 !== 0){
+                            xLabels[i] = '';
+                        }
+                    });
+                }
             }
         }],
         yAxes: [{
@@ -47,12 +48,13 @@ export const humidityChartOptions = {
         xAxes: [{
             afterTickToLabelConversion: function(data){
                 let xLabels = data.ticks;
-                xLabels.forEach(function (labels, i) {
-                    if (i !== 0 && i % 3 !== 0){
-                        xLabels[i] = '';
-                    }
-
-                });
+                if (xLabels.length > 12) {
+                    xLabels.forEach(function (labels, i) {
+                        if (i !== 0 && i % 3 !== 0){
+                            xLabels[i] = '';
+                        }
+                    });
+                }
             }
         }],
         yAxes: [{
@@ -80,12 +82,13 @@ export const pressureChartOptions = {
         xAxes: [{
             afterTickToLabelConversion: function(data){
                 let xLabels = data.ticks;
-                xLabels.forEach(function (labels, i) {
-                    if (i !== 0 && i % 3 !== 0){
-                        xLabels[i] = '';
-                    }
-
-                });
+                if (xLabels.length > 12) {
+                    xLabels.forEach(function (labels, i) {
+                        if (i !== 0 && i % 3 !== 0){
+                            xLabels[i] = '';
+                        }
+                    });
+                }
             }
         }],
         yAxes: [{
