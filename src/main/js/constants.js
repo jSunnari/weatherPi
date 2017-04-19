@@ -25,7 +25,7 @@ export const temperatureChartOptions = {
         }],
         yAxes: [{
             ticks: {
-                beginAtZero: false
+                beginAtZero: true
             }
         }]
     }
@@ -59,7 +59,7 @@ export const humidityChartOptions = {
         }],
         yAxes: [{
             ticks: {
-                beginAtZero: false
+                beginAtZero: true
             }
         }]
     }
@@ -93,7 +93,7 @@ export const pressureChartOptions = {
         }],
         yAxes: [{
             ticks: {
-                beginAtZero: false
+                beginAtZero: true
             }
         }]
     }
