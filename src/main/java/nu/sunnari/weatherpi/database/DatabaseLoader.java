@@ -25,7 +25,7 @@ public class DatabaseLoader implements CommandLineRunner {
 
     @Override
     public void run(String... strings) throws Exception {
-
+/*
         for (int i = 1; i < 30; i++) {
             for (int j = 0; j < 24; j++) {
                 Random r = new Random();
@@ -40,7 +40,7 @@ public class DatabaseLoader implements CommandLineRunner {
                 );
             }
         }
-
+*/
     }
 
 }
