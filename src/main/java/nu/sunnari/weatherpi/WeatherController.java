@@ -52,7 +52,6 @@ public class WeatherController {
         insideSensor.clearMinMaxValues();
         outsideSensor.clearMinMaxValues();
 
-        //System.out.println(repository.findAvgDayInsideTemp(new Date(2017,4,4)));
         //System.out.println(repository.findAvgMonthInsideTemp(new Date(2017, 4, 1), new Date(2017, 4, 30)));
     }
 
@@ -141,6 +140,8 @@ public class WeatherController {
 
     @Scheduled(cron = "0 * * * * *") //Every minute
     public void setLcdTime(){
+        System.out.println(repository.findAvgDayInsideTemp(new Date(2017,4,4)));
+
         lcdDisplay.writeTime(dataCollector.getCurrentTime());
     }
 
