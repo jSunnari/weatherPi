@@ -99,7 +99,7 @@ export default class WeekHistory extends Component {
 
     isCurrent(){
         let today = moment();
-        return today.week() === date.week();
+        return today.week() === this.state.date.week();
     }
 
     render(){
