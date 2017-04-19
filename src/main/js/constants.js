@@ -117,7 +117,7 @@ export const temperatureChartData = {
             pointHoverBorderWidth: 2,
             pointRadius: 0,
             pointHitRadius: 15,
-            data: new Array(24)
+            data: []
         },
         {
             label: "Outdoor",
@@ -137,7 +137,7 @@ export const temperatureChartData = {
             pointHoverBorderWidth: 2,
             pointRadius: 0,
             pointHitRadius: 15,
-            data: new Array(24)
+            data: []
         }
     ]
 };
@@ -163,7 +163,7 @@ export const humidityChartData = {
             pointHoverBorderWidth: 2,
             pointRadius: 0,
             pointHitRadius: 15,
-            data: new Array(24)
+            data: []
         },
         {
             label: "Indoor",
@@ -183,7 +183,7 @@ export const humidityChartData = {
             pointHoverBorderWidth: 2,
             pointRadius: 0,
             pointHitRadius: 15,
-            data: new Array(24)
+            data: []
         }
     ]
 };
@@ -209,7 +209,7 @@ export const pressureChartData = {
             pointHoverBorderWidth: 2,
             pointRadius: 0,
             pointHitRadius: 15,
-            data: new Array(24),
+            data: [],
         }
     ]
 };

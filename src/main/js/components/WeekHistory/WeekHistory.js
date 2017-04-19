@@ -27,29 +27,53 @@ export default class WeekHistory extends Component {
         let tempHumidityData = JSON.parse(JSON.stringify(humidityChartData));
         let tempPressureData = JSON.parse(JSON.stringify(pressureChartData));
 
+        tempTemperatureData.datasets[0].data = new Array(12);
+        tempTemperatureData.datasets[1].data = new Array(12);
+        tempHumidityData.datasets[0].data = new Array(12);
+        tempHumidityData.datasets[1].data = new Array(12);
+        tempPressureData.datasets[0].data = new Array(12);
+
         let dateLabels = this.getLabels();
         tempTemperatureData.labels = dateLabels;
         tempHumidityData.labels = dateLabels;
         tempPressureData.labels = dateLabels;
 
         serverRequest.getWeatherByWeek(year, week).then((response) => {
-            console.log(response);
 
-            response.map((weather) => {
+            response.map((weatherObject) => {
 
-                console.log(weather);
+                console.log(weatherObject);
 
-                /*
-                let index = weather.time.substring(0,2); // by day instead ---------------------------------------------
+                let index = 0;
+                switch (weatherObject.key.toLowerCase()) {
+                    case "monday":
+                        index = 0;
+                        break;
+                    case "tuesday":
+                        index = 1;
+                        break;
+                    case "wednesday":
+                        index = 2;
+                        break;
+                    case "thursday":
+                        index = 3;
+                        break;
+                    case "friday":
+                        index = 4;
+                        break;
+                    case "saturday":
+                        index = 5;
+                        break;
+                    case "sunday":
+                        index = 6;
+                        break;
+                }
 
-                tempTemperatureData.datasets[0].data.splice(index, 0, weather.insideTemperature);
-                tempTemperatureData.datasets[1].data.splice(index, 0, weather.outsideTemperature);
-
-                tempHumidityData.datasets[0].data.splice(index, 0, weather.insideHumidity);
-                tempHumidityData.datasets[1].data.splice(index, 0, weather.outsideHumidity);
-
-                tempPressureData.datasets[0].data.splice(index, 0, weather.outsidePressure);
-                */
+                tempTemperatureData.datasets[0].data.splice(index, 0, weatherObject.weather.insideTemperature);
+                tempTemperatureData.datasets[1].data.splice(index, 0, weatherObject.weather.outsideTemperature);
+                tempHumidityData.datasets[0].data.splice(index, 0, weatherObject.weather.insideHumidity);
+                tempHumidityData.datasets[1].data.splice(index, 0, weatherObject.weather.outsideHumidity);
+                tempPressureData.datasets[0].data.splice(index, 0, weatherObject.weather.outsidePressure);
             });
 
             this.setState({temperatureData: tempTemperatureData, humidityData: tempHumidityData, pressureData: tempPressureData});
@@ -73,7 +97,7 @@ export default class WeekHistory extends Component {
         this.loadData(this.state.date.year(), this.state.date.week());
     }
 
-    isCurrent(date){
+    isCurrent(){
         let today = moment();
         return today.week() === date.week();
     }

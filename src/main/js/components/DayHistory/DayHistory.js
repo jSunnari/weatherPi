@@ -29,6 +29,12 @@ export default class DayHistory extends Component {
         let tempHumidityData = JSON.parse(JSON.stringify(humidityChartData));
         let tempPressureData = JSON.parse(JSON.stringify(pressureChartData));
 
+        tempTemperatureData.datasets[0].data = new Array(24);
+        tempTemperatureData.datasets[1].data = new Array(24);
+        tempHumidityData.datasets[0].data = new Array(24);
+        tempHumidityData.datasets[1].data = new Array(24);
+        tempPressureData.datasets[0].data = new Array(24);
+
         let dateLabels = this.getLabels();
         tempTemperatureData.labels = dateLabels;
         tempHumidityData.labels = dateLabels;
