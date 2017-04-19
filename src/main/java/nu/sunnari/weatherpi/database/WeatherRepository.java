@@ -24,7 +24,7 @@ public interface WeatherRepository extends PagingAndSortingRepository<Weather, L
 
 
     @Query(value="select w from Weather w where w.date = :date")
-    double findAvgDayInsideTemptest(@Param("date") Date date);
+    Double findAvgDayInsideTemptest(@Param("date") Date date);
 
     @Query(value="select avg(w.insideTemperature) from Weather w where w.date = :date")
     double findAvgDayInsideTemp(@Param("date") Date date);

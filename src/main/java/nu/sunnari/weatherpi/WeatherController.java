@@ -102,9 +102,14 @@ public class WeatherController {
         cal.set(Calendar.YEAR, year);
         cal.set(Calendar.WEEK_OF_YEAR, weekNumber);
         cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+
         Date startDate = new Date(cal.getTime().getTime());
         cal.add(Calendar.DAY_OF_WEEK, 6);
         Date endDate = new Date(cal.getTime().getTime());
+
+        //List<Weather> weatherListByWeek = repository.findByDateBetween(startDate, endDate);
+
+
 
         return repository.findByDateBetween(startDate, endDate);
     }
