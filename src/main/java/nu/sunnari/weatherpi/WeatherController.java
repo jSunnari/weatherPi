@@ -138,7 +138,7 @@ public class WeatherController {
             AverageWeather averageWeather = new AverageWeather(day, getAverageValues(repository.findByDate(date)));
             weatherWeekList.add(averageWeather);
 
-            cal.add(Calendar.DAY_OF_WEEK, i + 1);
+            cal.add(Calendar.DAY_OF_WEEK, 1);
             date = new Date(cal.getTime().getTime());
 
         }
