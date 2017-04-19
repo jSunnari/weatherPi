@@ -5,8 +5,6 @@ import { serverRequest } from '../../serverRequest';
 import { temperatureChartData, humidityChartData, pressureChartData, temperatureChartOptions, humidityChartOptions, pressureChartOptions} from '../../constants';
 import { StickyContainer, Sticky } from 'react-sticky';
 
-import './DayHistory.scss';
-
 export default class DayHistory extends Component {
 
     constructor(props){
