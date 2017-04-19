@@ -2,14 +2,18 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import Graph from '../Graph/Graph';
 import { serverRequest } from '../../serverRequest';
-import { lineChartData, lineChartDataSingle } from '../../constants';
+import { temperatureChartData, humidityChartData, pressureChartData, temperatureChartOptions, humidityChartOptions, pressureChartOptions} from '../../constants';
+import { StickyContainer, Sticky } from 'react-sticky';
 
 export default class WeekHistory extends Component {
 
     constructor(props){
         super(props);
         this.state = {
-            date: moment()
+            date: moment(),
+            temperatureData: JSON.parse(JSON.stringify(temperatureChartData)),
+            humidityData: JSON.parse(JSON.stringify(humidityChartData)),
+            pressureData: JSON.parse(JSON.stringify(pressureChartData))
         }
     }
 
@@ -19,9 +23,9 @@ export default class WeekHistory extends Component {
     }
 
     loadData(year, week){
-        let tempTemperatureData = JSON.parse(JSON.stringify(lineChartData));
-        let tempHumidityData = JSON.parse(JSON.stringify(lineChartData));
-        let tempPressureData = JSON.parse(JSON.stringify(lineChartDataSingle));
+        let tempTemperatureData = JSON.parse(JSON.stringify(temperatureChartData));
+        let tempHumidityData = JSON.parse(JSON.stringify(humidityChartData));
+        let tempPressureData = JSON.parse(JSON.stringify(pressureChartData));
 
         let dateLabels = this.getLabels();
         tempTemperatureData.labels = dateLabels;
@@ -32,6 +36,10 @@ export default class WeekHistory extends Component {
             console.log(response);
 
             response.map((weather) => {
+
+                console.log(weather);
+
+                /*
                 let index = weather.time.substring(0,2); // by day instead ---------------------------------------------
 
                 tempTemperatureData.datasets[0].data.splice(index, 0, weather.insideTemperature);
@@ -41,6 +49,7 @@ export default class WeekHistory extends Component {
                 tempHumidityData.datasets[1].data.splice(index, 0, weather.outsideHumidity);
 
                 tempPressureData.datasets[0].data.splice(index, 0, weather.outsidePressure);
+                */
             });
 
             this.setState({temperatureData: tempTemperatureData, humidityData: tempHumidityData, pressureData: tempPressureData});
@@ -54,37 +63,41 @@ export default class WeekHistory extends Component {
         return ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
     }
 
-    setPreviousWeek(){
-        let previousDate = this.state.date.setDate(this.state.date.getDay() - 1);
-        this.setState({date: previousDate})
+    setPrevious(){
+        this.setState({day: this.state.date.subtract(1, 'week')});
+        this.loadData(this.state.date.year(), this.state.date.week());
     }
 
-    setNextWeek(){
-        let previousDate = this.state.date.setDate(this.state.date.getDay() + 1);
-        this.setState({date: previousDate})
+    setNext(){
+        this.setState({day: this.state.date.add(1, 'week')});
+        this.loadData(this.state.date.year(), this.state.date.week());
     }
 
-    isCurrentWeek(date){
+    isCurrent(date){
         let today = moment();
-        return today.getDay() === date.getDay();
+        return today.week() === date.week();
     }
 
     render(){
 
         return (
-            <div id="graph-container">
-                <div>
-                    <img src="" alt="previousDayArrow" onClick={() => this.setPreviousDay()}/>
-                    <p>{Moment(this.state.date).format("YYYY-MM-DD")}</p>
-                    {this.isCurrentDate() ? <img src="" alt="nextDayArrow" onClick={() => this.setNextDay()}/>: null}
+            <StickyContainer>
+                <div className="history-graph-container">
+                    <Sticky>
+                        <div className="history-header" ref={(el) => { this.header = el; }}>
+                            <img className="history-arrow" src="/img/chevron-left-icon.png" alt="previousDayArrow" onClick={() => this.setPrevious()}/>
+                            <p>{this.state.date.format("YYYY") + " - " + this.state.date.week()}</p>
+                            {this.isCurrent() ? <span /> : <img className="history-arrow" src="/img/chevron-right-icon.png" alt="nextDayArrow" onClick={() => this.setNext()}/>}
+                        </div>
+                    </Sticky>
+                    <p className="graph-header">TEMPERATURE</p>
+                    <Graph lineChartData={this.state.temperatureData} lineChartOptions={temperatureChartOptions} />
+                    <p className="graph-header">HUMIDITY</p>
+                    <Graph lineChartData={this.state.humidityData} lineChartOptions={humidityChartOptions}/>
+                    <p className="graph-header">PRESSURE</p>
+                    <Graph lineChartData={this.state.pressureData} lineChartOptions={pressureChartOptions}/>
                 </div>
-                <p>Temperature</p>
-                <Graph lineChartData={this.state.temperatureData}/>
-                <p>Humidity</p>
-                <Graph lineChartData={this.state.humidityData}/>
-                <p>Pressure</p>
-                <Graph lineChartData={this.state.pressureData}/>
-            </div>
+            </StickyContainer>
         )
     }
 }

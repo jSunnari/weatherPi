@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import moment from 'moment';
 import Graph from '../Graph/Graph';
 import { serverRequest } from '../../serverRequest';
@@ -72,17 +71,17 @@ export default class DayHistory extends Component {
         return dateLabels;
     }
 
-    setPreviousDay(){
+    setPrevious(){
         this.setState({day: this.state.date.subtract(1, 'day')});
         this.loadData(this.state.date.format("YYYY-MM-DD"));
     }
 
-    setNextDay(){
+    setNext(){
         this.setState({day: this.state.date.add(1, 'day')});
         this.loadData(this.state.date.format("YYYY-MM-DD"));
     }
 
-    isCurrentDate(){
+    isCurrent(){
         let today = moment();
         return today.format("YYYY-MM-DD") === this.state.date.format("YYYY-MM-DD");
     }
@@ -94,9 +93,9 @@ export default class DayHistory extends Component {
                 <div className="history-graph-container">
                     <Sticky>
                         <div className="history-header" ref={(el) => { this.header = el; }}>
-                            <img className="history-arrow" src="/img/chevron-left-icon.png" alt="previousDayArrow" onClick={() => this.setPreviousDay()}/>
+                            <img className="history-arrow" src="/img/chevron-left-icon.png" alt="previousDayArrow" onClick={() => this.setPrevious()}/>
                             <p>{this.state.date.format("YYYY-MM-DD")}</p>
-                            {this.isCurrentDate() ? <span /> : <img className="history-arrow" src="/img/chevron-right-icon.png" alt="nextDayArrow" onClick={() => this.setNextDay()}/>}
+                            {this.isCurrent() ? <span /> : <img className="history-arrow" src="/img/chevron-right-icon.png" alt="nextDayArrow" onClick={() => this.setNext()}/>}
                         </div>
                     </Sticky>
                     <p className="graph-header">TEMPERATURE</p>
