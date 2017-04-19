@@ -43,12 +43,16 @@ export default class YearHistory extends Component {
 
                 console.log(weatherObject);
 
+                let index = dateLabels.indexOf(weatherObject.key);
+
+                console.log(index);
+/*
                 let index = dateLabels.map((month, index) => {
                     if (month.toLowerCase() === weatherObject.key.toLowerCase()){
                         return index;
                     }
                 });
-
+*/
                 tempTemperatureData.datasets[0].data.splice(index, 0, weatherObject.weather.insideTemperature);
                 tempTemperatureData.datasets[1].data.splice(index, 0, weatherObject.weather.outsideTemperature);
                 tempHumidityData.datasets[0].data.splice(index, 0, weatherObject.weather.insideHumidity);
