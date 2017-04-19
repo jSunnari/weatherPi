@@ -88,7 +88,7 @@ public class WeatherController {
 
     @GetMapping(value="/test")
     public String testing() {
-        return String.valueOf(repository.findAvgDayInsideTemp(new Date(2017,4,4)));
+        return String.valueOf(repository.findAvgDayInsideTemptest(new Date(2017,4,4)));
     }
 
     @GetMapping(value="/findByDay/{date}")
