@@ -52,8 +52,6 @@ public class WeatherController {
         writeWeatherValuesToLcd();
         insideSensor.clearMinMaxValues();
         outsideSensor.clearMinMaxValues();
-
-        //System.out.println(repository.findAvgMonthInsideTemp(new Date(2017, 4, 1), new Date(2017, 4, 30)));
     }
 
     //******************************* ENDPOINTS ******************************* //
@@ -84,12 +82,6 @@ public class WeatherController {
         currentWeather.put("indoorMaxHum", Math.round(insideSensor.getMaxHumidity()));
 
         return currentWeather;
-    }
-
-
-    @GetMapping(value="/test")
-    public String testing() {
-        return String.valueOf(repository.findAvgDayInsideTemptest(new Date(2017,4,4)));
     }
 
     @GetMapping(value="/findByDay/{date}")
@@ -132,66 +124,39 @@ public class WeatherController {
                     break;
             }
 
-            log.info("day: " + day);
-            log.info("date: " + date.toString());
-
             AverageWeather averageWeather = new AverageWeather(day, getAverageValues(repository.findByDate(date)));
             weatherWeekList.add(averageWeather);
 
             cal.add(Calendar.DAY_OF_WEEK, 1);
             date = new Date(cal.getTime().getTime());
-
         }
-
-
-
-        //cal.add(Calendar.DAY_OF_WEEK, 6);
-        //Date endDate = new Date(cal.getTime().getTime());
-
-        //List<Weather> weatherListByWeek = repository.findByDateBetween(startDate, endDate);
-
-
 
         return weatherWeekList;
     }
 
-    Weather getAverageValues(List<Weather> weatherList) {
-        double insideTemperature = 0;
-        double insideHumidity = 0;
-        double outsideTemperature = 0;
-        double outsideHumidity = 0;
-        double outsidePressure = 0;
-
-        for (Weather weather: weatherList) {
-            insideTemperature += weather.getInsideTemperature();
-            insideHumidity += weather.getInsideHumidity();
-            outsideTemperature += weather.getOutsideTemperature();
-            outsideHumidity += weather.getOutsideHumidity();
-            outsidePressure += weather.getOutsidePressure();
-        }
-
-        insideTemperature = insideTemperature/weatherList.size();
-        insideHumidity = insideHumidity/weatherList.size();
-        outsideTemperature = outsideTemperature/weatherList.size();
-        outsideHumidity = outsideHumidity/weatherList.size();
-        outsidePressure = outsidePressure/weatherList.size();
-
-        return new Weather(insideTemperature,insideHumidity,outsideTemperature,outsideHumidity,outsidePressure);
-    }
-
-
     @GetMapping(value="/findByMonth/{year}/{monthNumber}")
-    public List<Weather> getWeatherByMonth(@PathVariable int year, @PathVariable int monthNumber){
+    public List<AverageWeather> getWeatherByMonth(@PathVariable int year, @PathVariable int monthNumber){
+        List<AverageWeather> weatherWeekList = new ArrayList<>();
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, year);
         cal.set(Calendar.MONTH, monthNumber-1);
         cal.set(Calendar.DAY_OF_MONTH, 1);
-        Date startDate = new Date(cal.getTime().getTime());
-        cal.add(Calendar.MONTH, 1);
-        cal.add(Calendar.DAY_OF_MONTH, -1);
-        Date endDate = new Date(cal.getTime().getTime());
+        Date date = new Date(cal.getTime().getTime());
+        int daysInMonth = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 
-        return repository.findByDateBetween(startDate, endDate);
+        for (int i = 1; i <= daysInMonth; i++) {
+
+            log.info("day: " + i);
+            log.info("date: " + date.toString());
+
+            AverageWeather averageWeather = new AverageWeather(String.valueOf(i), getAverageValues(repository.findByDate(date)));
+            weatherWeekList.add(averageWeather);
+
+            cal.add(Calendar.DAY_OF_WEEK, 1);
+            date = new Date(cal.getTime().getTime());
+        }
+
+        return weatherWeekList;
     }
 
     @GetMapping(value="/findByYear/{year}")
@@ -283,5 +248,30 @@ public class WeatherController {
     public void clearMinMaxValues(){
         insideSensor.clearMinMaxValues();
         outsideSensor.clearMinMaxValues();
+    }
+
+    //********************************* MISC ********************************* //
+    Weather getAverageValues(List<Weather> weatherList) {
+        double insideTemperature = 0;
+        double insideHumidity = 0;
+        double outsideTemperature = 0;
+        double outsideHumidity = 0;
+        double outsidePressure = 0;
+
+        for (Weather weather: weatherList) {
+            insideTemperature += weather.getInsideTemperature();
+            insideHumidity += weather.getInsideHumidity();
+            outsideTemperature += weather.getOutsideTemperature();
+            outsideHumidity += weather.getOutsideHumidity();
+            outsidePressure += weather.getOutsidePressure();
+        }
+
+        insideTemperature = insideTemperature/weatherList.size();
+        insideHumidity = insideHumidity/weatherList.size();
+        outsideTemperature = outsideTemperature/weatherList.size();
+        outsideHumidity = outsideHumidity/weatherList.size();
+        outsidePressure = outsidePressure/weatherList.size();
+
+        return new Weather(insideTemperature,insideHumidity,outsideTemperature,outsideHumidity,outsidePressure);
     }
 }
