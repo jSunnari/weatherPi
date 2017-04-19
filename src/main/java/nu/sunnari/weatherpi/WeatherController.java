@@ -85,6 +85,12 @@ public class WeatherController {
         return currentWeather;
     }
 
+
+    @GetMapping(value="/test")
+    public double testing() {
+        return repository.findAvgDayInsideTemp(new Date(2017,4,4));
+    }
+
     @GetMapping(value="/findByDay/{date}")
     public List<Weather> getWeatherByDay(@PathVariable Date date){
         return repository.findByDate(date);
@@ -140,8 +146,6 @@ public class WeatherController {
 
     @Scheduled(cron = "0 * * * * *") //Every minute
     public void setLcdTime(){
-        System.out.println(repository.findAvgDayInsideTemp(new Date(2017,4,4)));
-
         lcdDisplay.writeTime(dataCollector.getCurrentTime());
     }
 
