@@ -104,7 +104,7 @@ public class WeatherController {
         cal.set(Calendar.YEAR, year);
         cal.set(Calendar.WEEK_OF_YEAR, weekNumber);
         cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-        Date startDate = new Date(cal.getTime().getTime());
+        Date date = new Date(cal.getTime().getTime());
 
         for (int i = 0; i < 7; i++) {
             String day = "";
@@ -132,10 +132,12 @@ public class WeatherController {
                     break;
             }
 
-            AverageWeather averageWeather = new AverageWeather(day, getAverageValues(repository.findByDate(startDate)));
+            AverageWeather averageWeather = new AverageWeather(day, getAverageValues(repository.findByDate(date)));
             weatherWeekList.add(averageWeather);
 
             cal.add(Calendar.DAY_OF_WEEK, i + 1);
+            date = new Date(cal.getTime().getTime());
+
         }
 
 
