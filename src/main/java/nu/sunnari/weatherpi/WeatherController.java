@@ -18,9 +18,11 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Jonas on 2017-01-30.
@@ -99,32 +101,9 @@ public class WeatherController {
         Date date = new Date(cal.getTime().getTime());
 
         for (int i = 0; i < 7; i++) {
-            String day = "";
-            switch (i) {
-                case 0:
-                   day = "monday";
-                   break;
-                case 1:
-                    day = "tuesday";
-                    break;
-                case 2:
-                    day = "wednesday";
-                    break;
-                case 3:
-                    day = "thursday";
-                    break;
-                case 4:
-                    day = "friday";
-                    break;
-                case 5:
-                    day = "saturday";
-                    break;
-                case 6:
-                    day = "sunday";
-                    break;
-            }
 
-            AverageWeather averageWeather = new AverageWeather(day, getAverageValues(repository.findByDate(date)));
+
+            AverageWeather averageWeather = new AverageWeather(new SimpleDateFormat("EEEE", Locale.ENGLISH).format(date.getTime()), getAverageValues(repository.findByDate(date)));
             weatherWeekList.add(averageWeather);
 
             cal.add(Calendar.DAY_OF_WEEK, 1);
@@ -145,10 +124,6 @@ public class WeatherController {
         int daysInMonth = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 
         for (int i = 1; i <= daysInMonth; i++) {
-
-            log.info("day: " + i);
-            log.info("date: " + date.toString());
-
             AverageWeather averageWeather = new AverageWeather(String.valueOf(i), getAverageValues(repository.findByDate(date)));
             weatherWeekList.add(averageWeather);
 
@@ -160,17 +135,30 @@ public class WeatherController {
     }
 
     @GetMapping(value="/findByYear/{year}")
-    public List<Weather> getWeatherByYear(@PathVariable int year){
+    public List<AverageWeather> getWeatherByYear(@PathVariable int year){
+        List<AverageWeather> weatherWeekList = new ArrayList<>();
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, year);
         cal.set(Calendar.MONTH, 0);
-        cal.set(Calendar.DAY_OF_MONTH, 1);
-        Date startDate = new Date(cal.getTime().getTime());
-        cal.add(Calendar.YEAR, 1);
-        cal.add(Calendar.DAY_OF_YEAR, -1);
-        Date endDate = new Date(cal.getTime().getTime());
 
-        return repository.findByDateBetween(startDate, endDate);
+        for (int i = 1; i <= 12; i++) {
+            cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH));
+            Date startDate = new Date(cal.getTime().getTime());
+            cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+            Date stopDate = new Date(cal.getTime().getTime());
+
+            log.info("i: " + i);
+            log.info("startDate: " + startDate);
+            log.info("stopDate: " + stopDate);
+
+            AverageWeather averageWeather = new AverageWeather(new SimpleDateFormat("MMMM", Locale.ENGLISH).format(startDate.getTime()),
+                    getAverageValues(repository.findByDateBetween(startDate,stopDate)));
+            weatherWeekList.add(averageWeather);
+
+            cal.add(Calendar.DAY_OF_MONTH, 1);
+        }
+
+        return weatherWeekList;
     }
 
     //******************************* LCD DISPLAY ******************************* //
