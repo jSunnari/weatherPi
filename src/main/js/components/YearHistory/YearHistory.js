@@ -114,11 +114,11 @@ export default class YearHistory extends Component {
                         </div>
                     </Sticky>
                     <p className="graph-header">TEMPERATURE</p>
-                    <Graph lineChartData={this.state.temperatureData} lineChartOptions={temperatureChartOptions} />
+                    <Graph lineChartData={this.state.temperatureData} lineChartOptions={temperatureChartOptions} bar=true />
                     <p className="graph-header">HUMIDITY</p>
-                    <Graph lineChartData={this.state.humidityData} lineChartOptions={humidityChartOptions}/>
+                    <Graph lineChartData={this.state.humidityData} lineChartOptions={humidityChartOptions} bar=true />
                     <p className="graph-header">PRESSURE</p>
-                    <Graph lineChartData={this.state.pressureData} lineChartOptions={pressureChartOptions}/>
+                    <Graph lineChartData={this.state.pressureData} lineChartOptions={pressureChartOptions} bar=true />
                 </div>
             </StickyContainer>
         )

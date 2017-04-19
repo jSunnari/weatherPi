@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import { Chart, Line, defaults } from "react-chartjs-2"; // https://github.com/gor181/react-chartjs-2
+import { Chart, Line, Bar, defaults } from "react-chartjs-2"; // https://github.com/gor181/react-chartjs-2
 import "./Graph.scss";
 
 export default class Graph extends Component {
@@ -32,13 +32,22 @@ export default class Graph extends Component {
     }
 
     render() {
+
         return (
             <div className="graph-container">
-                <Line
-                    data={this.props.lineChartData}
-                    height={250}
-                    options={this.props.lineChartOptions}
-                />
+                {this.props.bar ?
+                    <Bar
+                        data={this.props.lineChartData}
+                        height={250}
+                        options={this.props.lineChartOptions}
+                    />
+                    :
+                    <Line
+                        data={this.props.lineChartData}
+                        height={250}
+                        options={this.props.lineChartOptions}
+                    />
+                }
             </div>
         )
     }
