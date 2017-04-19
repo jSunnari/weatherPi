@@ -59,7 +59,7 @@ export default class YearHistory extends Component {
                 tempHumidityData.datasets[1].data.splice(index, 1, weatherObject.weather.outsideHumidity);
                 tempPressureData.datasets[0].data.splice(index, 1, weatherObject.weather.outsidePressure);
 
-                console.log(tempTemperatureData.datasets(0));
+                console.log(tempTemperatureData.datasets[0]);
             });
 
             this.setState({temperatureData: tempTemperatureData, humidityData: tempHumidityData, pressureData: tempPressureData});
