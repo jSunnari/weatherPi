@@ -52,8 +52,8 @@ public class WeatherController {
         insideSensor.clearMinMaxValues();
         outsideSensor.clearMinMaxValues();
 
-        System.out.println(repository.findAvgDayInsideTemp(new Date(2017,4,4)));
-        System.out.println(repository.findAvgMonthInsideTemp(new Date(2017, 4, 1), new Date(2017, 4, 30)));
+        //System.out.println(repository.findAvgDayInsideTemp(new Date(2017,4,4)));
+        //System.out.println(repository.findAvgMonthInsideTemp(new Date(2017, 4, 1), new Date(2017, 4, 30)));
     }
 
     //******************************* ENDPOINTS ******************************* //
