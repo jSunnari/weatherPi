@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -97,21 +98,80 @@ public class WeatherController {
     }
 
     @GetMapping(value="/findByWeek/{year}/{weekNumber}")
-    public List<Weather> getWeatherByWeek(@PathVariable int year, @PathVariable int weekNumber){
+    public List<AverageWeather> getWeatherByWeek(@PathVariable int year, @PathVariable int weekNumber){
+        List<AverageWeather> weatherWeekList = new ArrayList<>();
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, year);
         cal.set(Calendar.WEEK_OF_YEAR, weekNumber);
         cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-
         Date startDate = new Date(cal.getTime().getTime());
-        cal.add(Calendar.DAY_OF_WEEK, 6);
-        Date endDate = new Date(cal.getTime().getTime());
+
+        for (int i = 0; i < 7; i++) {
+            String day = "";
+            switch (i) {
+                case 0:
+                   day = "monday";
+                   break;
+                case 1:
+                    day = "tuesday";
+                    break;
+                case 2:
+                    day = "wednesday";
+                    break;
+                case 3:
+                    day = "thursday";
+                    break;
+                case 4:
+                    day = "friday";
+                    break;
+                case 5:
+                    day = "saturday";
+                    break;
+                case 6:
+                    day = "sunday";
+                    break;
+            }
+
+            AverageWeather averageWeather = new AverageWeather(day, getAverageValues(repository.findByDate(startDate)));
+            weatherWeekList.add(averageWeather);
+
+            cal.add(Calendar.DAY_OF_WEEK, i + 1);
+        }
+
+
+
+        //cal.add(Calendar.DAY_OF_WEEK, 6);
+        //Date endDate = new Date(cal.getTime().getTime());
 
         //List<Weather> weatherListByWeek = repository.findByDateBetween(startDate, endDate);
 
 
 
-        return repository.findByDateBetween(startDate, endDate);
+        return weatherWeekList;
+    }
+
+    Weather getAverageValues(List<Weather> weatherList) {
+        double insideTemperature = 0;
+        double insideHumidity = 0;
+        double outsideTemperature = 0;
+        double outsideHumidity = 0;
+        double outsidePressure = 0;
+
+        for (Weather weather: weatherList) {
+            insideTemperature += weather.getInsideTemperature();
+            insideHumidity += weather.getInsideHumidity();
+            outsideTemperature += weather.getOutsideTemperature();
+            outsideHumidity += weather.getOutsideHumidity();
+            outsidePressure += weather.getOutsidePressure();
+        }
+
+        insideTemperature = insideTemperature/weatherList.size();
+        insideHumidity = insideHumidity/weatherList.size();
+        outsideTemperature = outsideTemperature/weatherList.size();
+        outsideHumidity = outsideHumidity/weatherList.size();
+        outsidePressure = outsidePressure/weatherList.size();
+
+        return new Weather(insideTemperature,insideHumidity,outsideTemperature,outsideHumidity,outsidePressure);
     }
 
 

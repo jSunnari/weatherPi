@@ -17,7 +17,8 @@ import java.util.List;
 public interface WeatherRepository extends PagingAndSortingRepository<Weather, Long> {
     List<Weather> findByDate(@Param("date") Date date);
     List<Weather> findByDateBetween(Date date1, Date date2);
-/*
+
+    /*
     @Query(value="select avg(inside_temperature) from weather where date = :date", nativeQuery = true)
     double findAvgDayInsideTemp(@Param("date") Date date);
 */
