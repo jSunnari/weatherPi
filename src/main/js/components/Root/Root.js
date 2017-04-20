@@ -34,7 +34,41 @@ export default class Root extends Component {
             <div id="app-root">
 
                 <Header page={this.state.page} changePage={this.changePage.bind(this)} />
-                { this.state.page === "History" ? <History/> : <Values /> }
+
+                <MediaQuery query='(min-device-width: 1224px)'>
+                    {/* Desktop */}
+
+                    <div className="root-container">
+                        <History/>
+                        <Values/>
+                    </div>
+
+                </MediaQuery>
+
+
+                <MediaQuery query='(max-device-width: 1224px)'>
+                    {/* Tablet */}
+
+                    { this.state.page === "History" ? <History/> : <Values /> }
+
+                    <MediaQuery query='(orientation: landscape)'>
+
+                        <div className="root-container">
+                            <History/>
+                            <Values/>
+                        </div>
+
+                    </MediaQuery>
+
+                </MediaQuery>
+
+
+                <MediaQuery query='(max-device-width: 736px)'>
+                    {/* Mobile */}
+
+                    { this.state.page === "History" ? <History/> : <Values /> }
+
+                </MediaQuery>
 
             </div>
         )
