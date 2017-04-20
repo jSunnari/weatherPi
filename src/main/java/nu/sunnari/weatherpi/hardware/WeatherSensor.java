@@ -238,21 +238,27 @@ public class WeatherSensor {
         if (tempValues.size() == 12){
             tempValues.remove(0);
         }
-        tempValues.add(Math.round(lastTempValue * 10.0) / 10.0);
+        if (lastTempValue < 100 && lastTempValue > -100) {
+            tempValues.add(Math.round(lastTempValue * 10.0) / 10.0);
+        }
     }
 
     public void addHumValue(double lastHumValue){
         if (humidityValues.size() == 12){
             humidityValues.remove(0);
         }
-        humidityValues.add(Math.round(lastHumValue * 10.0) / 10.0);
+        if (lastHumValue <= 100 && lastHumValue >= 0) {
+            humidityValues.add(Math.round(lastHumValue * 10.0) / 10.0);
+        }
     }
 
     public void addPressureValue(double lastPressureValue){
         if (pressureValues.size() == 12){
             pressureValues.remove(0);
         }
-        pressureValues.add(Math.round(lastPressureValue * 10.0) / 10.0);
+        if (lastPressureValue < 2000 && lastPressureValue > 500) {
+            pressureValues.add(Math.round(lastPressureValue * 10.0) / 10.0);
+        }
     }
 
     public void updateMinMaxValues(){
