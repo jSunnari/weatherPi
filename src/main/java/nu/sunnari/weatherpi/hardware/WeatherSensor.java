@@ -355,4 +355,5 @@ public class WeatherSensor {
     public double getMaxPressure() {
         return Math.round(maxPressure * 10.0) / 10.0;
     }
+
 }

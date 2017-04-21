@@ -203,6 +203,7 @@ public class WeatherController {
 
     @Scheduled(cron = "0 0 * * * *") //Every hour
     public void persistWeatherData(){
+
         log.info("Persisting data to database. Data: " +
                 "[outside-temp: " + outsideSensor.getAverageTemp() +
                 ", outside-hum: " + outsideSensor.getAverageHumidity() +
@@ -219,6 +220,7 @@ public class WeatherController {
                 outsideSensor.getAverageHumidity(),
                 outsideSensor.getAveragePressure())
         );
+
     }
 
     @Scheduled(cron = "0/15 * * * * *") //Every 15 seconds
