@@ -193,7 +193,7 @@ public class WeatherSensor {
         else if (humidity < 0.0) {
             humidity = 0.0;
         }
-        this.temperature = cTemp;
+        this.temperature = cTemp - 1; //calibration
         this.pressure = pressure;
         this.humidity = humidity;
     }
