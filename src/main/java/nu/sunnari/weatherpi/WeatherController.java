@@ -101,7 +101,6 @@ public class WeatherController {
         Date date = new Date(cal.getTime().getTime());
 
         for (int i = 0; i < 7; i++) {
-
             AverageWeather averageWeather = new AverageWeather(new SimpleDateFormat("EEEE", Locale.ENGLISH).format(date.getTime()), getAverageValues(repository.findByDate(date)));
             weatherWeekList.add(averageWeather);
 
@@ -237,6 +236,7 @@ public class WeatherController {
 
     //********************************* MISC ********************************* //
     Weather getAverageValues(List<Weather> weatherList) {
+        int listSize = weatherList.size();
         double insideTemperature = 0;
         double insideHumidity = 0;
         double outsideTemperature = 0;
@@ -251,11 +251,11 @@ public class WeatherController {
             outsidePressure += weather.getOutsidePressure();
         }
 
-        insideTemperature = insideTemperature/weatherList.size();
-        insideHumidity = insideHumidity/weatherList.size();
-        outsideTemperature = outsideTemperature/weatherList.size();
-        outsideHumidity = outsideHumidity/weatherList.size();
-        outsidePressure = outsidePressure/weatherList.size();
+        insideTemperature = Math.round((insideTemperature/listSize) * 10.0) / 10.0;
+        insideHumidity = Math.round((insideHumidity/listSize) * 10.0) / 10.0;
+        outsideTemperature = Math.round((outsideTemperature/listSize) * 10.0) / 10.0;
+        outsideHumidity = Math.round((outsideHumidity/listSize) * 10.0) / 10.0;
+        outsidePressure = Math.round((outsidePressure/listSize) * 10.0) / 10.0;
 
         return new Weather(insideTemperature,insideHumidity,outsideTemperature,outsideHumidity,outsidePressure);
     }
