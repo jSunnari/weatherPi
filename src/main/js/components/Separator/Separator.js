@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import './Separator.scss';
+
 export default class Separator extends Component {
 
     render() {
