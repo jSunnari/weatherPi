@@ -65,5 +65,21 @@
       margin: auto;
       font-size: 2em;
     }
+
+    .wi-direction-up-right {
+      color: $light-turquoise;
+    }
+
+    .wi-direction-down-right {
+      color: $yellow;
+    }
   }
+}
+
+@media only screen and (min-width: 768px) {
+
+  #arrow-icon-container {
+    width: 20%;
+  }
+
 }
