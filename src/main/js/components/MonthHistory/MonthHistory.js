@@ -26,17 +26,11 @@ export default class MonthHistory extends Component {
         let tempHumidityData = JSON.parse(JSON.stringify(humidityChartData));
         let tempPressureData = JSON.parse(JSON.stringify(pressureChartData));
 
-        console.log("first:");
-        console.log(tempTemperatureData.datasets[0].data);
-
         tempTemperatureData.datasets[0].data = new Array(this.state.date.daysInMonth());
         tempTemperatureData.datasets[1].data = new Array(this.state.date.daysInMonth());
         tempHumidityData.datasets[0].data = new Array(this.state.date.daysInMonth());
         tempHumidityData.datasets[1].data = new Array(this.state.date.daysInMonth());
         tempPressureData.datasets[0].data = new Array(this.state.date.daysInMonth());
-
-        console.log("new arrays:");
-        console.log(tempTemperatureData.datasets[0].data);
 
         let dateLabels = this.getLabels();
         tempTemperatureData.labels = dateLabels;
@@ -55,11 +49,6 @@ export default class MonthHistory extends Component {
             });
 
             this.setState({temperatureData: tempTemperatureData, humidityData: tempHumidityData, pressureData: tempPressureData});
-
-            console.log("new state:");
-            console.log(this.state.temperatureData.datasets[0].data);
-
-
         }, (error) => {
             console.error(error);
         });
@@ -101,11 +90,11 @@ export default class MonthHistory extends Component {
                         </div>
                     </Sticky>
                     <p className="graph-header">TEMPERATURE</p>
-                    <Graph lineChartData={this.state.temperatureData} lineChartOptions={temperatureChartOptions} />
+                    <Graph lineChartData={this.state.temperatureData} lineChartOptions={temperatureChartOptions} redraw={this.isCurrent()}/>
                     <p className="graph-header">HUMIDITY</p>
-                    <Graph lineChartData={this.state.humidityData} lineChartOptions={humidityChartOptions}/>
+                    <Graph lineChartData={this.state.humidityData} lineChartOptions={humidityChartOptions} redraw={this.isCurrent()}/>
                     <p className="graph-header">PRESSURE</p>
-                    <Graph lineChartData={this.state.pressureData} lineChartOptions={pressureChartOptions}/>
+                    <Graph lineChartData={this.state.pressureData} lineChartOptions={pressureChartOptions} redraw={this.isCurrent()}/>
                 </div>
             </StickyContainer>
         )
