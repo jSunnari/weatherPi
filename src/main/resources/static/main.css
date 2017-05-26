@@ -30,6 +30,9 @@
     left: 0.3em;
     top: 0.9em; }
 
+@media only screen and (min-width: 768px) {
+  #header {
+    font-size: 2em; } }
 /*
 @media only screen and (orientation: landscape) {
   #app-root {
