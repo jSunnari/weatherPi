@@ -102,13 +102,13 @@ public class WeatherController {
 
         for (int i = 0; i < 7; i++) {
             List<Weather> weatherData = repository.findByDate(date);
+            // Skip days without data:
             if (weatherData.size() > 0) {
                 AverageWeather averageWeather = new AverageWeather(new SimpleDateFormat("EEEE", Locale.ENGLISH).format(date.getTime()), getAverageValues(weatherData));
                 weatherWeekList.add(averageWeather);
-
-                cal.add(Calendar.DAY_OF_WEEK, 1);
-                date = new Date(cal.getTime().getTime());
             }
+            cal.add(Calendar.DAY_OF_WEEK, 1);
+            date = new Date(cal.getTime().getTime());
         }
 
         return weatherWeekList;
@@ -125,9 +125,12 @@ public class WeatherController {
         int daysInMonth = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 
         for (int i = 1; i <= daysInMonth; i++) {
-            AverageWeather averageWeather = new AverageWeather(String.valueOf(i), getAverageValues(repository.findByDate(date)));
-            weatherWeekList.add(averageWeather);
-
+            List<Weather> weatherData = repository.findByDate(date);
+            // Skip days without data:
+            if (weatherData.size() > 0) {
+                AverageWeather averageWeather = new AverageWeather(String.valueOf(i), getAverageValues(weatherData));
+                weatherWeekList.add(averageWeather);
+            }
             cal.add(Calendar.DAY_OF_WEEK, 1);
             date = new Date(cal.getTime().getTime());
         }
@@ -148,10 +151,12 @@ public class WeatherController {
             cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
             Date stopDate = new Date(cal.getTime().getTime());
 
-            AverageWeather averageWeather = new AverageWeather(new SimpleDateFormat("MMMM", Locale.ENGLISH).format(startDate.getTime()),
-                    getAverageValues(repository.findByDateBetween(startDate,stopDate)));
-            weatherWeekList.add(averageWeather);
-
+            List<Weather> weatherData = repository.findByDateBetween(startDate, stopDate);
+            if (weatherData.size() > 0) {
+                AverageWeather averageWeather = new AverageWeather(new SimpleDateFormat("MMMM", Locale.ENGLISH).format(startDate.getTime()),
+                        getAverageValues(repository.findByDateBetween(startDate,stopDate)));
+                weatherWeekList.add(averageWeather);
+            }
             cal.add(Calendar.DAY_OF_MONTH, 1);
         }
 
