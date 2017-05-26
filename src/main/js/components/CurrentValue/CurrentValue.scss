@@ -78,8 +78,11 @@
 
 @media only screen and (min-width: 768px) {
 
-  #value-icon {
-    font-size: 1.8em !important;
+  #value-icon-container {
+    width: 10% !important;
+    #value-icon {
+      font-size: 1.8em !important;
+    }
   }
 
   #currentvalue-container {
@@ -93,11 +96,11 @@
 
   #minmax-container {
     .minmax-icon {
-      font-size: 1.5em;
+      font-size: 1.5em !important;
     }
 
     .minmax-value {
-      font-size: 1.3em;
+      font-size: 1.3em !important;
     }
   }
 
@@ -105,7 +108,7 @@
     width: 10% !important;
 
     #arrow-icon {
-      font-size: 4em !important;
+      font-size: 3em !important;
     }
   }
 

@@ -46,6 +46,7 @@ export default class Graph extends Component {
                         data={this.props.lineChartData}
                         height={250}
                         options={this.props.lineChartOptions}
+                        redraw={true}
                     />
                 }
             </div>
