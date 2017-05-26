@@ -93,7 +93,7 @@ export const pressureChartOptions = {
         }],
         yAxes: [{
             ticks: {
-                beginAtZero: true
+                beginAtZero: false
             }
         }]
     }
