@@ -26,11 +26,15 @@ export default class MonthHistory extends Component {
         let tempHumidityData = JSON.parse(JSON.stringify(humidityChartData));
         let tempPressureData = JSON.parse(JSON.stringify(pressureChartData));
 
+        console.log("first:" + JSON.valueOf(tempTemperatureData.datasets[0].data));
+
         tempTemperatureData.datasets[0].data = new Array(this.state.date.daysInMonth());
         tempTemperatureData.datasets[1].data = new Array(this.state.date.daysInMonth());
         tempHumidityData.datasets[0].data = new Array(this.state.date.daysInMonth());
         tempHumidityData.datasets[1].data = new Array(this.state.date.daysInMonth());
         tempPressureData.datasets[0].data = new Array(this.state.date.daysInMonth());
+
+        console.log("new arrays:" + JSON.valueOf(tempTemperatureData.datasets[0].data));
 
         let dateLabels = this.getLabels();
         tempTemperatureData.labels = dateLabels;
@@ -38,11 +42,7 @@ export default class MonthHistory extends Component {
         tempPressureData.labels = dateLabels;
 
         serverRequest.getWeatherByMonth(year, month).then((response) => {
-
             response.map((weatherObject) => {
-
-                console.log(weatherObject);
-
                 let index = (weatherObject.key - 1);
 
                 tempTemperatureData.datasets[0].data.splice(index, 1, weatherObject.weather.insideTemperature);
@@ -53,6 +53,9 @@ export default class MonthHistory extends Component {
             });
 
             this.setState({temperatureData: tempTemperatureData, humidityData: tempHumidityData, pressureData: tempPressureData});
+
+            console.log("new state:" + JSON.valueOf(this.state.temperatureData.datasets[0].data));
+
 
         }, (error) => {
             console.error(error);
