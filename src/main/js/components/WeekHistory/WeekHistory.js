@@ -5,6 +5,7 @@ import { serverRequest } from '../../serverRequest';
 import { temperatureChartData, humidityChartData, pressureChartData, temperatureChartOptions, humidityChartOptions, pressureChartOptions} from '../../constants';
 import { StickyContainer, Sticky } from 'react-sticky';
 
+
 export default class WeekHistory extends Component {
 
     constructor(props){

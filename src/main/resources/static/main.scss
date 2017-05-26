@@ -1,9 +1,6 @@
-@import "../../js/components/Header/Header.scss";
-@import "../../js/components/WeekHistory/WeekHistory.scss";
-@import "../../js/components/Menu/Menu.scss";
-
-@import "../../js/variables.scss";
-
+html, body {
+  -webkit-tap-highlight-color: transparent;
+}
 
 html {
   -webkit-font-smoothing: antialiased;

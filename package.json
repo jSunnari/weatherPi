@@ -23,6 +23,7 @@
     "react": "^15.3.2",
     "react-chartjs-2": "^2.0.5",
     "react-dom": "^15.3.2",
+    "react-fastclick": "^3.0.2-alpha.1",
     "react-responsive": "^1.2.6",
     "react-router": "^4.0.0",
     "react-sticky": "^5.0.5",

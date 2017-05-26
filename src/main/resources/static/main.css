@@ -1,51 +1,6 @@
-/*
-@media only screen and (orientation: landscape) {
-  #app-root {
-    height: 100%;
-  }
-}
-*/
-#header-container {
-  background-color: rgba(0, 0, 0, 0.6);
-  display: flex;
-  min-height: 3em; }
-  #header-container #header {
-    flex: 1 1 auto;
-    text-align: center;
-    margin: .4em;
-    color: #ffffff;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-weight: 300;
-    font-size: 1.5em; }
-  #header-container #graph-icon {
-    position: absolute;
-    width: 1.75em;
-    height: 1.5em;
-    right: 1em;
-    top: 0.75em; }
-  #header-container #back-icon {
-    position: absolute;
-    width: 1.2em;
-    height: 1.2em;
-    left: 0.3em;
-    top: 0.9em; }
+html, body {
+  -webkit-tap-highlight-color: transparent; }
 
-@media only screen and (min-width: 768px) {
-  #header {
-    font-size: 2em !important; }
-
-  #graph-icon {
-    top: 1.4em !important; }
-
-  #back-icon {
-    top: 1.4em !important; } }
-/*
-@media only screen and (orientation: landscape) {
-  #app-root {
-    height: 100%;
-  }
-}
-*/
 html {
   -webkit-font-smoothing: antialiased; }
 
