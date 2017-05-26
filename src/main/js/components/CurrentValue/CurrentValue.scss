@@ -79,13 +79,32 @@
 @media only screen and (min-width: 768px) {
 
   #value-icon {
-    font-size: 3.3em !important;
+    font-size: 1.8em !important;
+  }
+
+  #currentvalue-container {
+    padding-top: 1em !important;
+    padding-bottom: 2em !important;
+
+    #currentvalue {
+      font-size: 3.3em !important;
+    }
+  }
+
+  #minmax-container {
+    .minmax-icon {
+      font-size: 1.5em;
+    }
+
+    .minmax-value {
+      font-size: 1.3em;
+    }
   }
 
   #arrow-icon-container {
     width: 10% !important;
 
-    #arrow-container {
+    #arrow-icon {
       font-size: 4em !important;
     }
   }
