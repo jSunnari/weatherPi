@@ -67,28 +67,26 @@
     }
 
     .wi-direction-up-right {
-      color: $light-turquoise;
+      color: $light-turquoise !important;
     }
 
     .wi-direction-down-right {
-      color: $yellow;
+      color: $yellow !important;
     }
   }
 }
 
 @media only screen and (min-width: 768px) {
 
-
-
   #value-icon {
-    font-size: 3.3em;
+    font-size: 3.3em !important;
   }
 
   #arrow-icon-container {
-    width: 10%;
+    width: 10% !important;
 
     #arrow-container {
-      font-size: 4em;
+      font-size: 4em !important;
     }
   }
 
