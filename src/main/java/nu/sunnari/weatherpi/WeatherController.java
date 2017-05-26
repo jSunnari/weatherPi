@@ -101,11 +101,14 @@ public class WeatherController {
         Date date = new Date(cal.getTime().getTime());
 
         for (int i = 0; i < 7; i++) {
-            AverageWeather averageWeather = new AverageWeather(new SimpleDateFormat("EEEE", Locale.ENGLISH).format(date.getTime()), getAverageValues(repository.findByDate(date)));
-            weatherWeekList.add(averageWeather);
+            List<Weather> weatherData = repository.findByDate(date);
+            if (weatherData.size() > 0) {
+                AverageWeather averageWeather = new AverageWeather(new SimpleDateFormat("EEEE", Locale.ENGLISH).format(date.getTime()), getAverageValues(weatherData));
+                weatherWeekList.add(averageWeather);
 
-            cal.add(Calendar.DAY_OF_WEEK, 1);
-            date = new Date(cal.getTime().getTime());
+                cal.add(Calendar.DAY_OF_WEEK, 1);
+                date = new Date(cal.getTime().getTime());
+            }
         }
 
         return weatherWeekList;
