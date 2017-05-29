@@ -14,7 +14,8 @@ export default class MonthHistory extends Component {
             temperatureData: JSON.parse(JSON.stringify(temperatureChartData)),
             humidityData: JSON.parse(JSON.stringify(humidityChartData)),
             pressureData: JSON.parse(JSON.stringify(pressureChartData)),
-            noData: false
+            noData: false,
+            shouldRedraw: false
         }
     }
 
@@ -39,6 +40,10 @@ export default class MonthHistory extends Component {
                 tempTemperatureData.labels = dateLabels;
                 tempHumidityData.labels = dateLabels;
                 tempPressureData.labels = dateLabels;
+
+                if (response.length < dateLabels.length) {
+                    this.setState({shouldRedraw: true})
+                }
 
                 response.map((weatherObject) => {
                     let index = (weatherObject.key - 1);

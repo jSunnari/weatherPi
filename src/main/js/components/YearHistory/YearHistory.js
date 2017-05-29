@@ -14,7 +14,8 @@ export default class YearHistory extends Component {
             temperatureData: JSON.parse(JSON.stringify(temperatureChartData)),
             humidityData: JSON.parse(JSON.stringify(humidityChartData)),
             pressureData: JSON.parse(JSON.stringify(pressureChartData)),
-            noData: false
+            noData: false,
+            shouldRedraw: false
         }
     }
 
@@ -23,8 +24,6 @@ export default class YearHistory extends Component {
     }
 
     loadData(year){
-
-
         serverRequest.getWeatherByYear(year).then((response) => {
             if (response.length > 0) {
                 let tempTemperatureData = JSON.parse(JSON.stringify(temperatureChartData));
@@ -41,6 +40,10 @@ export default class YearHistory extends Component {
                 tempTemperatureData.labels = dateLabels;
                 tempHumidityData.labels = dateLabels;
                 tempPressureData.labels = dateLabels;
+
+                if (response.length < dateLabels.length) {
+                    this.setState({shouldRedraw: true})
+                }
 
                 response.map((weatherObject) => {
                     let index = dateLabels.indexOf(weatherObject.key);
