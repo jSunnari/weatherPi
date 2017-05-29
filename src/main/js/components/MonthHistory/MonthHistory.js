@@ -33,8 +33,6 @@ export default class MonthHistory extends Component {
         tempHumidityData.datasets[1].data = new Array(this.state.date.daysInMonth());
         tempPressureData.datasets[0].data = new Array(this.state.date.daysInMonth());
 
-
-
         serverRequest.getWeatherByMonth(year, month).then((response) => {
             if (response.length > 0) {
                 let dateLabels = this.getLabels();
@@ -52,17 +50,13 @@ export default class MonthHistory extends Component {
                     tempPressureData.datasets[0].data.splice(index, 1, weatherObject.weather.outsidePressure);
                 });
 
-                this.setState({noData: false})
+                this.setState({noData: false, temperatureData: tempTemperatureData, humidityData: tempHumidityData, pressureData: tempPressureData});
 
             }
             else {
-                tempTemperatureData.text = "No data";
-                tempHumidityData.text = "No data";
-                tempPressureData.text = "No data";
                 this.setState({noData: true})
             }
 
-            this.setState({temperatureData: tempTemperatureData, humidityData: tempHumidityData, pressureData: tempPressureData});
 
         }, (error) => {
             console.error(error);
@@ -105,11 +99,11 @@ export default class MonthHistory extends Component {
                         </div>
                     </Sticky>
                     <p className="graph-header">TEMPERATURE</p>
-                    <Graph lineChartData={this.state.temperatureData} lineChartOptions={temperatureChartOptions} redraw={this.isCurrent() || this.state.noData}/>
+                    <Graph lineChartData={this.state.temperatureData} lineChartOptions={temperatureChartOptions} redraw={this.isCurrent()} noData={this.state.noData}/>
                     <p className="graph-header">HUMIDITY</p>
-                    <Graph lineChartData={this.state.humidityData} lineChartOptions={humidityChartOptions} redraw={this.isCurrent() || this.state.noData}/>
+                    <Graph lineChartData={this.state.humidityData} lineChartOptions={humidityChartOptions} redraw={this.isCurrent()} noData={this.state.noData}/>
                     <p className="graph-header">PRESSURE</p>
-                    <Graph lineChartData={this.state.pressureData} lineChartOptions={pressureChartOptions} redraw={this.isCurrent() || this.state.noData}/>
+                    <Graph lineChartData={this.state.pressureData} lineChartOptions={pressureChartOptions} redraw={this.isCurrent()} noData={this.state.noData}/>
                 </div>
             </StickyContainer>
         )

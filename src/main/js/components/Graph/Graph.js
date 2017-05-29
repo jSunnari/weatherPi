@@ -35,20 +35,24 @@ export default class Graph extends Component {
 
         return (
             <div className="graph-container">
-                {this.props.bar ?
-                    <Bar
-                        data={this.props.lineChartData}
-                        height={250}
-                        options={this.props.lineChartOptions}
-                    />
+                {this.props.noData ?
+                    <p className="graph-header">NO DATA</p>
                     :
-                    <Line
-                        data={this.props.lineChartData}
-                        height={250}
-                        options={this.props.lineChartOptions}
-                        redraw={this.props.redraw}
-                    />
+                    this.props.bar ?
+                        <Bar
+                            data={this.props.lineChartData}
+                            height={250}
+                            options={this.props.lineChartOptions}
+                        />
+                        :
+                        <Line
+                            data={this.props.lineChartData}
+                            height={250}
+                            options={this.props.lineChartOptions}
+                            redraw={this.props.redraw}
+                        />
                 }
+
             </div>
         )
     }
