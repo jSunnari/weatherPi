@@ -25,7 +25,7 @@ export default class WeekHistory extends Component {
 
     loadData(year, week){
         serverRequest.getWeatherByWeek(year, week).then((response) => {
-            if (response.length < 0) {
+            if (response.length > 0) {
                 let tempTemperatureData = JSON.parse(JSON.stringify(temperatureChartData));
                 let tempHumidityData = JSON.parse(JSON.stringify(humidityChartData));
                 let tempPressureData = JSON.parse(JSON.stringify(pressureChartData));
