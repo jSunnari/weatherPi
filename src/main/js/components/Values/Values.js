@@ -11,6 +11,21 @@ export default class Values extends Component {
         super(props);
         this.state = ({
             currentWeather: {
+                outdoorMaxHum: 0,
+                outdoorPressure: 0,
+                indoorMinTemp: 0,
+                outdoorMinTemp: 0,
+                indoorMinHum: 0,
+                outdoorMinHum: 0,
+                outdoorMaxPressure: 0,
+                outdoorTemp: 0,
+                indoorTemp: 0,
+                outdoorMaxTemp: 0,
+                indoorHum: 0,
+                outdoorHum: 0,
+                indoorMaxHum: 0,
+                outdoorMinPressure: 0,
+                indoorMaxTemp: 0,
                 outdoorTempTrend: "direction-right",
                 outdoorHumTrend: "direction-right",
                 outdoorPressureTrend: "direction-right",
@@ -21,36 +36,8 @@ export default class Values extends Component {
     }
 
     componentWillMount(){
-        //DEVMODE
         this.loadCurrentWeather();
         this.loadCurrentWeatherInterval = setInterval(() => this.loadCurrentWeather(), 15000);
-
-
-        /*
-        let currentWeather = {
-            outdoorMaxHum: 100,
-            outdoorPressure: 1000,
-            indoorMinTemp: 24.1,
-            outdoorMinTemp: 3.1,
-            indoorMinHum: 30,
-            outdoorMinHum: 84,
-            outdoorMaxPressure: 1000,
-            outdoorTemp: 7.9,
-            indoorTemp: 25.3,
-            outdoorMaxTemp: 7.9,
-            indoorHum: 31,
-            outdoorTempTrend: "direction-up-right",
-            indoorTempTrend: "direction-up-right",
-            outdoorPressureTrend: "direction-up-right",
-            outdoorHum: 84,
-            indoorMaxHum: 36,
-            indoorHumTrend: "direction-down-right",
-            outdoorHumTrend: "direction-down-right",
-            outdoorMinPressure: 999,
-            indoorMaxTemp: 25.3
-        };
-        this.setState({currentWeather: currentWeather});
-        */
     }
 
     componentWillUnmount(){
@@ -63,14 +50,6 @@ export default class Values extends Component {
     loadCurrentWeather(){
         serverRequest.getCurrentWeather().then((response) => {
             this.setState({currentWeather: response});
-        }, (error) => {
-            console.error(error);
-        });
-    }
-
-    test(){
-        serverRequest.getWeatherByWeek(2017, 9).then((response) => {
-            console.log(response);
         }, (error) => {
             console.error(error);
         });
