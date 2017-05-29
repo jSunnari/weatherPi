@@ -43,6 +43,8 @@ export default class YearHistory extends Component {
 
                 if (response.length < dateLabels.length) {
                     this.setState({shouldRedraw: true})
+                } else {
+                    this.setState({shouldRedraw: false})
                 }
 
                 response.map((weatherObject) => {

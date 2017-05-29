@@ -44,6 +44,8 @@ export default class DayHistory extends Component {
 
                 if (response.length < dateLabels.length) {
                     this.setState({shouldRedraw: true})
+                } else {
+                    this.setState({shouldRedraw: false})
                 }
 
                 response.map((weather) => {
