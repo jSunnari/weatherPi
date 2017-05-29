@@ -18,6 +18,7 @@
       font-family: $font-family-main;
       font-weight: $font-weight-main;
       color: $white;
+      cursor: pointer;
     }
 
     #day-tab {
@@ -38,8 +39,6 @@
     justify-content: center;
     padding-top: .8em;
     background: linear-gradient(to right, rgba(0, 0, 0, 0.1) 0%, #003b45 45%, #003b45 55%, rgba(0, 0, 0, 0.1) 100%);
-    //border-bottom: 2px solid;
-    //border-color: rgba(102, 164, 172, 0.5);
     border-bottom-right-radius: 2em;
     border-bottom-left-radius: 2em;
     padding-bottom: .4em;
@@ -54,6 +53,7 @@
       padding-left: 1.1em;
       padding-right: 1.1em;
       align-self: center;
+      cursor: pointer;
     }
 
     p {
@@ -63,6 +63,7 @@
       letter-spacing: .1em;
       color: $white;
       margin: 0;
+      cursor: default;
     }
   }
 
@@ -78,6 +79,7 @@
     color: $white;
     font-family: $font-family-second;
     font-weight: $font-weight-main;
+    cursor: default;
   }
 
 }
