@@ -52,6 +52,7 @@ export default class DayHistory extends Component {
                 });
 
                 this.setState({
+                    noData: false,
                     temperatureData: tempTemperatureData,
                     humidityData: tempHumidityData,
                     pressureData: tempPressureData
