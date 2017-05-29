@@ -13,7 +13,8 @@ export default class YearHistory extends Component {
             date: moment(),
             temperatureData: JSON.parse(JSON.stringify(temperatureChartData)),
             humidityData: JSON.parse(JSON.stringify(humidityChartData)),
-            pressureData: JSON.parse(JSON.stringify(pressureChartData))
+            pressureData: JSON.parse(JSON.stringify(pressureChartData)),
+            noData: false
         }
     }
 
@@ -22,38 +23,39 @@ export default class YearHistory extends Component {
     }
 
     loadData(year){
-        let tempTemperatureData = JSON.parse(JSON.stringify(temperatureChartData));
-        let tempHumidityData = JSON.parse(JSON.stringify(humidityChartData));
-        let tempPressureData = JSON.parse(JSON.stringify(pressureChartData));
 
-        tempTemperatureData.datasets[0].data = new Array(12);
-        tempTemperatureData.datasets[1].data = new Array(12);
-        tempHumidityData.datasets[0].data = new Array(12);
-        tempHumidityData.datasets[1].data = new Array(12);
-        tempPressureData.datasets[0].data = new Array(12);
-
-        let dateLabels = this.getLabels();
-        tempTemperatureData.labels = dateLabels;
-        tempHumidityData.labels = dateLabels;
-        tempPressureData.labels = dateLabels;
 
         serverRequest.getWeatherByYear(year).then((response) => {
+            if (response.length > 0) {
+                let tempTemperatureData = JSON.parse(JSON.stringify(temperatureChartData));
+                let tempHumidityData = JSON.parse(JSON.stringify(humidityChartData));
+                let tempPressureData = JSON.parse(JSON.stringify(pressureChartData));
 
-            response.map((weatherObject) => {
+                tempTemperatureData.datasets[0].data = new Array(12);
+                tempTemperatureData.datasets[1].data = new Array(12);
+                tempHumidityData.datasets[0].data = new Array(12);
+                tempHumidityData.datasets[1].data = new Array(12);
+                tempPressureData.datasets[0].data = new Array(12);
 
-                let index = dateLabels.indexOf(weatherObject.key);
+                let dateLabels = this.getLabels();
+                tempTemperatureData.labels = dateLabels;
+                tempHumidityData.labels = dateLabels;
+                tempPressureData.labels = dateLabels;
 
-                tempTemperatureData.datasets[0].data.splice(index, 1, weatherObject.weather.insideTemperature);
-                tempTemperatureData.datasets[1].data.splice(index, 1, weatherObject.weather.outsideTemperature);
-                tempHumidityData.datasets[0].data.splice(index, 1, weatherObject.weather.outsideHumidity);
-                tempHumidityData.datasets[1].data.splice(index, 1, weatherObject.weather.insideHumidity);
-                tempPressureData.datasets[0].data.splice(index, 1, weatherObject.weather.outsidePressure);
+                response.map((weatherObject) => {
+                    let index = dateLabels.indexOf(weatherObject.key);
 
-                console.log(tempTemperatureData.datasets[0]);
-            });
-
-            this.setState({temperatureData: tempTemperatureData, humidityData: tempHumidityData, pressureData: tempPressureData});
-
+                    tempTemperatureData.datasets[0].data.splice(index, 1, weatherObject.weather.insideTemperature);
+                    tempTemperatureData.datasets[1].data.splice(index, 1, weatherObject.weather.outsideTemperature);
+                    tempHumidityData.datasets[0].data.splice(index, 1, weatherObject.weather.outsideHumidity);
+                    tempHumidityData.datasets[1].data.splice(index, 1, weatherObject.weather.insideHumidity);
+                    tempPressureData.datasets[0].data.splice(index, 1, weatherObject.weather.outsidePressure);
+                });
+                this.setState({temperatureData: tempTemperatureData, humidityData: tempHumidityData, pressureData: tempPressureData});
+            }
+            else {
+                this.setState({noData: true})
+            }
         }, (error) => {
             console.error(error);
         });
@@ -103,12 +105,16 @@ export default class YearHistory extends Component {
                             {this.isCurrent() ? <span /> : <img className="history-arrow" src="/img/chevron-right-icon.png" alt="nextDayArrow" onClick={() => this.setNext()}/>}
                         </div>
                     </Sticky>
-                    <p className="graph-header">TEMPERATURE</p>
-                    <Graph lineChartData={this.state.temperatureData} lineChartOptions={temperatureChartOptions} bar={true} />
-                    <p className="graph-header">HUMIDITY</p>
-                    <Graph lineChartData={this.state.humidityData} lineChartOptions={humidityChartOptions} bar={true} />
-                    <p className="graph-header">PRESSURE</p>
-                    <Graph lineChartData={this.state.pressureData} lineChartOptions={pressureChartOptions} bar={true} />
+                    {this.state.noData ? <p className="graph-header">NO DATA</p> :
+                        <div>
+                            <p className="graph-header">TEMPERATURE</p>
+                            <Graph lineChartData={this.state.temperatureData} lineChartOptions={temperatureChartOptions} bar={true}/>
+                            <p className="graph-header">HUMIDITY</p>
+                            <Graph lineChartData={this.state.humidityData} lineChartOptions={humidityChartOptions} bar={true}/>
+                            <p className="graph-header">PRESSURE</p>
+                            <Graph lineChartData={this.state.pressureData} lineChartOptions={pressureChartOptions} bar={true}/>
+                        </div>
+                    }
                 </div>
             </StickyContainer>
         )

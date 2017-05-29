@@ -23,18 +23,18 @@ export default class MonthHistory extends Component {
     }
 
     loadData(year, month){
-        let tempTemperatureData = JSON.parse(JSON.stringify(temperatureChartData));
-        let tempHumidityData = JSON.parse(JSON.stringify(humidityChartData));
-        let tempPressureData = JSON.parse(JSON.stringify(pressureChartData));
-
-        tempTemperatureData.datasets[0].data = new Array(this.state.date.daysInMonth());
-        tempTemperatureData.datasets[1].data = new Array(this.state.date.daysInMonth());
-        tempHumidityData.datasets[0].data = new Array(this.state.date.daysInMonth());
-        tempHumidityData.datasets[1].data = new Array(this.state.date.daysInMonth());
-        tempPressureData.datasets[0].data = new Array(this.state.date.daysInMonth());
-
         serverRequest.getWeatherByMonth(year, month).then((response) => {
             if (response.length > 0) {
+                let tempTemperatureData = JSON.parse(JSON.stringify(temperatureChartData));
+                let tempHumidityData = JSON.parse(JSON.stringify(humidityChartData));
+                let tempPressureData = JSON.parse(JSON.stringify(pressureChartData));
+
+                tempTemperatureData.datasets[0].data = new Array(this.state.date.daysInMonth());
+                tempTemperatureData.datasets[1].data = new Array(this.state.date.daysInMonth());
+                tempHumidityData.datasets[0].data = new Array(this.state.date.daysInMonth());
+                tempHumidityData.datasets[1].data = new Array(this.state.date.daysInMonth());
+                tempPressureData.datasets[0].data = new Array(this.state.date.daysInMonth());
+
                 let dateLabels = this.getLabels();
                 tempTemperatureData.labels = dateLabels;
                 tempHumidityData.labels = dateLabels;
@@ -49,15 +49,11 @@ export default class MonthHistory extends Component {
                     tempHumidityData.datasets[1].data.splice(index, 1, weatherObject.weather.insideHumidity);
                     tempPressureData.datasets[0].data.splice(index, 1, weatherObject.weather.outsidePressure);
                 });
-
                 this.setState({noData: false, temperatureData: tempTemperatureData, humidityData: tempHumidityData, pressureData: tempPressureData});
-
             }
             else {
                 this.setState({noData: true})
             }
-
-
         }, (error) => {
             console.error(error);
         });
