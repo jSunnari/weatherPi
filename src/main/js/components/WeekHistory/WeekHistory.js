@@ -24,8 +24,6 @@ export default class WeekHistory extends Component {
     }
 
     loadData(year, week){
-
-
         serverRequest.getWeatherByWeek(year, week).then((response) => {
             if (response.length < 0) {
                 let tempTemperatureData = JSON.parse(JSON.stringify(temperatureChartData));
@@ -104,7 +102,6 @@ export default class WeekHistory extends Component {
     }
 
     render(){
-
         return (
             <StickyContainer>
                 <div className="history-graph-container">
