@@ -50,11 +50,14 @@ export default class MonthHistory extends Component {
                     tempPressureData.datasets[0].data.splice(index, 1, weatherObject.weather.outsidePressure);
                 });
 
-                this.setState({temperatureData: tempTemperatureData, humidityData: tempHumidityData, pressureData: tempPressureData});
+                this.setState({noData: false})
+
             }
             else {
                 this.setState({noData: true})
             }
+
+            this.setState({temperatureData: tempTemperatureData, humidityData: tempHumidityData, pressureData: tempPressureData});
 
         }, (error) => {
             console.error(error);
