@@ -198,14 +198,17 @@ public class WeatherSensor {
     }
 
     private double calcAverage(List<Double> list){
-        int halfArraylist = list.size()/2;
-        double value = 0;
+        if (list.size() == 1) {
+            return list.get(0);
+        } else {
+            int halfArraylist = list.size()/2;
+            double value = 0;
 
-        for (int i = halfArraylist; i < list.size(); i++) {
-            value += list.get(i);
+            for (int i = halfArraylist; i < list.size(); i++) {
+                value += list.get(i);
+            }
+            return Math.round(value/halfArraylist * 10.0) / 10.0;
         }
-
-        return Math.round(value/halfArraylist * 10.0) / 10.0;
     }
 
     private String calcTrend(List<Double> list){

@@ -38,6 +38,7 @@ public class WeatherController {
     private LcdDisplay lcdDisplay;
     private WeatherSensor outsideSensor;
     private WeatherSensor insideSensor;
+    private boolean shouldPersistAverageData = false;
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
@@ -206,28 +207,47 @@ public class WeatherController {
         outsideSensor.addPressureValue(outsideSensor.getCurrentPressure());
         insideSensor.addTempValue(insideSensor.getCurrentTemperature());
         insideSensor.addHumValue(insideSensor.getCurrentHumidity());
+
+        shouldPersistAverageData = true;
     }
 
     @Scheduled(cron = "0 0 * * * *") //Every hour
     public void persistWeatherData(){
+        if (shouldPersistAverageData) {
+            log.info("Persisting average data to database. Data: " +
+                    "[outside-temp: " + outsideSensor.getAverageTemp() +
+                    ", outside-hum: " + outsideSensor.getAverageHumidity() +
+                    ", outside-pressure: " + outsideSensor.getAveragePressure() +
+                    ", inside-temp: " + insideSensor.getAverageTemp() +
+                    ", inside-hum: " + insideSensor.getAverageHumidity() + "]");
 
-        log.info("Persisting data to database. Data: " +
-                "[outside-temp: " + outsideSensor.getAverageTemp() +
-                ", outside-hum: " + outsideSensor.getAverageHumidity() +
-                ", outside-pressure: " + outsideSensor.getAveragePressure() +
-                ", inside-temp: " + insideSensor.getAverageTemp() +
-                ", inside-hum: " + insideSensor.getAverageHumidity() + "]");
+            repository.save(new Weather(
+                    new Date(Calendar.getInstance().getTime().getTime()),
+                    new Time(Calendar.getInstance().getTime().getTime()),
+                    insideSensor.getAverageTemp(),
+                    insideSensor.getAverageHumidity(),
+                    outsideSensor.getAverageTemp(),
+                    outsideSensor.getAverageHumidity(),
+                    outsideSensor.getAveragePressure())
+            );
+        } else {
+            log.info("Persisting current data to database. Data: " +
+                    "[outside-temp: " + outsideSensor.getCurrentTemperature() +
+                    ", outside-hum: " + outsideSensor.getCurrentHumidity() +
+                    ", outside-pressure: " + outsideSensor.getCurrentPressure() +
+                    ", inside-temp: " + insideSensor.getCurrentTemperature() +
+                    ", inside-hum: " + insideSensor.getCurrentHumidity() + "]");
 
-        repository.save(new Weather(
-                new Date(Calendar.getInstance().getTime().getTime()),
-                new Time(Calendar.getInstance().getTime().getTime()),
-                insideSensor.getAverageTemp(),
-                insideSensor.getAverageHumidity(),
-                outsideSensor.getAverageTemp(),
-                outsideSensor.getAverageHumidity(),
-                outsideSensor.getAveragePressure())
-        );
-
+            repository.save(new Weather(
+                    new Date(Calendar.getInstance().getTime().getTime()),
+                    new Time(Calendar.getInstance().getTime().getTime()),
+                    insideSensor.getCurrentTemperature(),
+                    insideSensor.getCurrentHumidity(),
+                    outsideSensor.getCurrentTemperature(),
+                    outsideSensor.getCurrentHumidity(),
+                    outsideSensor.getCurrentPressure())
+            );
+        }
     }
 
     @Scheduled(cron = "0/15 * * * * *") //Every 15 seconds
