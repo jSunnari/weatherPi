@@ -120,11 +120,11 @@ export default class WeekHistory extends Component {
                     {this.state.noData ? <p className="graph-header">NO DATA</p> :
                         <div>
                             <p className="graph-header">TEMPERATURE</p>
-                            <Graph lineChartData={this.state.temperatureData} lineChartOptions={temperatureChartOptions} redraw={this.isCurrent()}/>
+                            <Graph lineChartData={this.state.temperatureData} lineChartOptions={temperatureChartOptions} redraw={this.isCurrent() || this.state.shouldRedraw}/>
                             <p className="graph-header">HUMIDITY</p>
-                            <Graph lineChartData={this.state.humidityData} lineChartOptions={humidityChartOptions} redraw={this.isCurrent()}/>
+                            <Graph lineChartData={this.state.humidityData} lineChartOptions={humidityChartOptions} redraw={this.isCurrent() || this.state.shouldRedraw}/>
                             <p className="graph-header">PRESSURE</p>
-                            <Graph lineChartData={this.state.pressureData} lineChartOptions={pressureChartOptions} redraw={this.isCurrent()}/>
+                            <Graph lineChartData={this.state.pressureData} lineChartOptions={pressureChartOptions} redraw={this.isCurrent() || this.state.shouldRedraw}/>
                         </div>
                     }
                 </div>
