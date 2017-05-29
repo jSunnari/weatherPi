@@ -13,7 +13,8 @@ export default class MonthHistory extends Component {
             date: moment(),
             temperatureData: JSON.parse(JSON.stringify(temperatureChartData)),
             humidityData: JSON.parse(JSON.stringify(humidityChartData)),
-            pressureData: JSON.parse(JSON.stringify(pressureChartData))
+            pressureData: JSON.parse(JSON.stringify(pressureChartData)),
+            noData: false
         }
     }
 
@@ -38,17 +39,23 @@ export default class MonthHistory extends Component {
         tempPressureData.labels = dateLabels;
 
         serverRequest.getWeatherByMonth(year, month).then((response) => {
-            response.map((weatherObject) => {
-                let index = (weatherObject.key - 1);
+            if (response.length > 0) {
+                response.map((weatherObject) => {
+                    let index = (weatherObject.key - 1);
 
-                tempTemperatureData.datasets[0].data.splice(index, 1, weatherObject.weather.insideTemperature);
-                tempTemperatureData.datasets[1].data.splice(index, 1, weatherObject.weather.outsideTemperature);
-                tempHumidityData.datasets[0].data.splice(index, 1, weatherObject.weather.outsideHumidity);
-                tempHumidityData.datasets[1].data.splice(index, 1, weatherObject.weather.insideHumidity);
-                tempPressureData.datasets[0].data.splice(index, 1, weatherObject.weather.outsidePressure);
-            });
+                    tempTemperatureData.datasets[0].data.splice(index, 1, weatherObject.weather.insideTemperature);
+                    tempTemperatureData.datasets[1].data.splice(index, 1, weatherObject.weather.outsideTemperature);
+                    tempHumidityData.datasets[0].data.splice(index, 1, weatherObject.weather.outsideHumidity);
+                    tempHumidityData.datasets[1].data.splice(index, 1, weatherObject.weather.insideHumidity);
+                    tempPressureData.datasets[0].data.splice(index, 1, weatherObject.weather.outsidePressure);
+                });
 
-            this.setState({temperatureData: tempTemperatureData, humidityData: tempHumidityData, pressureData: tempPressureData});
+                this.setState({temperatureData: tempTemperatureData, humidityData: tempHumidityData, pressureData: tempPressureData});
+            }
+            else {
+                this.setState({noData: true})
+            }
+
         }, (error) => {
             console.error(error);
         });
@@ -90,11 +97,11 @@ export default class MonthHistory extends Component {
                         </div>
                     </Sticky>
                     <p className="graph-header">TEMPERATURE</p>
-                    <Graph lineChartData={this.state.temperatureData} lineChartOptions={temperatureChartOptions} redraw={this.isCurrent()}/>
+                    <Graph lineChartData={this.state.temperatureData} lineChartOptions={temperatureChartOptions} redraw={this.isCurrent() || this.state.noData}/>
                     <p className="graph-header">HUMIDITY</p>
-                    <Graph lineChartData={this.state.humidityData} lineChartOptions={humidityChartOptions} redraw={this.isCurrent()}/>
+                    <Graph lineChartData={this.state.humidityData} lineChartOptions={humidityChartOptions} redraw={this.isCurrent() || this.state.noData}/>
                     <p className="graph-header">PRESSURE</p>
-                    <Graph lineChartData={this.state.pressureData} lineChartOptions={pressureChartOptions} redraw={this.isCurrent()}/>
+                    <Graph lineChartData={this.state.pressureData} lineChartOptions={pressureChartOptions} redraw={this.isCurrent() || this.state.noData}/>
                 </div>
             </StickyContainer>
         )
