@@ -98,12 +98,16 @@ export default class MonthHistory extends Component {
                             {this.isCurrent() ? <span /> : <img className="history-arrow" src="/img/chevron-right-icon.png" alt="nextDayArrow" onClick={() => this.setNext()}/>}
                         </div>
                     </Sticky>
-                    <p className="graph-header">TEMPERATURE</p>
-                    <Graph lineChartData={this.state.temperatureData} lineChartOptions={temperatureChartOptions} redraw={this.isCurrent()} noData={this.state.noData}/>
-                    <p className="graph-header">HUMIDITY</p>
-                    <Graph lineChartData={this.state.humidityData} lineChartOptions={humidityChartOptions} redraw={this.isCurrent()} noData={this.state.noData}/>
-                    <p className="graph-header">PRESSURE</p>
-                    <Graph lineChartData={this.state.pressureData} lineChartOptions={pressureChartOptions} redraw={this.isCurrent()} noData={this.state.noData}/>
+                    {this.state.noData ? <p className="graph-header">NO DATA</p> :
+                        <div>
+                            <p className="graph-header">TEMPERATURE</p>
+                            <Graph lineChartData={this.state.temperatureData} lineChartOptions={temperatureChartOptions} redraw={this.isCurrent()}/>
+                            <p className="graph-header">HUMIDITY</p>
+                            <Graph lineChartData={this.state.humidityData} lineChartOptions={humidityChartOptions} redraw={this.isCurrent()}/>
+                            <p className="graph-header">PRESSURE</p>
+                            <Graph lineChartData={this.state.pressureData} lineChartOptions={pressureChartOptions} redraw={this.isCurrent()}/>
+                        </div>
+                    }
                 </div>
             </StickyContainer>
         )
