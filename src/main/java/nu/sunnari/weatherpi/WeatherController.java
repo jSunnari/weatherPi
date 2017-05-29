@@ -193,7 +193,7 @@ public class WeatherController {
     }
 
     //********************************* SENSOR ********************************* //
-    @Scheduled(cron = "0 0/10 * * * *") //Every 10 minutes
+    @Scheduled(cron = "5 0/10 * * * *") //Every 10 minutes (5sec delay so persisting data gets done first)
     public void saveCurrentWeatherData(){
         log.info("Saving current weather to array. Data: " +
                 "[outside-temp: " + outsideSensor.getCurrentTemperature() +
