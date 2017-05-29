@@ -33,13 +33,15 @@ export default class MonthHistory extends Component {
         tempHumidityData.datasets[1].data = new Array(this.state.date.daysInMonth());
         tempPressureData.datasets[0].data = new Array(this.state.date.daysInMonth());
 
-        let dateLabels = this.getLabels();
-        tempTemperatureData.labels = dateLabels;
-        tempHumidityData.labels = dateLabels;
-        tempPressureData.labels = dateLabels;
+
 
         serverRequest.getWeatherByMonth(year, month).then((response) => {
             if (response.length > 0) {
+                let dateLabels = this.getLabels();
+                tempTemperatureData.labels = dateLabels;
+                tempHumidityData.labels = dateLabels;
+                tempPressureData.labels = dateLabels;
+
                 response.map((weatherObject) => {
                     let index = (weatherObject.key - 1);
 
@@ -54,6 +56,9 @@ export default class MonthHistory extends Component {
 
             }
             else {
+                tempTemperatureData.text = "No data";
+                tempHumidityData.text = "No data";
+                tempPressureData.text = "No data";
                 this.setState({noData: true})
             }
 
