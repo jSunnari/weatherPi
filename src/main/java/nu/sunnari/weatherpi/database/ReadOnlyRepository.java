@@ -1,12 +1,9 @@
 package nu.sunnari.weatherpi.database;
 
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.Repository;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * Created by Jonas on 2017-05-30.
