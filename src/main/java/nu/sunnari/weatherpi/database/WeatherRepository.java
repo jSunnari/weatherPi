@@ -18,7 +18,15 @@ import java.util.List;
  */
 
 @RepositoryRestResource(path="/weather")
+public interface WeatherRepository extends ReadOnlyRepository<Weather, Long> {
+    List<Weather> findByDate(@Param("date") Date date);
+    List<Weather> findByDateBetween(Date date1, Date date2);
+}
+
+
+/*
 public interface WeatherRepository extends JpaRepository<Weather, Long> {
     List<Weather> findByDate(@Param("date") Date date);
     List<Weather> findByDateBetween(Date date1, Date date2);
 }
+*/
