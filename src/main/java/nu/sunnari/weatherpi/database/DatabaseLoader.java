@@ -22,7 +22,6 @@ public class DatabaseLoader implements CommandLineRunner {
         this.repository = repository;
     }
 
-
     @Override
     public void run(String... strings) throws Exception {
 /*
