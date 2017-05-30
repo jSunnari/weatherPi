@@ -42,12 +42,6 @@ export default class DayHistory extends Component {
                 tempHumidityData.labels = dateLabels;
                 tempPressureData.labels = dateLabels;
 
-                if (response.length < dateLabels.length) {
-                    this.setState({shouldRedraw: true})
-                } else {
-                    this.setState({shouldRedraw: false})
-                }
-
                 response.map((weather) => {
                     let index = weather.time.substring(0,2);
 
@@ -59,6 +53,7 @@ export default class DayHistory extends Component {
                 });
 
                 this.setState({
+                    shouldRedraw: response.length < dateLabels.length,
                     noData: false,
                     temperatureData: tempTemperatureData,
                     humidityData: tempHumidityData,

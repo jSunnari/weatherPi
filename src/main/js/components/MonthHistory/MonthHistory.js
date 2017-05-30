@@ -41,12 +41,6 @@ export default class MonthHistory extends Component {
                 tempHumidityData.labels = dateLabels;
                 tempPressureData.labels = dateLabels;
 
-                if (response.length < dateLabels.length) {
-                    this.setState({shouldRedraw: true})
-                } else {
-                    this.setState({shouldRedraw: false})
-                }
-
                 response.map((weatherObject) => {
                     let index = (weatherObject.key - 1);
 
@@ -56,7 +50,12 @@ export default class MonthHistory extends Component {
                     tempHumidityData.datasets[1].data.splice(index, 1, weatherObject.weather.insideHumidity);
                     tempPressureData.datasets[0].data.splice(index, 1, weatherObject.weather.outsidePressure);
                 });
-                this.setState({noData: false, temperatureData: tempTemperatureData, humidityData: tempHumidityData, pressureData: tempPressureData});
+                this.setState({
+                    shouldRedraw: response.length < dateLabels.length,
+                    noData: false,
+                    temperatureData: tempTemperatureData,
+                    humidityData: tempHumidityData,
+                    pressureData: tempPressureData});
             }
             else {
                 this.setState({noData: true})
