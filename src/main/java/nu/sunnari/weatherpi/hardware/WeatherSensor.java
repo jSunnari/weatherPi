@@ -198,8 +198,8 @@ public class WeatherSensor {
     }
 
     private double calcAverage(List<Double> list){
-        if (list.size() == 1) {
-            return list.get(0);
+        if (list.size() < 12) {
+            return list.get(list.size()-1);
         } else {
             int halfArraylist = list.size()/2;
             double value = 0;
