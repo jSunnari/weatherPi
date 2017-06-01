@@ -202,7 +202,6 @@ public class WeatherController {
             lcdDisplay.writeInTemp(insideSensor.getCurrentTemperature());
             lcdDisplay.writeInHum(insideSensor.getCurrentHumidity());
             lcdDisplay.writePressure(outsideSensor.getCurrentPressure());
-            mockData();
         } catch (IOException | I2CFactory.UnsupportedBusNumberException e) {
             e.printStackTrace();
         }
@@ -268,6 +267,7 @@ public class WeatherController {
 
     @Scheduled(cron = "0/15 * * * * *") //Every 15 seconds
     public void updateMinMaxValues(){
+        mockData();
         insideSensor.updateMinMaxValues();
         outsideSensor.updateMinMaxValues();
     }
