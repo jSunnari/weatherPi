@@ -55,24 +55,7 @@ public class WeatherController {
 
 
     }
-/*
-    public void mockData() {
-        for (int i = 1; i < 32; i++) {
-            for (int j = 0; j < 24; j++) {
-                Random r = new Random();
-                repository.save(new Weather(
-                        new Date(2017-1900,2,i),
-                        new Time(j, 0, 0),
-                        22.5 + (25.2 - 22.5) * r.nextDouble(),
-                        28.5 + (32.2 - 28.5) * r.nextDouble(),
-                        -3.2 + (7.4 - -3.2) * r.nextDouble(),
-                        64.4 + (100 - 64.4) * r.nextDouble(),
-                        998 + (1050 - 998) * r.nextDouble())
-                );
-            }
-        }
-    }
-*/
+
     //******************************* ENDPOINTS ******************************* //
     @GetMapping(value="/current")
     public JSONObject getCurrentWeather(){
@@ -302,4 +285,22 @@ public class WeatherController {
 
         return new Weather(insideTemperature,insideHumidity,outsideTemperature,outsideHumidity,outsidePressure);
     }
+    /*
+    public void mockData() {
+        for (int i = 1; i < 32; i++) {
+            for (int j = 0; j < 24; j++) {
+                Random r = new Random();
+                repository.save(new Weather(
+                        new Date(2017-1900,2,i),
+                        new Time(j, 0, 0),
+                        22.5 + (25.2 - 22.5) * r.nextDouble(),
+                        28.5 + (32.2 - 28.5) * r.nextDouble(),
+                        -3.2 + (7.4 - -3.2) * r.nextDouble(),
+                        64.4 + (100 - 64.4) * r.nextDouble(),
+                        998 + (1050 - 998) * r.nextDouble())
+                );
+            }
+        }
+    }
+*/
 }
