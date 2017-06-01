@@ -88,13 +88,13 @@ public class WeatherController {
     public void deleteMockData() {
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, 2017);
-        cal.set(Calendar.MONTH, Calendar.MARCH);
+        cal.set(Calendar.MONTH, Calendar.FEBRUARY);
         cal.set(Calendar.DAY_OF_MONTH, 1);
         Date date1 = new Date(cal.getTime().getTime());
 
         Calendar cal2 = Calendar.getInstance();
         cal.set(Calendar.YEAR, 2017);
-        cal.set(Calendar.MONTH, Calendar.MARCH);
+        cal.set(Calendar.MONTH, Calendar.FEBRUARY);
         cal.set(Calendar.DAY_OF_MONTH, Calendar.DAY_OF_MONTH);
         Date date2 = new Date(cal2.getTime().getTime());
 
