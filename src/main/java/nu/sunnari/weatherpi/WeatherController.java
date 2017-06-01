@@ -52,8 +52,6 @@ public class WeatherController {
         writeWeatherValuesToLcd();
         insideSensor.clearMinMaxValues();
         outsideSensor.clearMinMaxValues();
-
-
     }
 
     //******************************* ENDPOINTS ******************************* //
