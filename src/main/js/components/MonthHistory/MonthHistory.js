@@ -113,9 +113,9 @@ export default class MonthHistory extends Component {
                             <p className="graph-header">TEMPERATURE</p>
                             <Graph lineChartData={this.state.temperatureData} lineChartOptions={temperatureChartOptions} redraw={this.isCurrent() || this.wasCurrent()}/>
                             <p className="graph-header">HUMIDITY</p>
-                            <Graph lineChartData={this.state.humidityData} lineChartOptions={humidityChartOptions} redraw={this.isCurrent()}/>
+                            <Graph lineChartData={this.state.humidityData} lineChartOptions={humidityChartOptions} redraw={this.isCurrent() || this.wasCurrent()}/>
                             <p className="graph-header">PRESSURE</p>
-                            <Graph lineChartData={this.state.pressureData} lineChartOptions={pressureChartOptions} redraw={this.isCurrent()}/>
+                            <Graph lineChartData={this.state.pressureData} lineChartOptions={pressureChartOptions} redraw={this.isCurrent() || this.wasCurrent()}/>
                         </div>
                     }
                 </div>
