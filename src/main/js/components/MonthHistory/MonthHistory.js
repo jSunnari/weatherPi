@@ -11,6 +11,7 @@ export default class MonthHistory extends Component {
         super(props);
         this.state = {
             date: moment(),
+            lastDate: moment(),
             temperatureData: JSON.parse(JSON.stringify(temperatureChartData)),
             humidityData: JSON.parse(JSON.stringify(humidityChartData)),
             pressureData: JSON.parse(JSON.stringify(pressureChartData)),
@@ -51,7 +52,6 @@ export default class MonthHistory extends Component {
                     tempPressureData.datasets[0].data.splice(index, 1, weatherObject.weather.outsidePressure);
                 });
                 this.setState({
-                    shouldRedraw: response.length < dateLabels.length,
                     noData: false,
                     temperatureData: tempTemperatureData,
                     humidityData: tempHumidityData,
@@ -74,12 +74,14 @@ export default class MonthHistory extends Component {
     }
 
     setPrevious(){
-        this.setState({day: this.state.date.subtract(1, 'month')});
+        this.setState({lastDate: this.state.date});
+        this.state.date.subtract(1, 'month');
         this.loadData(this.state.date.year(), this.state.date.month());
     }
 
     setNext(){
-        this.setState({day: this.state.date.add(1, 'month')});
+        this.setState({lastDate: this.state.date});
+        this.state.date.add(1, 'month');
         this.loadData(this.state.date.year(), this.state.date.month());
     }
 
@@ -89,13 +91,11 @@ export default class MonthHistory extends Component {
     }
 
     wasCurrent() {
-        let date = moment();
-        date.subtract(1, 'month');
-        return date.format("YYYY-MM-DD") === this.state.date.format("YYYY-MM-DD");
+        let today = moment();
+        return today.month() === this.state.lastDate.month();
     }
 
     render(){
-
         return (
             <StickyContainer>
                 <div className="history-graph-container">
@@ -111,9 +111,9 @@ export default class MonthHistory extends Component {
                             <p className="graph-header">TEMPERATURE</p>
                             <Graph lineChartData={this.state.temperatureData} lineChartOptions={temperatureChartOptions} redraw={this.isCurrent() || this.wasCurrent()}/>
                             <p className="graph-header">HUMIDITY</p>
-                            <Graph lineChartData={this.state.humidityData} lineChartOptions={humidityChartOptions} redraw={this.isCurrent() || this.wasCurrent()}/>
+                            <Graph lineChartData={this.state.humidityData} lineChartOptions={humidityChartOptions} redraw={this.isCurrent()}/>
                             <p className="graph-header">PRESSURE</p>
-                            <Graph lineChartData={this.state.pressureData} lineChartOptions={pressureChartOptions} redraw={this.isCurrent() || this.wasCurrent()}/>
+                            <Graph lineChartData={this.state.pressureData} lineChartOptions={pressureChartOptions} redraw={this.isCurrent()}/>
                         </div>
                     }
                 </div>

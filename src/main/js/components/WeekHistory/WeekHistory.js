@@ -12,6 +12,7 @@ export default class WeekHistory extends Component {
         super(props);
         this.state = {
             date: moment(),
+            lastDate: moment(),
             temperatureData: JSON.parse(JSON.stringify(temperatureChartData)),
             humidityData: JSON.parse(JSON.stringify(humidityChartData)),
             pressureData: JSON.parse(JSON.stringify(pressureChartData)),
@@ -100,12 +101,14 @@ export default class WeekHistory extends Component {
     }
 
     setPrevious(){
-        this.setState({day: this.state.date.subtract(1, 'week')});
+        this.setState({lastDate: this.state.date});
+        this.state.date.subtract(1, 'week');
         this.loadData(this.state.date.year(), this.state.date.week());
     }
 
     setNext(){
-        this.setState({day: this.state.date.add(1, 'week')});
+        this.setState({lastDate: this.state.date});
+        this.state.date.add(1, 'week')
         this.loadData(this.state.date.year(), this.state.date.week());
     }
 
@@ -114,10 +117,9 @@ export default class WeekHistory extends Component {
         return today.week() === this.state.date.week();
     }
 
-    wasCurrent() {
-        let date = moment();
-        date.subtract(1, 'week');
-        return date.format("YYYY-MM-DD") === this.state.date.format("YYYY-MM-DD");
+    wasCurrent(){
+        let today = moment();
+        return today.week() === this.state.lastDate.week();
     }
 
     render(){

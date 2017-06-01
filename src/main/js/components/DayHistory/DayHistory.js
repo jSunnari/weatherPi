@@ -12,6 +12,7 @@ export default class DayHistory extends Component {
 
         this.state = {
             date: moment(),
+            lastDate: moment(),
             temperatureData: JSON.parse(JSON.stringify(temperatureChartData)),
             humidityData: JSON.parse(JSON.stringify(humidityChartData)),
             pressureData: JSON.parse(JSON.stringify(pressureChartData)),
@@ -79,12 +80,14 @@ export default class DayHistory extends Component {
     }
 
     setPrevious(){
-        this.setState({day: this.state.date.subtract(1, 'day')});
+        this.setState({lastDate: this.state.date});
+        this.state.date.subtract(1, 'day');
         this.loadData(this.state.date.format("YYYY-MM-DD"));
     }
 
     setNext(){
-        this.setState({day: this.state.date.add(1, 'day')});
+        this.setState({lastDate: this.state.date});
+        this.state.date.add(1, 'day');
         this.loadData(this.state.date.format("YYYY-MM-DD"));
     }
 
@@ -93,10 +96,9 @@ export default class DayHistory extends Component {
         return today.format("YYYY-MM-DD") === this.state.date.format("YYYY-MM-DD");
     }
 
-    wasCurrent() {
-        let date = moment();
-        date.subtract(1, 'day');
-        return date.format("YYYY-MM-DD") === this.state.date.format("YYYY-MM-DD");
+    wasCurrent(){
+        let today = moment();
+        return today.format("YYYY-MM-DD") === this.state.lastDate.format("YYYY-MM-DD");
     }
 
     render(){
