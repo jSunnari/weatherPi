@@ -112,10 +112,8 @@ public class WeatherController {
         System.out.println("first " + weatherList.get(0).getDate());
         System.out.println("last " + weatherList.get(weatherList.size() - 1).getDate());
 
-        for (Weather weather : weatherList) {
-            System.out.println("deleting.. " + weather.getDate());
-            repository.delete(weather);
-        }
+
+        repository.delete(weatherList);
     }
 
     @GetMapping(value="/findByDay/{date}")
