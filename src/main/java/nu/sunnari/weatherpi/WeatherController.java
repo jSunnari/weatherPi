@@ -55,7 +55,7 @@ public class WeatherController {
 
 
     }
-
+/*
     public void mockData() {
         for (int i = 1; i < 32; i++) {
             for (int j = 0; j < 24; j++) {
@@ -72,7 +72,7 @@ public class WeatherController {
             }
         }
     }
-
+*/
     //******************************* ENDPOINTS ******************************* //
     @GetMapping(value="/current")
     public JSONObject getCurrentWeather(){
@@ -267,7 +267,6 @@ public class WeatherController {
 
     @Scheduled(cron = "0/15 * * * * *") //Every 15 seconds
     public void updateMinMaxValues(){
-        mockData();
         insideSensor.updateMinMaxValues();
         outsideSensor.updateMinMaxValues();
     }

@@ -24,22 +24,7 @@ public class DatabaseLoader implements CommandLineRunner {
 
     @Override
     public void run(String... strings) throws Exception {
-/*
-        for (int i = 1; i < 30; i++) {
-            for (int j = 0; j < 24; j++) {
-                Random r = new Random();
-                this.repository.save(new Weather(
-                        new Date(2017-1900,3,i),
-                        new Time(j, 0, 0),
-                        22.5 + (25.2 - 22.5) * r.nextDouble(),
-                        28.5 + (32.2 - 28.5) * r.nextDouble(),
-                        -1.2 + (9.4 - -1.2) * r.nextDouble(),
-                        64.4 + (100 - 64.4) * r.nextDouble(),
-                        990 + (1312 - 990) * r.nextDouble())
-                );
-            }
-        }
-*/
+
     }
 
 }
