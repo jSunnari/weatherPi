@@ -86,17 +86,12 @@ public class WeatherController {
 
     @GetMapping(value="/testMockData/{month}")
     public void deleteMockData2(@PathVariable int month) {
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.YEAR, 2017);
-        cal.set(Calendar.MONTH, month);
-        cal.set(Calendar.DAY_OF_MONTH, 1);
-        Date date1 = new Date(cal.getTime().getTime());
+        Calendar calendar1 = new GregorianCalendar(2017,month,1);
+        Date date1 = new Date(calendar1.getTime().getTime());
 
-        Calendar cal2 = Calendar.getInstance();
-        cal.set(Calendar.YEAR, 2017);
-        cal.set(Calendar.MONTH, month);
-        cal.set(Calendar.DAY_OF_MONTH, 31);
-        Date date2 = new Date(cal2.getTime().getTime());
+        Calendar calendar2 = new GregorianCalendar(2017,month,calendar1.getActualMaximum(Calendar.DAY_OF_MONTH));
+        Date date2 = new Date(calendar2.getTime().getTime());
+
 
         List<Weather> weatherList = repository.findByDateBetween(date1, date2);
 
@@ -106,17 +101,11 @@ public class WeatherController {
 
     @GetMapping(value="/deleteMockData/{month}")
     public void deleteMockData(@PathVariable int month) {
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.YEAR, 2017);
-        cal.set(Calendar.MONTH, month);
-        cal.set(Calendar.DAY_OF_MONTH, 1);
-        Date date1 = new Date(cal.getTime().getTime());
+        Calendar calendar1 = new GregorianCalendar(2017,month,1);
+        Date date1 = new Date(calendar1.getTime().getTime());
 
-        Calendar cal2 = Calendar.getInstance();
-        cal.set(Calendar.YEAR, 2017);
-        cal.set(Calendar.MONTH, month);
-        cal.set(Calendar.DAY_OF_MONTH, 31);
-        Date date2 = new Date(cal2.getTime().getTime());
+        Calendar calendar2 = new GregorianCalendar(2017,month,calendar1.getActualMaximum(Calendar.DAY_OF_MONTH));
+        Date date2 = new Date(calendar2.getTime().getTime());
 
         List<Weather> weatherList = repository.findByDateBetween(date1, date2);
 
