@@ -100,7 +100,7 @@ public class WeatherController {
 
         List<Weather> weatherList = repository.findByDateBetween(date1, date2);
 
-        System.out.println(weatherList);
+        System.out.println(weatherList.get(0).getDate());
 
         for (Weather weather : weatherList) {
             System.out.println("deleting.. " + weather.getDate());
