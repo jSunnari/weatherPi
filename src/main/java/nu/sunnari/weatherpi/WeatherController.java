@@ -84,17 +84,17 @@ public class WeatherController {
         return currentWeather;
     }
 
-    @GetMapping(value="/testMockData")
-    public void deleteMockData2() {
+    @GetMapping(value="/testMockData/{month}")
+    public void deleteMockData2(@PathVariable int month) {
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, 2017);
-        cal.set(Calendar.MONTH, Calendar.MARCH);
+        cal.set(Calendar.MONTH, month);
         cal.set(Calendar.DAY_OF_MONTH, 1);
         Date date1 = new Date(cal.getTime().getTime());
 
         Calendar cal2 = Calendar.getInstance();
         cal.set(Calendar.YEAR, 2017);
-        cal.set(Calendar.MONTH, Calendar.MARCH);
+        cal.set(Calendar.MONTH, month);
         cal.set(Calendar.DAY_OF_MONTH, 31);
         Date date2 = new Date(cal2.getTime().getTime());
 
@@ -104,17 +104,17 @@ public class WeatherController {
         System.out.println("last " + weatherList.get(weatherList.size() - 1).getDate());
     }
 
-    @GetMapping(value="/deleteMockData")
-    public void deleteMockData() {
+    @GetMapping(value="/deleteMockData/{month}")
+    public void deleteMockData(@PathVariable int month) {
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, 2017);
-        cal.set(Calendar.MONTH, Calendar.MARCH);
+        cal.set(Calendar.MONTH, month);
         cal.set(Calendar.DAY_OF_MONTH, 1);
         Date date1 = new Date(cal.getTime().getTime());
 
         Calendar cal2 = Calendar.getInstance();
         cal.set(Calendar.YEAR, 2017);
-        cal.set(Calendar.MONTH, Calendar.MARCH);
+        cal.set(Calendar.MONTH, month);
         cal.set(Calendar.DAY_OF_MONTH, 31);
         Date date2 = new Date(cal2.getTime().getTime());
 
