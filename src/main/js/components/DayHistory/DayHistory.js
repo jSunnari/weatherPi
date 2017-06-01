@@ -80,13 +80,13 @@ export default class DayHistory extends Component {
     }
 
     setPrevious(){
-        let lastDate = this.state.date;
+        let lastDate = moment(this.state.date);
         this.setState({lastDate: lastDate, date: this.state.date.subtract(1, 'day')});
         this.loadData(this.state.date.format("YYYY-MM-DD"));
     }
 
     setNext(){
-        let lastDate = this.state.date;
+        let lastDate = moment(this.state.date);
         this.setState({lastDate: lastDate, date: this.state.date.add(1, 'day')});
         this.loadData(this.state.date.format("YYYY-MM-DD"));
     }
