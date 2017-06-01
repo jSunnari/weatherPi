@@ -28,7 +28,12 @@ public class DatabaseLoader implements CommandLineRunner {
 
         List<Weather> weatherList = repository.findByDateBetween(new Date(2017,2,1), new Date(2017,2,31));
 
-        repository.delete(weatherList);
+        System.out.println(weatherList);
+
+        for (Weather weather : weatherList) {
+            System.out.println("deleting..");
+            repository.delete(weather);
+        }
     }
 
 }
