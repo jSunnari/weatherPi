@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -25,6 +26,9 @@ public class DatabaseLoader implements CommandLineRunner {
     @Override
     public void run(String... strings) throws Exception {
 
+        List<Weather> weatherList = repository.findByDateBetween(new Date(2017,2,1), new Date(2017,2,31));
+
+        repository.delete(weatherList);
     }
 
 }

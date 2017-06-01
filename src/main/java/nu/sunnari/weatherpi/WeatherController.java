@@ -283,6 +283,7 @@ public class WeatherController {
 
         return new Weather(insideTemperature,insideHumidity,outsideTemperature,outsideHumidity,outsidePressure);
     }
+
     /*
     public void mockData() {
         for (int i = 1; i < 32; i++) {
