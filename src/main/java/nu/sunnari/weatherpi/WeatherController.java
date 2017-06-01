@@ -84,6 +84,19 @@ public class WeatherController {
         return currentWeather;
     }
 
+    @GetMapping(value="/deleteMockData")
+    public void deleteMockData() {
+
+        List<Weather> weatherList = repository.findByDateBetween(new Date(2017,2,1), new Date(2017,2,31));
+
+        System.out.println(weatherList);
+
+        for (Weather weather : weatherList) {
+            System.out.println("deleting..");
+            repository.delete(weather);
+        }
+    }
+
     @GetMapping(value="/findByDay/{date}")
     public List<Weather> getWeatherByDay(@PathVariable Date date){
         return repository.findByDate(date);
