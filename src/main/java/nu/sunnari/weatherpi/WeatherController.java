@@ -53,7 +53,7 @@ public class WeatherController {
         insideSensor.clearMinMaxValues();
         outsideSensor.clearMinMaxValues();
 
-        mockData();
+
     }
 
     public void mockData() {
@@ -202,7 +202,7 @@ public class WeatherController {
             lcdDisplay.writeInTemp(insideSensor.getCurrentTemperature());
             lcdDisplay.writeInHum(insideSensor.getCurrentHumidity());
             lcdDisplay.writePressure(outsideSensor.getCurrentPressure());
-
+            mockData();
         } catch (IOException | I2CFactory.UnsupportedBusNumberException e) {
             e.printStackTrace();
         }
