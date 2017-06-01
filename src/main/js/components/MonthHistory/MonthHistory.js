@@ -74,13 +74,15 @@ export default class MonthHistory extends Component {
     }
 
     setPrevious(){
-        this.setState({lastDate: this.state.date});
+        let lastDate = moment(this.state.date);
+        this.setState({lastDate: lastDate});
         this.state.date.subtract(1, 'month');
         this.loadData(this.state.date.year(), this.state.date.month());
     }
 
     setNext(){
-        this.setState({lastDate: this.state.date});
+        let lastDate = moment(this.state.date);
+        this.setState({lastDate: lastDate});
         this.state.date.add(1, 'month');
         this.loadData(this.state.date.year(), this.state.date.month());
     }

@@ -101,14 +101,16 @@ export default class WeekHistory extends Component {
     }
 
     setPrevious(){
-        this.setState({lastDate: this.state.date});
+        let lastDate = moment(this.state.date);
+        this.setState({lastDate: lastDate});
         this.state.date.subtract(1, 'week');
         this.loadData(this.state.date.year(), this.state.date.week());
     }
 
     setNext(){
-        this.setState({lastDate: this.state.date});
-        this.state.date.add(1, 'week')
+        let lastDate = moment(this.state.date);
+        this.setState({lastDate: lastDate});
+        this.state.date.add(1, 'week');
         this.loadData(this.state.date.year(), this.state.date.week());
     }
 
