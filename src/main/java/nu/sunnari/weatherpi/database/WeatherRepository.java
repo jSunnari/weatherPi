@@ -1,6 +1,7 @@
 package nu.sunnari.weatherpi.database;
 
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
@@ -14,7 +15,7 @@ import java.util.List;
  */
 
 @RepositoryRestResource(path="/weather")
-public interface WeatherRepository extends ReadOnlyRepository<Weather, Long> {
+public interface WeatherRepository extends JpaRepository<Weather, Long> {
     @RestResource(exported = false)
     List<Weather> findByDate(@Param("date") Date date);
 
