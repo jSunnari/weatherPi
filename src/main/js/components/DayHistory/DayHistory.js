@@ -99,7 +99,6 @@ export default class DayHistory extends Component {
     }
 
     wasCurrent(){
-        console.log(this.state.lastDate.format("YYY-MM-DD"));
         let today = moment();
         return today.format("YYYY-MM-DD") === this.state.lastDate.format("YYYY-MM-DD");
     }
