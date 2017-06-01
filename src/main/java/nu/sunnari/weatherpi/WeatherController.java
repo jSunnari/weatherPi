@@ -87,7 +87,7 @@ public class WeatherController {
     @GetMapping(value="/deleteMockData")
     public void deleteMockData() {
 
-        List<Weather> weatherList = repository.findByDateBetween(new Date(2017,2,1), new Date(2017,2,31));
+        List<Weather> weatherList = repository.findByDateBetween(new Date(2017,3,1), new Date(2017,3,31));
 
         System.out.println(weatherList);
 
