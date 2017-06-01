@@ -84,40 +84,6 @@ public class WeatherController {
         return currentWeather;
     }
 
-    @GetMapping(value="/mockdata")
-    public void deleteMockData2() {
-        for (int i = 1; i < 32; i++) {
-            for (int j = 0; j < 24; j++) {
-                Random r = new Random();
-                repository.save(new Weather(
-                        new Date(2017-1900,2,i),
-                        new Time(j, 0, 0),
-                        22.5 + (25.2 - 22.5) * r.nextDouble(),
-                        28.5 + (33.2 - 28.5) * r.nextDouble(),
-                        -3.2 + (7.4 - -3.2) * r.nextDouble(),
-                        64.4 + (100 - 64.4) * r.nextDouble(),
-                        998 + (1050 - 998) * r.nextDouble())
-                );
-            }
-        }
-
-        for (int i = 1; i < 31; i++) {
-            for (int j = 0; j < 24; j++) {
-                Random r = new Random();
-                repository.save(new Weather(
-                        new Date(2017-1900,3,i),
-                        new Time(j, 0, 0),
-                        22.5 + (25.2 - 22.5) * r.nextDouble(),
-                        28.5 + (39.2 - 28.5) * r.nextDouble(),
-                        -1.2 + (12.4 - -1.2) * r.nextDouble(),
-                        54.4 + (100 - 54.4) * r.nextDouble(),
-                        998 + (1050 - 998) * r.nextDouble())
-                );
-            }
-        }
-
-    }
-
     @GetMapping(value="/findByDay/{date}")
     public List<Weather> getWeatherByDay(@PathVariable Date date){
         return repository.findByDate(date);
@@ -317,5 +283,39 @@ public class WeatherController {
 
         return new Weather(insideTemperature,insideHumidity,outsideTemperature,outsideHumidity,outsidePressure);
     }
+    /*
+    @GetMapping(value="/mockdata")
+    public void deleteMockData2() {
+        for (int i = 1; i < 32; i++) {
+            for (int j = 0; j < 24; j++) {
+                Random r = new Random();
+                repository.save(new Weather(
+                        new Date(2017-1900,2,i),
+                        new Time(j, 0, 0),
+                        22.5 + (25.2 - 22.5) * r.nextDouble(),
+                        28.5 + (33.2 - 28.5) * r.nextDouble(),
+                        -3.2 + (7.4 - -3.2) * r.nextDouble(),
+                        64.4 + (100 - 64.4) * r.nextDouble(),
+                        998 + (1050 - 998) * r.nextDouble())
+                );
+            }
+        }
 
+        for (int i = 1; i < 31; i++) {
+            for (int j = 0; j < 24; j++) {
+                Random r = new Random();
+                repository.save(new Weather(
+                        new Date(2017-1900,3,i),
+                        new Time(j, 0, 0),
+                        22.5 + (25.2 - 22.5) * r.nextDouble(),
+                        28.5 + (39.2 - 28.5) * r.nextDouble(),
+                        -1.2 + (12.4 - -1.2) * r.nextDouble(),
+                        54.4 + (100 - 54.4) * r.nextDouble(),
+                        998 + (1050 - 998) * r.nextDouble())
+                );
+            }
+        }
+
+    }
+    */
 }
