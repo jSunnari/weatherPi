@@ -84,18 +84,38 @@ public class WeatherController {
         return currentWeather;
     }
 
-    @GetMapping(value="/deleteMockData")
-    public void deleteMockData() {
+    @GetMapping(value="/testMockData")
+    public void deleteMockData2() {
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, 2017);
-        cal.set(Calendar.MONTH, Calendar.FEBRUARY);
+        cal.set(Calendar.MONTH, Calendar.MARCH);
         cal.set(Calendar.DAY_OF_MONTH, 1);
         Date date1 = new Date(cal.getTime().getTime());
 
         Calendar cal2 = Calendar.getInstance();
         cal.set(Calendar.YEAR, 2017);
-        cal.set(Calendar.MONTH, Calendar.FEBRUARY);
-        cal.set(Calendar.DAY_OF_MONTH, Calendar.DAY_OF_MONTH);
+        cal.set(Calendar.MONTH, Calendar.MARCH);
+        cal.set(Calendar.DAY_OF_MONTH, 31);
+        Date date2 = new Date(cal2.getTime().getTime());
+
+        List<Weather> weatherList = repository.findByDateBetween(date1, date2);
+
+        System.out.println("first " + weatherList.get(0).getDate());
+        System.out.println("last " + weatherList.get(weatherList.size() - 1).getDate());
+    }
+
+    @GetMapping(value="/deleteMockData")
+    public void deleteMockData() {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, 2017);
+        cal.set(Calendar.MONTH, Calendar.MARCH);
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        Date date1 = new Date(cal.getTime().getTime());
+
+        Calendar cal2 = Calendar.getInstance();
+        cal.set(Calendar.YEAR, 2017);
+        cal.set(Calendar.MONTH, Calendar.MARCH);
+        cal.set(Calendar.DAY_OF_MONTH, 31);
         Date date2 = new Date(cal2.getTime().getTime());
 
         List<Weather> weatherList = repository.findByDateBetween(date1, date2);
