@@ -15,7 +15,7 @@ import java.util.List;
  */
 
 @RepositoryRestResource(path="/weather")
-public interface WeatherRepository extends JpaRepository<Weather, Long> {
+public interface WeatherRepository extends ReadOnlyRepository<Weather, Long> {
     @RestResource(exported = false)
     List<Weather> findByDate(@Param("date") Date date);
 
