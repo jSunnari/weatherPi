@@ -86,8 +86,19 @@ public class WeatherController {
 
     @GetMapping(value="/deleteMockData")
     public void deleteMockData() {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, 2017);
+        cal.set(Calendar.MONTH, 2);
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        Date date1 = new Date(cal.getTime().getTime());
 
-        List<Weather> weatherList = repository.findByDateBetween(new Date(2017,3,1), new Date(2017,3,31));
+        Calendar cal2 = Calendar.getInstance();
+        cal.set(Calendar.YEAR, 2017);
+        cal.set(Calendar.MONTH, 2);
+        cal.set(Calendar.DAY_OF_MONTH, 31);
+        Date date2 = new Date(cal2.getTime().getTime());
+
+        List<Weather> weatherList = repository.findByDateBetween(date1, date2);
 
         System.out.println(weatherList);
 
