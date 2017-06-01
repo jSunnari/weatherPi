@@ -88,14 +88,14 @@ public class WeatherController {
     public void deleteMockData() {
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, 2017);
-        cal.set(Calendar.MONTH, 2);
+        cal.set(Calendar.MONTH, Calendar.MARCH);
         cal.set(Calendar.DAY_OF_MONTH, 1);
         Date date1 = new Date(cal.getTime().getTime());
 
         Calendar cal2 = Calendar.getInstance();
         cal.set(Calendar.YEAR, 2017);
-        cal.set(Calendar.MONTH, 2);
-        cal.set(Calendar.DAY_OF_MONTH, 31);
+        cal.set(Calendar.MONTH, Calendar.MARCH);
+        cal.set(Calendar.DAY_OF_MONTH, Calendar.DAY_OF_MONTH);
         Date date2 = new Date(cal2.getTime().getTime());
 
         List<Weather> weatherList = repository.findByDateBetween(date1, date2);
@@ -103,7 +103,7 @@ public class WeatherController {
         System.out.println(weatherList);
 
         for (Weather weather : weatherList) {
-            System.out.println("deleting..");
+            System.out.println("deleting.. " + weather.getDate());
             repository.delete(weather);
         }
     }
