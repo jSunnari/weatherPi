@@ -80,12 +80,14 @@ export default class DayHistory extends Component {
     }
 
     setPrevious(){
-        this.setState({lastDate: this.state.date, date: this.state.date.subtract(1, 'day')});
+        let lastDate = this.state.date;
+        this.setState({lastDate: lastDate, date: this.state.date.subtract(1, 'day')});
         this.loadData(this.state.date.format("YYYY-MM-DD"));
     }
 
     setNext(){
-        this.setState({lastDate: this.state.date, date: this.state.date.add(1, 'day')});
+        let lastDate = this.state.date;
+        this.setState({lastDate: lastDate, date: this.state.date.add(1, 'day')});
         this.loadData(this.state.date.format("YYYY-MM-DD"));
     }
 
@@ -95,6 +97,7 @@ export default class DayHistory extends Component {
     }
 
     wasCurrent(){
+        console.log(this.state.lastDate.format("YYY-MM-DD"));
         let today = moment();
         return today.format("YYYY-MM-DD") === this.state.lastDate.format("YYYY-MM-DD");
     }
