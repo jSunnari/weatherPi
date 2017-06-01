@@ -84,36 +84,38 @@ public class WeatherController {
         return currentWeather;
     }
 
-    @GetMapping(value="/testMockData/{month}")
-    public void deleteMockData2(@PathVariable int month) {
-        Calendar calendar1 = new GregorianCalendar(2017,month,1);
-        Date date1 = new Date(calendar1.getTime().getTime());
+    @GetMapping(value="/mockdata")
+    public void deleteMockData2() {
+        for (int i = 1; i < 32; i++) {
+            for (int j = 0; j < 24; j++) {
+                Random r = new Random();
+                repository.save(new Weather(
+                        new Date(2017-1900,2,i),
+                        new Time(j, 0, 0),
+                        22.5 + (25.2 - 22.5) * r.nextDouble(),
+                        28.5 + (33.2 - 28.5) * r.nextDouble(),
+                        -3.2 + (7.4 - -3.2) * r.nextDouble(),
+                        64.4 + (100 - 64.4) * r.nextDouble(),
+                        998 + (1050 - 998) * r.nextDouble())
+                );
+            }
+        }
 
-        Calendar calendar2 = new GregorianCalendar(2017,month,calendar1.getActualMaximum(Calendar.DAY_OF_MONTH));
-        Date date2 = new Date(calendar2.getTime().getTime());
+        for (int i = 1; i < 31; i++) {
+            for (int j = 0; j < 24; j++) {
+                Random r = new Random();
+                repository.save(new Weather(
+                        new Date(2017-1900,3,i),
+                        new Time(j, 0, 0),
+                        22.5 + (25.2 - 22.5) * r.nextDouble(),
+                        28.5 + (39.2 - 28.5) * r.nextDouble(),
+                        -1.2 + (12.4 - -1.2) * r.nextDouble(),
+                        54.4 + (100 - 54.4) * r.nextDouble(),
+                        998 + (1050 - 998) * r.nextDouble())
+                );
+            }
+        }
 
-
-        List<Weather> weatherList = repository.findByDateBetween(date1, date2);
-
-        System.out.println("first " + weatherList.get(0).getDate());
-        System.out.println("last " + weatherList.get(weatherList.size() - 1).getDate());
-    }
-
-    @GetMapping(value="/deleteMockData/{month}")
-    public void deleteMockData(@PathVariable int month) {
-        Calendar calendar1 = new GregorianCalendar(2017,month,1);
-        Date date1 = new Date(calendar1.getTime().getTime());
-
-        Calendar calendar2 = new GregorianCalendar(2017,month,calendar1.getActualMaximum(Calendar.DAY_OF_MONTH));
-        Date date2 = new Date(calendar2.getTime().getTime());
-
-        List<Weather> weatherList = repository.findByDateBetween(date1, date2);
-
-        System.out.println("first " + weatherList.get(0).getDate());
-        System.out.println("last " + weatherList.get(weatherList.size() - 1).getDate());
-
-
-        repository.delete(weatherList);
     }
 
     @GetMapping(value="/findByDay/{date}")
@@ -316,22 +318,4 @@ public class WeatherController {
         return new Weather(insideTemperature,insideHumidity,outsideTemperature,outsideHumidity,outsidePressure);
     }
 
-    /*
-    public void mockData() {
-        for (int i = 1; i < 32; i++) {
-            for (int j = 0; j < 24; j++) {
-                Random r = new Random();
-                repository.save(new Weather(
-                        new Date(2017-1900,2,i),
-                        new Time(j, 0, 0),
-                        22.5 + (25.2 - 22.5) * r.nextDouble(),
-                        28.5 + (32.2 - 28.5) * r.nextDouble(),
-                        -3.2 + (7.4 - -3.2) * r.nextDouble(),
-                        64.4 + (100 - 64.4) * r.nextDouble(),
-                        998 + (1050 - 998) * r.nextDouble())
-                );
-            }
-        }
-    }
-*/
 }
